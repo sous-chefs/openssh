@@ -1,0 +1,10 @@
+default[:openssh][:server][:Protocol]                        = 2
+default[:openssh][:server][:SyslogFacility]                  = "AUTHPRIV"
+default[:openssh][:server][:PasswordAuthentication]          = "yes"
+default[:openssh][:server][:ChallengeResponseAuthentication] = "no"
+default[:openssh][:server][:GSSAPIAuthentication]            = "yes"
+default[:openssh][:server][:GSSAPICleanupCredentials]        = "yes"
+default[:openssh][:server][:UsePAM]                          = "yes"
+default[:openssh][:server][:X11Forwarding]                   = "yes"
+default[:openssh][:server][:Subsystem]                       = "sftp	/usr/libexec/openssh/sftp-server"
+default[:openssh][:server][:AcceptEnv]                       = "LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT LC_IDENTIFICATION LC_ALL LANGUAGE XMODIFIERS"
