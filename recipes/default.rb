@@ -30,6 +30,14 @@ packages.each do |pkg|
   package pkg
 end
 
+template "/etc/ssh/sshd_config" do
+  source "sshd_config.erb"
+  owner "root"
+  group "root"
+  mode "0600"
+  variables(:settings => node[:openssh][:server])
+end
+
 service "ssh" do
   case node[:platform]
   when "centos","redhat","fedora","arch","scientific"
