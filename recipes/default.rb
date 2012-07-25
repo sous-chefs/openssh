@@ -68,4 +68,5 @@ template "/etc/ssh/sshd_config" do
     :permit_empty_passwords => node[:openssh][:permit_empty_passwords],
     :password_authentication => node[:openssh][:password_authentication]
     })
+  notifies :restart, resources(:service => "ssh")
 end
