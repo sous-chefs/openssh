@@ -1,7 +1,7 @@
 Description
 ===========
 
-Installs openssh.
+Installs openssh and provides a template to configure specific sshd_config options.
 
 Requirements
 ============
@@ -22,6 +22,28 @@ default
 Selects the packages to install by package name and manages the sshd
 service.
 
+Attributes
+==========
+
+This cookbook uses a couple of attributes, broken up into two different kinds.
+
+Platform specific
+-----------------
+
+* `node[:openssh][:permit_root_login]` - Whether to allow root to login via ssh. Default: 'yes', on RHEL/CentOS/Scientific 'without-password'
+  Possible arguments are `yes`, `without-password`, `forced-commands-only`, or `no`.
+
+General settings
+----------------
+
+* `node[:openssh][:port]` - Port to listen on. Default: 22
+* `node[:openssh][:ipv4_listen_addr]` - IPv4 listening address. Default: 0.0.0.0
+* `node[:openssh][:log_level]` - The sshd's log level. Default: INFO
+  Possible values are: QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG, DEBUG1, DEBUG2, and DEBUG3
+* `node[:openssh][:login_grace_time]` - Grace time during login until the session gets terminated. Default: 120s
+* `node[:openssh][:password_authentication]` - Whether to allow password authentication or not. Default: yes
+* `node[:openssh][:permit_empty_passwords]` - If password authentication is enabled whether to allow empty passwords. Default: no
+
 Usage
 =====
 
@@ -32,8 +54,9 @@ License and Author
 ==================
 
 Author:: Adam Jacob <adam@opscode.com>
+Author:: Mike Adolphs <mike@fooforge.com>
 
-Copyright:: 2008-2009, Opscode, Inc
+Copyright:: 2008-2012, Opscode, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
