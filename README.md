@@ -53,7 +53,7 @@ managed with `recipe[openssh]`.
 License and Author
 ==================
 
-Author:: Adam Jacob <adam@opscode.com>
+Author:: Adam Jacob <adam@opscode.com>  
 Author:: Mike Adolphs <mike@fooforge.com>
 
 Copyright:: 2008-2012, Opscode, Inc
