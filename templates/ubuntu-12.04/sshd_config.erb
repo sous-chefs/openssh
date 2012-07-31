@@ -1,6 +1,6 @@
 # Dropped off by Chef, thanks!
 
-Port 22
+Port <%= @port %>
 # Use these options to restrict which interfaces/protocols sshd will bind to
 #ListenAddress ::
 ListenAddress <%= @ipv4_listen_addr %>
