@@ -2,7 +2,7 @@
 # Cookbook Name:: openssh
 # Recipe:: default
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2008-2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,22 +17,22 @@
 # limitations under the License.
 #
 
-packages = case node[:platform]
-  when "centos","redhat","fedora","scientific"
+packages = case node['platform']
+  when "centos","redhat","fedora","scientific","amazon"
     %w{openssh-clients openssh}
   when "arch"
     %w{openssh}
   else
     %w{openssh-client openssh-server}
   end
-  
+
 packages.each do |pkg|
   package pkg
 end
 
 service "ssh" do
-  case node[:platform]
-  when "centos","redhat","fedora","arch","scientific"
+  case node['platform']
+  when "centos","redhat","fedora","arch","scientific","amazon"
     service_name "sshd"
   else
     service_name "ssh"
@@ -53,3 +53,20 @@ service "ssh" do
   action [ :enable, :start ]
 end
 
+template "/etc/ssh/sshd_config" do
+  source "sshd_config.erb"
+  owner "root"
+  group "root"
+  mode 0644
+
+  variables({
+    :ipv4_listen_addr => node['openssh']['ipv4_listen_addr'],
+    :port => node['openssh']['port'],
+    :log_level => node['openssh']['log_level'],
+    :login_grace_time => node['openssh']['login_grace_time'],
+    :permit_root_login => node['openssh']['permit_root_login'],
+    :permit_empty_passwords => node['openssh']['permit_empty_passwords'],
+    :password_authentication => node['openssh']['password_authentication']
+    })
+  notifies :restart, resources(:service => "ssh")
+end
