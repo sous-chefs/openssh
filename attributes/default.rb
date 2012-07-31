@@ -20,15 +20,15 @@
 # Platform-specific settings
 case platform
 when "redhat","centos","scientific","fedora","suse","amazon"
-  default[:openssh][:permit_root_login] = "without-password"
+  default['openssh']['permit_root_login'] = "without-password"
 else
-  default[:openssh][:permit_root_login] = "yes"
+  default['openssh']['permit_root_login'] = "yes"
 end
 
 # General settings
-default[:openssh][:ipv4_listen_addr] = "0.0.0.0"
-default[:openssh][:port] = 22
-default[:openssh][:log_level] = "INFO"
-default[:openssh][:login_grace_time] = 120
-default[:openssh][:password_authentication] = true
-default[:openssh][:permit_empty_passwords] = false
+default['openssh']['ipv4_listen_addr'] = "0.0.0.0"
+default['openssh']['port'] = 22
+default['openssh']['log_level'] = "INFO"
+default['openssh']['login_grace_time'] = 120
+default['openssh']['password_authentication'] = true
+default['openssh']['permit_empty_passwords'] = false

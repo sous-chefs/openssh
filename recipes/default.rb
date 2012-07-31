@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-packages = case node[:platform]
-  when "centos","redhat","fedora","scientific"
+packages = case node['platform']
+  when "centos","redhat","fedora","scientific","amazon"
     %w{openssh-clients openssh}
   when "arch"
     %w{openssh}
@@ -31,8 +31,8 @@ packages.each do |pkg|
 end
 
 service "ssh" do
-  case node[:platform]
-  when "centos","redhat","fedora","arch","scientific"
+  case node['platform']
+  when "centos","redhat","fedora","arch","scientific","amazon"
     service_name "sshd"
   else
     service_name "ssh"
@@ -60,13 +60,13 @@ template "/etc/ssh/sshd_config" do
   mode 0644
 
   variables({
-    :ipv4_listen_addr => node[:openssh][:ipv4_listen_addr],
-    :port => node[:openssh][:port],
-    :log_level => node[:openssh][:log_level],
-    :login_grace_time => node[:openssh][:login_grace_time],
-    :permit_root_login => node[:openssh][:permit_root_login],
-    :permit_empty_passwords => node[:openssh][:permit_empty_passwords],
-    :password_authentication => node[:openssh][:password_authentication]
+    :ipv4_listen_addr => node['openssh']['ipv4_listen_addr'],
+    :port => node['openssh']['port'],
+    :log_level => node['openssh']['log_level'],
+    :login_grace_time => node['openssh']['login_grace_time'],
+    :permit_root_login => node['openssh']['permit_root_login'],
+    :permit_empty_passwords => node['openssh']['permit_empty_passwords'],
+    :password_authentication => node['openssh']['password_authentication']
     })
   notifies :restart, resources(:service => "ssh")
 end
