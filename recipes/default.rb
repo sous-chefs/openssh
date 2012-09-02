@@ -17,26 +17,12 @@
 # limitations under the License.
 #
 
-packages = case node[:platform]
-  when "centos","redhat","fedora","scientific"
-    %w{openssh-clients openssh}
-  when "arch"
-    %w{openssh}
-  else
-    %w{openssh-client openssh-server}
-  end
-  
-packages.each do |pkg|
+node['openssh']['package_name'].each do |pkg|
   package pkg
 end
 
 service "ssh" do
-  case node[:platform]
-  when "centos","redhat","fedora","arch","scientific"
-    service_name "sshd"
-  else
-    service_name "ssh"
-  end
+  service_name node['openssh']['service_name']
   supports value_for_platform(
     "debian" => { "default" => [ :restart, :reload, :status ] },
     "ubuntu" => {
@@ -52,4 +38,3 @@ service "ssh" do
   )
   action [ :enable, :start ]
 end
-

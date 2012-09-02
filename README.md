@@ -13,6 +13,11 @@ Requirements
 * Fedora
 * ArchLinux
 
+Attributes
+==========
+
+Doccumented in metadata.rb.
+
 Recipes
 =======
 
@@ -21,6 +26,13 @@ default
 
 Selects the packages to install by package name and manages the sshd
 service.
+
+config
+----
+
+* Platform: Currently Debian/Ubuntu
+
+Configuration of the sshd service.
 
 Usage
 =====
