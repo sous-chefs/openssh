@@ -1,0 +1,12 @@
+cookbook "openssh" do
+  #configuration("default") { runtimes [] }
+  configuration("config") { runtimes [] }
+end
+
+platform :debian do
+  version "6.0.5" do
+    box "debian-6.0.5"
+    # Built Debian 6 with bento, and imported into vagrant.
+    box_url "http://bogus.url"
+  end
+end
