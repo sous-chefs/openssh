@@ -68,4 +68,3 @@ service "ssh" do
   )
   action [ :enable, :start ]
 end
-

@@ -2,12 +2,12 @@
 # the settings/comments you may expect.
 # Please check https://github.com/opscode/cookbooks/tree/master/openssh/README.md for
 # more information.
-<% @settings.each do |key, value| %>
-<% 	if value.kind_of? Array %>
-<% 		value.each do |item| %>
-<%= 		"#{key.split("_").map { |w| w.capitalize}.join} #{item}" %>
-<% 		end %>
-<% 	else %>
-<%= 	"#{key.split("_").map { |w| w.capitalize}.join} #{value}"%>
-<% 	end %>
-<% end %>
+<% @settings.each do |key, value| -%>
+<%  if value.kind_of? Array -%>
+<%    value.each do |item| -%>
+<%=     "#{key.split("_").map { |w| w.capitalize}.join} #{item}" %>
+<%    end -%>
+<%  else -%>
+<%=   "#{key.split("_").map { |w| w.capitalize}.join} #{value}"%>
+<%  end -%>
+<% end -%>
