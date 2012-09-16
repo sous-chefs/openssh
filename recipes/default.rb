@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-packages = case node[:platform]
-  when "centos","redhat","fedora","scientific"
+packages = case node['platform']
+  when "centos","redhat","fedora","scientific","amazon"
     %w{openssh-clients openssh}
   when "arch"
     %w{openssh}
@@ -35,7 +35,7 @@ template "/etc/ssh/ssh_config" do
   mode '0644'
   owner 'root'
   group 'root'
-  variables(:settings => node[:openssh][:client])
+  variables(:settings => node['openssh']['client'])
 end
 
 template "/etc/ssh/sshd_config" do
@@ -43,12 +43,12 @@ template "/etc/ssh/sshd_config" do
   mode '0644'
   owner 'root'
   group 'root'
-  variables(:settings => node[:openssh][:server])
+  variables(:settings => node['openssh']['server'])
 end
 
 service "ssh" do
-  case node[:platform]
-  when "centos","redhat","fedora","arch","scientific"
+  case node['platform']
+  when "centos","redhat","fedora","arch","scientific","amazon"
     service_name "sshd"
   else
     service_name "ssh"
@@ -68,4 +68,3 @@ service "ssh" do
   )
   action [ :enable, :start ]
 end
-
