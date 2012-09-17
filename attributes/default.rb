@@ -20,6 +20,23 @@
 # Attributes are commented out using the default config file values.
 # Uncomment the ones you need, or set attributes in a role.
 #
+
+default['openssh']['package_name'] = case node['platform_family']
+                                     when "rhel", "fedora"
+                                       %w{openssh-clients openssh}
+                                     when "arch"
+                                       %w{openssh}
+                                     else
+                                       %w{openssh-client openssh-server}
+                                     end
+
+default['openssh']['service_name'] = case node['platform_family']
+                                     when "rhel", "fedora"
+                                       "sshd"
+                                     else
+                                       "ssh"
+                                     end
+
 # ssh config group
 default['openssh']['client']['host'] = "*"
 # default['openssh']['client']['forward_agent'] = "no"
