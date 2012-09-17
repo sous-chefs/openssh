@@ -44,6 +44,13 @@ This means anything located in [sshd_config](http://www.openbsd.org/cgi-bin/man.
 * If it is an `Array`, each item in the array will get it's own line in the config file.
 * All the values in openssh are commented out in the `attributes/default.rb` file for a base starting point.
 
+Dynamic ListenAddress
+=====================
+
+Pass in a `Hash` of interface names, and IP address type(s) to bind sshd to.
+This will expand to a list of IP addresses which override the default
+`node['openssh']['server']['listen_address']` value.
+
 Examples and Common usage
 =========================
 
@@ -71,7 +78,9 @@ This requires use of identity files to connect
 }
 ```
 
-####  Bind to a specific set of address (this example actually binds to all.)
+####  Bind to a specific set of address (this example actually binds to all).
+
+Not to be used with `node['openssh']['listen_interfaces']`.
 
 ```json
 "openssh": {
@@ -81,6 +90,18 @@ This requires use of identity files to connect
     }
 }
 ```
+
+### Bind to the addresses tied to a set of interfaces.
+
+```json
+"openssh": {
+    "listen_interfaces": {
+        "eth0": "inet",
+        "eth1": "inet6"
+    }
+}
+```
+
 License and Author
 ==================
 

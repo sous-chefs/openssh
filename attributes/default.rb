@@ -17,6 +17,22 @@
 # limitations under the License.
 #
 
+default['openssh']['package_name'] = case node['platform']
+  when "centos","redhat","fedora","scientific","amazon"
+    %w{openssh-clients openssh}
+  when "arch"
+    %w{openssh}
+  else
+    %w{openssh-client openssh-server}
+  end
+
+default['openssh']['service_name'] = case node['platform']
+  when "centos","redhat","fedora","arch","scientific","amazon"
+    "sshd"
+  else
+    "ssh"
+  end
+
 # These are commented to match the default config file, uncomment the ones
 # you need or delete them outright to trim up space.
 
