@@ -38,11 +38,18 @@ This means anything located in [sshd_config](http://www.openbsd.org/cgi-bin/man.
 * If the option can be entered more then once, use an _Array_, otherwise, use a _String_.
 * Each attribute is stored as ruby case, and converted to camel case for the config file on the fly.
 * The current default attributes match the stock `ssh_config` and `sshd_config` provided by openssh.
-* The namespace for `sshd_config` is `node[:openssh][:server]`.
-* Likewise, the namespace for `ssh_config` is `node[:openssh][:client]`.
+* The namespace for `sshd_config` is `node['openssh']['server']`.
+* Likewise, the namespace for `ssh_config` is `node['openssh']['client']`.
 * An attribute can be an `Array` or a `String`.
 * If it is an `Array`, each item in the array will get it's own line in the config file.
 * All the values in openssh are commented out in the `attributes/default.rb` file for a base starting point.
+
+Dynamic ListenAddress
+=====================
+
+Pass in a `Hash` of interface names, and IP address type(s) to bind sshd to.
+This will expand to a list of IP addresses which override the default
+`node['openssh']['server']['listen_address']` value.
 
 Examples and Common usage
 =========================
@@ -65,22 +72,36 @@ This requires use of identity files to connect
 
 ```json
 "openssh": {
-		"server": {
-				"x11_forwarding": "yes"
-		}
+    "server": {
+        "x11_forwarding": "yes"
+    }
 }
 ```
 
-####  Bind to a specific set of address (this example actually binds to all.)
+####  Bind to a specific set of address (this example actually binds to all).
+
+Not to be used with `node['openssh']['listen_interfaces']`.
 
 ```json
 "openssh": {
-		"server": {
+    "server": {
         "address_family": "any",
         "listen_address": [ "192.168.0.1", "::" ]
-		}
+    }
 }
 ```
+
+### Bind to the addresses tied to a set of interfaces.
+
+```json
+"openssh": {
+    "listen_interfaces": {
+        "eth0": "inet",
+        "eth1": "inet6"
+    }
+}
+```
+
 License and Author
 ==================
 
