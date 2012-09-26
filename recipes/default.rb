@@ -38,14 +38,6 @@ template "/etc/ssh/ssh_config" do
   variables(:settings => node['openssh']['client'])
 end
 
-template "/etc/ssh/sshd_config" do
-  source "sshd_config.erb"
-  mode '0644'
-  owner 'root'
-  group 'root'
-  variables(:settings => node['openssh']['server'])
-end
-
 service "ssh" do
   case node['platform']
   when "centos","redhat","fedora","arch","scientific","amazon"
@@ -69,3 +61,11 @@ service "ssh" do
   action [ :enable, :start ]
 end
 
+template "/etc/ssh/sshd_config" do
+  source "sshd_config.erb"
+  mode '0644'
+  owner 'root'
+  group 'root'
+  variables(:settings => node['openssh']['server'])
+  notifies :reload, resources(:service => "ssh"), :immediate
+end
