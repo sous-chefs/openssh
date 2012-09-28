@@ -32,7 +32,7 @@ end
 
 template "/etc/ssh/ssh_config" do
   source "ssh_config.erb"
-  mode '0644'
+  mode 0644
   owner 'root'
   group 'root'
   variables(:settings => node[:openssh][:client])
@@ -40,7 +40,7 @@ end
 
 template "/etc/ssh/sshd_config" do
   source "sshd_config.erb"
-  mode '0644'
+  mode 0640
   owner 'root'
   group 'root'
   variables(:settings => node[:openssh][:server])
