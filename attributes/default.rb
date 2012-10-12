@@ -1,13 +1,15 @@
 #
+# Cookbook Name:: openssh
+# Attributes:: default
+#
 # Author:: Ernie Brodeur <ebrodeur@ujami.net>
-# Copyright:: Copyright (c) 2012, Opscode, Inc.
-# License:: Apache License, Version 2.0
+# Copyright 2008-2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,10 +17,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 # Attributes are commented out using the default config file values.
 # Uncomment the ones you need, or set attributes in a role.
 #
+
+default['openssh']['package_name'] = case node['platform_family']
+                                     when "rhel", "fedora"
+                                       %w{openssh-clients openssh}
+                                     when "arch"
+                                       %w{openssh}
+                                     else
+                                       %w{openssh-client openssh-server}
+                                     end
+
+default['openssh']['service_name'] = case node['platform_family']
+                                     when "rhel", "fedora"
+                                       "sshd"
+                                     else
+                                       "ssh"
+                                     end
+
 # ssh config group
 default['openssh']['client']['host'] = "*"
 # default['openssh']['client']['forward_agent'] = "no"
@@ -48,7 +66,6 @@ default['openssh']['client']['host'] = "*"
 # default['openssh']['client']['permit_local_command'] = "no"
 # default['openssh']['client']['visual_host_key'] = "no"
 # default['openssh']['client']['proxy_command'] = "ssh -q -W %h:%p gateway.example.com"
-
 # sshd config group
 # default['openssh']['server']['port'] = "22"
 # default['openssh']['server']['address_family'] = "any"
@@ -69,7 +86,7 @@ default['openssh']['client']['host'] = "*"
 # default['openssh']['server']['max_sessions'] = "10"
 # default['openssh']['server']['rsa_authentication'] = "yes"
 # default['openssh']['server']['pub_key_authentication'] = "yes"
-default['openssh']['server']['authorized_keys_file'] =	".ssh/authorized_keys"
+default['openssh']['server']['authorized_keys_file'] = ".ssh/authorized_keys"
 # default['openssh']['server']['rhosts_rsa_authentication'] = "no"
 # default['openssh']['server']['host_based_authentication'] = "no"
 # default['openssh']['server']['ignore_user_known_hosts'] = "no"
