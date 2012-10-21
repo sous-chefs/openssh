@@ -1,15 +1,15 @@
-require File.expand_path("../helpers", __FILE__)
+require File.expand_path('../support/helpers', __FILE__)
 
 describe "openssh::config" do
   include Helpers::OpenSSH
 
   describe "services" do
     it "runs as a daemon" do
-      service(node['openssh']['service_name']).must_be_running
+      service("ssh").must_be_running
     end
 
     it "boots on startup" do
-      service(node['openssh']['service_name']).must_be_enabled
+      service("ssh").must_be_enabled
     end
   end
 
