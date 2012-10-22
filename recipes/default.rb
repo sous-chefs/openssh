@@ -69,6 +69,5 @@ template "/etc/ssh/sshd_config" do
   owner 'root'
   group 'root'
   variables(:settings => node['openssh']['server'])
-
-  notifies :restart, resources(:service => "ssh")
+  notifies :restart, "service[ssh]"
 end
