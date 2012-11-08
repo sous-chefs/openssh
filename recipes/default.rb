@@ -68,6 +68,6 @@ template "/etc/ssh/sshd_config" do
   mode '0644'
   owner 'root'
   group 'root'
-  variables(:settings => node['openssh']['server'])
+  variables(:settings => node['openssh']['server'].to_hash)
   notifies :restart, "service[ssh]"
 end
