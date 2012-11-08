@@ -60,7 +60,7 @@ if node['openssh']['listen_interfaces']
     end
   end
 
-  node['openssh']['server']['listen_address'] = listen_addresses
+  node.set['openssh']['server']['listen_address'] = listen_addresses
 end
 
 template "/etc/ssh/sshd_config" do
