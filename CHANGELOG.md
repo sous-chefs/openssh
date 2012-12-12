@@ -1,3 +1,9 @@
+## v1.1.2:
+
+* [COOK-1954] - Fix attribute camel case to match `man sshd_config`
+* [COOK-1889] - SSH restarting on each chef run due to template
+  changes
+
 ## v1.1.0:
 
 * [COOK-1663] - Configurable ListenAddress based off list of interface
