@@ -67,7 +67,7 @@ if node['openssh']['listen_interfaces']
 end
 
 sorted_server ||= Hash.new
-node['openssh']['client'].sort.map{ |k,v| sorted_server[k] = v }
+node['openssh']['server'].sort.map{ |k,v| sorted_server[k] = v }
 
 template "/etc/ssh/sshd_config" do
   source "sshd_config.erb"
