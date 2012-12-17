@@ -45,12 +45,15 @@ service "ssh" do
   action [ :enable, :start ]
 end
 
+sorted_client ||= Hash.new
+node['openssh']['client'].sort.map{ |k,v| sorted_client[k] = v }
+
 template "/etc/ssh/ssh_config" do
   source "ssh_config.erb"
   mode '0644'
   owner 'root'
   group 'root'
-  variables(:settings => node['openssh']['client'])
+  variables(:settings => sorted_client)
 end
 
 if node['openssh']['listen_interfaces']
@@ -63,11 +66,14 @@ if node['openssh']['listen_interfaces']
   node.set['openssh']['server']['listen_address'] = listen_addresses
 end
 
+sorted_server ||= Hash.new
+node['openssh']['server'].sort.map{ |k,v| sorted_server[k] = v }
+
 template "/etc/ssh/sshd_config" do
   source "sshd_config.erb"
   mode '0644'
   owner 'root'
   group 'root'
-  variables(:settings => node['openssh']['server'])
+  variables(:settings => sorted_server)
   notifies :restart, "service[ssh]"
 end
