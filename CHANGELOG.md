@@ -1,3 +1,7 @@
+## v1.1.4:
+
+* [COOK-2225] - Add platform_family suse
+
 ## v1.1.2:
 
 * [COOK-1954] - Fix attribute camel case to match `man sshd_config`
