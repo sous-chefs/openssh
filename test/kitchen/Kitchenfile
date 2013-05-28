@@ -1,3 +1,0 @@
-cookbook "openssh" do
-  runtimes []
-end
