@@ -1,3 +1,9 @@
+## v1.2.0:
+
+### Improvement
+
+- [COOK-2647]: `port_ssh` iptables template has no corresponding recipe
+
 ## v1.1.4:
 
 * [COOK-2225] - Add platform_family suse
