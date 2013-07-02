@@ -105,6 +105,50 @@ Not to be used with `node['openssh']['listen_interfaces']`.
 }
 ```
 
+### Host-specific configurations with hashes.
+You can use a `Hash` with `node['openssh']['client']` to configure
+different values for different hosts.
+
+```json
+      "client": {
+        "*": {
+          "g_s_s_a_p_i_authentication": "yes",
+          "send_env": "LANG LC_*",
+          "hash_known_hosts": "yes"
+        },
+        "localhost": {
+          "user_known_hosts_file": "/dev/null",
+          "strict_host_key_checking": "no"
+        },
+        "127.0.0.1": {
+          "user_known_hosts_file": "/dev/null",
+          "strict_host_key_checking": "no"
+        },
+        "other*": {
+          "user_known_hosts_file": "/dev/null",
+          "strict_host_key_checking": "no"
+        }
+      },
+```
+
+The keys are used as values with the `Host` entries. So, the
+configuration fragment shown above generates:
+
+```json
+Host *
+SendEnv LANG LC_*
+HashKnownHosts yes
+GSSAPIAuthentication yes
+Host localhost
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+Host 127.0.0.1
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+Host other*
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+```
 
 License & Authors
 -----------------
