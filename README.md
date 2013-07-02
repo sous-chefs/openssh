@@ -150,6 +150,7 @@ StrictHostKeyChecking no
 UserKnownHostsFile /dev/null
 ```
 
+
 License & Authors
 -----------------
 - Author:: Adam Jacob <adam@opscode.com>
