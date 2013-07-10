@@ -20,7 +20,7 @@
 def listen_addr_for interface, type
   interface_node = node['network']['interfaces'][interface]['addresses']
 
-  interface_node.select { |address, data| data['family'] == type }[0][0]
+  interface_node.select { |address, data| data['family'] == type }.keys[0]
 end
 
 node['openssh']['package_name'].each do |pkg|
