@@ -17,26 +17,18 @@
 # limitations under the License.
 #
 
-packages = case node[:platform]
-  when "centos","redhat","fedora","scientific"
-    %w{openssh-clients openssh}
-  when "arch"
-    %w{openssh}
-  else
-    %w{openssh-client openssh-server}
-  end
-  
-packages.each do |pkg|
+def listen_addr_for interface, type
+  interface_node = node['network']['interfaces'][interface]['addresses']
+
+  interface_node.select { |address, data| data['family'] == type }[0][0]
+end
+
+node['openssh']['package_name'].each do |pkg|
   package pkg
 end
 
 service "ssh" do
-  case node[:platform]
-  when "centos","redhat","fedora","arch","scientific"
-    service_name "sshd"
-  else
-    service_name "ssh"
-  end
+  service_name node['openssh']['service_name']
   supports value_for_platform(
     "debian" => { "default" => [ :restart, :reload, :status ] },
     "ubuntu" => {
@@ -53,3 +45,29 @@ service "ssh" do
   action [ :enable, :start ]
 end
 
+template "/etc/ssh/ssh_config" do
+  source "ssh_config.erb"
+  mode '0644'
+  owner 'root'
+  group 'root'
+  variables(:settings => node['openssh']['client'])
+end
+
+if node['openssh']['listen_interfaces']
+  listen_addresses = Array.new.tap do |a|
+    node['openssh']['listen_interfaces'].each_pair do |interface, type|
+      a << listen_addr_for(interface, type)
+    end
+  end
+
+  node.set['openssh']['server']['listen_address'] = listen_addresses
+end
+
+template "/etc/ssh/sshd_config" do
+  source "sshd_config.erb"
+  mode '0644'
+  owner 'root'
+  group 'root'
+  variables(:settings => node['openssh']['server'])
+  notifies :restart, "service[ssh]"
+end
