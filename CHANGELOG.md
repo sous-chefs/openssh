@@ -3,6 +3,11 @@ openssh Cookbook CHANGELOG
 This file is used to list changes made in each version of the openssh cookbook.
 
 
+v1.2.2
+------
+### Bug
+- **[COOK-3304](https://tickets.opscode.com/browse/COOK-3304)** - Fix error setting Dynamic `ListenAddresses`
+
 v1.2.0
 ------
 ### Improvement
