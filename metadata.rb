@@ -12,4 +12,4 @@ recipe "openssh::iptables", "Set up iptables to allow SSH inbound"
   supports os
 end
 
-depends "iptables"
+suggests "iptables"
