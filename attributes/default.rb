@@ -26,12 +26,14 @@ default['openssh']['package_name'] = case node['platform_family']
                                        %w{openssh-clients openssh}
                                      when "arch","suse"
                                        %w{openssh}
+                                     when "freebsd"
+                                       nil
                                      else
                                        %w{openssh-client openssh-server}
                                      end
 
 default['openssh']['service_name'] = case node['platform_family']
-                                     when "rhel", "fedora","suse"
+                                     when "rhel", "fedora", "suse", "freebsd"
                                        "sshd"
                                      else
                                        "ssh"
@@ -42,6 +44,13 @@ default['openssh']['config_mode'] = case node['platform_family']
                                        "0600"
                                      else
                                        "0644"
+                                     end
+
+default['openssh']['rootgroup']    = case node['platform_family']
+                                     when "freebsd"
+                                       "wheel"
+                                     else
+                                       "root"
                                      end
 
 # ssh config group

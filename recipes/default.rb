@@ -23,8 +23,10 @@ def listen_addr_for interface, type
   interface_node.select { |address, data| data['family'] == type }.keys[0]
 end
 
-node['openssh']['package_name'].each do |pkg|
-  package pkg
+unless node['openssh']['package_name'].nil? then
+  node['openssh']['package_name'].each do |pkg|
+    package pkg
+  end
 end
 
 service "ssh" do
@@ -49,7 +51,7 @@ template "/etc/ssh/ssh_config" do
   source "ssh_config.erb"
   mode '0644'
   owner 'root'
-  group 'root'
+  group node['openssh']['rootgroup']
   variables(:settings => node['openssh']['client'])
 end
 
@@ -67,7 +69,7 @@ template "/etc/ssh/sshd_config" do
   source "sshd_config.erb"
   mode  node['openssh']['config_mode']
   owner 'root'
-  group 'root'
+  group node['openssh']['rootgroup']
   variables(:settings => node['openssh']['server'])
   notifies :restart, "service[ssh]"
 end
