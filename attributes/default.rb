@@ -37,6 +37,13 @@ default['openssh']['service_name'] = case node['platform_family']
                                        "ssh"
                                      end
 
+default['openssh']['config_mode'] = case node['platform_family']
+                                     when "rhel", "fedora"
+                                       "0600"
+                                     else
+                                       "0644"
+                                     end
+
 # ssh config group
 default['openssh']['client']['host'] = "*"
 # default['openssh']['client']['forward_agent'] = "no"
