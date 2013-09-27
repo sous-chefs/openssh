@@ -65,7 +65,7 @@ end
 
 template "/etc/ssh/sshd_config" do
   source "sshd_config.erb"
-  mode '0644'
+  mode  node['openssh']['config_mode']
   owner 'root'
   group 'root'
   variables(:settings => node['openssh']['server'])
