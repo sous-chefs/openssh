@@ -23,10 +23,8 @@ def listen_addr_for interface, type
   interface_node.select { |address, data| data['family'] == type }.keys[0]
 end
 
-unless node['openssh']['package_name'].nil? then
-  node['openssh']['package_name'].each do |pkg|
-    package pkg
-  end
+node['openssh']['package_name'].each do |pkg|
+  package pkg
 end
 
 service "ssh" do

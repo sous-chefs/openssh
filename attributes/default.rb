@@ -27,7 +27,7 @@ default['openssh']['package_name'] = case node['platform_family']
                                      when "arch","suse"
                                        %w{openssh}
                                      when "freebsd"
-                                       nil
+                                       %w{}
                                      else
                                        %w{openssh-client openssh-server}
                                      end
