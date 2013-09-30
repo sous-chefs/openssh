@@ -10,6 +10,7 @@ Requirements
 - RHEL/CentOS/Scientific
 - Fedora
 - ArchLinux
+- FreeBSD
 
 
 Recipes

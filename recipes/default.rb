@@ -49,7 +49,7 @@ template "/etc/ssh/ssh_config" do
   source "ssh_config.erb"
   mode '0644'
   owner 'root'
-  group 'root'
+  group node['openssh']['rootgroup']
   variables(:settings => node['openssh']['client'])
 end
 
@@ -67,7 +67,7 @@ template "/etc/ssh/sshd_config" do
   source "sshd_config.erb"
   mode  node['openssh']['config_mode']
   owner 'root'
-  group 'root'
+  group node['openssh']['rootgroup']
   variables(:settings => node['openssh']['server'])
   notifies :restart, "service[ssh]"
 end

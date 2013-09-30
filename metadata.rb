@@ -8,7 +8,7 @@ version           "1.2.3"
 recipe "openssh", "Installs openssh"
 recipe "openssh::iptables", "Set up iptables to allow SSH inbound"
 
-%w{ redhat centos fedora ubuntu debian arch scientific suse }.each do |os|
+%w{ redhat centos fedora ubuntu debian arch scientific suse freebsd }.each do |os|
   supports os
 end
 
