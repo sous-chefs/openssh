@@ -27,6 +27,22 @@ node['openssh']['package_name'].each do |pkg|
   package pkg
 end
 
+# Generate ECDSA if host_key_ecdsa is set
+# ssh_host_ecdsa_key and ssh_host_ecdsa_key.pub are not generated automatically by the package installer.
+# Use unless instead of not_if otherwise ssh-keygen runs every time.
+if node['openssh']['server']['host_key_ecdsa']
+  unless ::File.exists?("#{node['openssh']['server']['host_key_ecdsa']}")
+		execute "Generating ECDSA key #{node['openssh']['server']['host_key_ecdsa']}" do
+			cwd Chef::Config['file_cache_path']
+			command <<-COMMAND
+	(ssh-keygen -t ecdsa -f #{node['openssh']['server']['host_key_ecdsa']} -N '')
+			COMMAND
+			creates "node['openssh']['server']['host_key_ecdsa']"
+		end
+	end
+end
+
+
 service "ssh" do
   service_name node['openssh']['service_name']
   supports value_for_platform(
