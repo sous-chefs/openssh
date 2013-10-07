@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "iptables"
+include_recipe 'iptables::default'
 
-iptables_rule "port_ssh"
+iptables_rule 'port_ssh'
