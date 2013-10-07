@@ -3,6 +3,18 @@ openssh Cookbook CHANGELOG
 This file is used to list changes made in each version of the openssh cookbook.
 
 
+v1.3.0
+------
+### Improvement
+- **[COOK-3644](https://tickets.opscode.com/browse/COOK-3644)** - Add FreeBSD support
+- **[COOK-2517](https://tickets.opscode.com/browse/COOK-2517)** - Add hash support
+- **[COOK-2000](https://tickets.opscode.com/browse/COOK-2000)** - Make mode of sshd_config a configurable option
+
+### Bug
+- **[COOK-3558](https://tickets.opscode.com/browse/COOK-3558)** - Fix RSA Server Config Options
+- **[COOK-3557](https://tickets.opscode.com/browse/COOK-3557)** - Fix PubkeyAuthentication option
+
+
 v1.2.2
 ------
 ### Bug
