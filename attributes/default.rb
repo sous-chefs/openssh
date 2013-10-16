@@ -139,3 +139,4 @@ default['openssh']['server']['use_p_a_m'] = 'yes'
 # default['openssh']['server']['chroot_directory'] = 'none'
 # default['openssh']['server']['banner'] = 'none'
 # default['openssh']['server']['subsystem'] =	'sftp	/usr/libexec/sftp-server'
+default['openssh']['server']['match'] = {}
