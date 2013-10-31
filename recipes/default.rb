@@ -26,7 +26,11 @@ node['openssh']['package_name'].each do |name|
   package name
 end
 
+service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platform'] &&
+  Chef::VersionConstraint.new('>= 13.10').include?(node['platform_version'])
+
 service 'ssh' do
+  provider service_provider
   service_name node['openssh']['service_name']
   supports value_for_platform(
     'debian' => { 'default' => [:restart, :reload, :status] },
