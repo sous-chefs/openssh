@@ -2,6 +2,11 @@ openssh Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openssh cookbook.
 
+1.6.0 (2016-01-14)
+------------------
+- UseRoaming no is now set in the client config to resolve CVE-2016-0777 and CVE-2016-0778
+- Converted bats integration test to 2 suites of Inspec tests
+
 1.5.2 (2015-06-29)
 ------------------
 - Use the complete path to sshd when verifying the config file since sbin may not be in the path

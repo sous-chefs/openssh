@@ -45,11 +45,13 @@ end
 
 template '/etc/ssh/sshd_config' do
   source 'sshd_config.erb'
-  mode node['openssh']['config_mode']
-  owner 'root'
-  group node['root_group']
+  mode   node['openssh']['config_mode']
+  owner  'root'
+  group  node['root_group']
+  variables({
+    :options => openssh_server_options
+  })
   notifies :run, 'execute[sshd-config-check]', :immediately
-  notifies :restart, 'service[ssh]'
 end
 
 execute 'sshd-config-check' do
