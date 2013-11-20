@@ -21,11 +21,21 @@ describe 'openssh::default' do
     expect(template.group).to eq('root')
   end
 
-  it 'writes the sshd_config' do
-    template = chef_run.template('/etc/ssh/sshd_config')
-    expect(template).to be
-    expect(template.mode).to eq('0644')
-    expect(template.owner).to eq('root')
-    expect(template.group).to eq('root')
+  describe 'sshd_config' do
+
+    it 'writes the sshd_config' do
+      template = chef_run.template('/etc/ssh/sshd_config')
+      expect(template).to be
+      expect(template.mode).to eq('0644')
+      expect(template.owner).to eq('root')
+      expect(template.group).to eq('root')
+    end
+
+    it 'writes a match group block' do
+      chef_run.node.set['openssh']['server']['match'] = { 'Group admins' => { 'permit_tunnel' => 'yes' } }
+      chef_run.converge(described_recipe)
+      expect(chef_run).to create_file_with_content '/etc/ssh/sshd_config', /Match Group admins\n\s\sPermitTunnel yes/
+    end
+
   end
 end
