@@ -3,6 +3,14 @@ openssh Cookbook CHANGELOG
 This file is used to list changes made in each version of the openssh cookbook.
 
 
+v1.3.2
+------
+### Bug
+- **[COOK-3995](https://tickets.opscode.com/browse/COOK-3995)** - sshd_config template needs ordering
+- **[COOK-3910](https://tickets.opscode.com/browse/COOK-3910)** - ssh fails to start in Ubuntu 13.10
+- **[COOK-2073](https://tickets.opscode.com/browse/COOK-2073)** - Add support for Match block
+
+
 v1.3.0
 ------
 ### Improvement
