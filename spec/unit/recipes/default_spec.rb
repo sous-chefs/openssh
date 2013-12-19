@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'openssh::default' do
-  let(:chef_run) { ChefSpec::ChefRunner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
   it 'installs the openssh packages' do
     expect(chef_run).to install_package('openssh-client')
@@ -10,7 +10,7 @@ describe 'openssh::default' do
 
   it 'starts the ssh service' do
     expect(chef_run).to start_service('ssh')
-    expect(chef_run).to set_service_to_start_on_boot('ssh')
+    expect(chef_run).to enable_service('ssh')
   end
 
   it 'writes the ssh_config' do
@@ -34,7 +34,7 @@ describe 'openssh::default' do
     it 'writes a match group block' do
       chef_run.node.set['openssh']['server']['match'] = { 'Group admins' => { 'permit_tunnel' => 'yes' } }
       chef_run.converge(described_recipe)
-      expect(chef_run).to create_file_with_content '/etc/ssh/sshd_config', /Match Group admins\n\s\sPermitTunnel yes/
+      expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
 
   end
