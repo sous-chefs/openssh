@@ -37,5 +37,11 @@ describe 'openssh::default' do
       expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
 
+    it 'skips match group block' do
+      chef_run.node.set['openssh']['server']['match'] = {}
+      chef_run.converge(described_recipe)
+      expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
+    end
+
   end
 end

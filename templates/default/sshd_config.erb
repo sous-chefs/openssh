@@ -11,16 +11,17 @@
 <%  end -%>
 <% end -%>
 
-<% node['openssh']['server']['match'].sort.map do |match_key, match_items| -%>
+<%  unless node['openssh']['server']['match'].empty? || !defined?(node['openssh']['server']['match']) -%>
+<%    node['openssh']['server']['match'].sort.map do |match_key, match_items| -%>
 Match <%= match_key %>
-<%   match_items.sort.map do |key, value| -%>
-<%     if value.kind_of? Array -%>
-<%       value.each do |item| -%>
-<%=        "  #{key.split("_").map { |w| w.capitalize}.join} #{item}" %>
-<%       end -%>
-<%     else -%>
-<%=      "  #{key.split("_").map { |w| w.capitalize}.join} #{value}"%>
-<%     end -%>
-<%   end -%>
-
-<% end -%>
+<%      match_items.sort.map do |key, value| -%>
+<%        if value.kind_of? Array -%>
+<%          value.each do |item| -%>
+<%=           "  #{key.split("_").map { |w| w.capitalize}.join} #{item}" %>
+<%          end -%>
+<%        else -%>
+<%=         "  #{key.split("_").map { |w| w.capitalize}.join} #{value}"%>
+<%        end -%>
+<%      end -%>
+<%    end -%>
+<%  end -%>
