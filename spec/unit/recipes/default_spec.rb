@@ -31,6 +31,10 @@ describe 'openssh::default' do
       expect(template.group).to eq('root')
     end
 
+    it 'allow legacy default AuthorizedKeysFile behavior' do
+      expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/AuthorizedKeysFile.*/)
+    end
+
     it 'writes a match group block' do
       chef_run.node.set['openssh']['server']['match'] = { 'Group admins' => { 'permit_tunnel' => 'yes' } }
       chef_run.converge(described_recipe)
