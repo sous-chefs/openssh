@@ -66,8 +66,8 @@ template '/etc/ssh/sshd_config' do
   mode   node['openssh']['config_mode']
   owner  'root'
   group  node['openssh']['rootgroup']
-  variables({ 
+  variables(
     :options => openssh_server_options
-  })
+  )
   notifies :restart, 'service[ssh]'
 end
