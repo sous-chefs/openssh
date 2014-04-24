@@ -27,7 +27,7 @@ node['openssh']['package_name'].each do |name|
 end
 
 service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platform'] &&
-  Chef::VersionConstraint.new('>= 13.10').include?(node['platform_version'])
+  Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
 
 service 'ssh' do
   provider service_provider
