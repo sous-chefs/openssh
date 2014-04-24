@@ -3,6 +3,14 @@ openssh Cookbook CHANGELOG
 This file is used to list changes made in each version of the openssh cookbook.
 
 
+v1.3.4 (2014-04-23)
+-------------------
+- [COOK-4576] - No way to override `AuthorizedKeysFile`
+- [COOK-4584] - Use Upstart on Ubuntu 12.04
+- [COOK-4585] - skip match block in template if empty or unset
+- [COOK-4586] OpenSSH Gentoo support
+
+
 v1.3.2
 ------
 ### Bug
