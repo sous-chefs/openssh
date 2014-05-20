@@ -47,6 +47,16 @@ This means anything located in [sshd_config](http://www.openbsd.org/cgi-bin/man.
 * There is one special attribute name, which is `match`. This is not included in the default template like the others. `node['openssh']['server']['match']` must be a Hash, where the key is the match pattern criteria and the value should be a Hash of normal keywords and values. The same transformations listed above apply to these keywords. See examples below.
 
 
+Solaris Specific
+----------------
+The following are example attributes for solaris2 type operation systems
+```
+node.normal['openssh']['server']['print_motd'] = 'no'
+node.normal['openssh']['server']['syslog_facility'] = 'auth'
+node.normal['openssh']['server']['subsystem'] = 'sftp internal-sftp'
+node.normal['openssh']['server']['host_key'] = ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_dsa_key']
+```
+
 Dynamic ListenAddress
 ---------------------
 Pass in a `Hash` of interface names, and IP address type(s) to bind sshd to. This will expand to a list of IP addresses which override the default `node['openssh']['server']['listen_address']` value.
