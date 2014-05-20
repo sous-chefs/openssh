@@ -13,7 +13,7 @@ Requirements
 - Fedora
 - ArchLinux
 - FreeBSD
-
+- Solaris2
 
 Recipes
 -------
