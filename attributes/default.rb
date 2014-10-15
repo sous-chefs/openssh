@@ -91,7 +91,7 @@ default['openssh']['client']['host'] = '*'
 # default['openssh']['server']['host_key_rsa'] = '/etc/ssh/ssh_host_rsa_key'
 # default['openssh']['server']['host_key_dsa'] = '/etc/ssh/ssh_host_dsa_key'
 if platform_family?("smartos")
-  default['openssh']['server']['host_key'] = '/var/ssh/ssh_host_rsa_key'
+  default['openssh']['server']['host_key'] = ['/var/ssh/ssh_host_rsa_key', '/var/ssh/ssh_host_dsa_key']
 end
 # default['openssh']['server']['host_key_ecdsa'] = '/etc/ssh/ssh_host_ecdsa_key'
 # default['openssh']['server']['key_regeneration_interval'] = '1h'
