@@ -33,7 +33,7 @@ default['openssh']['package_name'] = case node['platform_family']
                                      end
 
 default['openssh']['service_name'] = case node['platform_family']
-                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo'
+                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch'
                                        'sshd'
                                      else
                                        'ssh'
@@ -138,5 +138,5 @@ default['openssh']['server']['use_p_a_m'] = 'yes'
 # default['openssh']['server']['permit_tunnel'] = 'no'
 # default['openssh']['server']['chroot_directory'] = 'none'
 # default['openssh']['server']['banner'] = 'none'
-# default['openssh']['server']['subsystem'] =	'sftp	/usr/libexec/sftp-server'
+# default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
 default['openssh']['server']['match'] = {}
