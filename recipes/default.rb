@@ -26,28 +26,6 @@ node['openssh']['package_name'].each do |name|
   package name
 end
 
-service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platform'] &&
-  Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
-
-service 'ssh' do
-  provider service_provider
-  service_name node['openssh']['service_name']
-  supports value_for_platform(
-    'debian' => { 'default' => [:restart, :reload, :status] },
-    'ubuntu' => {
-      '8.04' => [:restart, :reload],
-      'default' => [:restart, :reload, :status]
-    },
-    'centos' => { 'default' => [:restart, :reload, :status] },
-    'redhat' => { 'default' => [:restart, :reload, :status] },
-    'fedora' => { 'default' => [:restart, :reload, :status] },
-    'scientific' => { 'default' => [:restart, :reload, :status] },
-    'arch' => { 'default' => [:restart] },
-    'default' => { 'default' => [:restart, :reload] }
-  )
-  action [:enable, :start]
-end
-
 template '/etc/ssh/ssh_config' do
   source 'ssh_config.erb'
   mode   '0644'
@@ -71,4 +49,26 @@ template '/etc/ssh/sshd_config' do
   owner  'root'
   group  node['openssh']['rootgroup']
   notifies :restart, 'service[ssh]'
+end
+
+service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platform'] &&
+  Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
+
+service 'ssh' do
+  provider service_provider
+  service_name node['openssh']['service_name']
+  supports value_for_platform(
+    'debian' => { 'default' => [:restart, :reload, :status] },
+    'ubuntu' => {
+      '8.04' => [:restart, :reload],
+      'default' => [:restart, :reload, :status]
+    },
+    'centos' => { 'default' => [:restart, :reload, :status] },
+    'redhat' => { 'default' => [:restart, :reload, :status] },
+    'fedora' => { 'default' => [:restart, :reload, :status] },
+    'scientific' => { 'default' => [:restart, :reload, :status] },
+    'arch' => { 'default' => [:restart] },
+    'default' => { 'default' => [:restart, :reload] }
+  )
+  action [:enable, :start]
 end
