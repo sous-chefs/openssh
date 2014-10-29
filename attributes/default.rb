@@ -26,7 +26,7 @@ default['openssh']['package_name'] = case node['platform_family']
                                        %w[openssh-clients openssh-server]
                                      when 'arch', 'suse', 'gentoo'
                                        %w[openssh]
-                                     when 'freebsd'
+                                     when 'freebsd', 'smartos'
                                        %w[]
                                      else
                                        %w[openssh-client openssh-server]
@@ -49,6 +49,8 @@ default['openssh']['config_mode'] = case node['platform_family']
 default['openssh']['rootgroup']    = case node['platform_family']
                                      when 'freebsd'
                                        'wheel'
+                                     when 'smartos'
+                                       'sys'
                                      else
                                        'root'
                                      end
@@ -116,7 +118,7 @@ default['openssh']['server']['challenge_response_authentication'] = 'no'
 # default['openssh']['server']['kerberos_get_afs_token'] = 'no'
 # default['openssh']['server']['gssapi_authentication'] = 'no'
 # default['openssh']['server']['gssapi_clean_up_credentials'] = 'yes'
-default['openssh']['server']['use_p_a_m'] = 'yes'
+default['openssh']['server']['use_p_a_m'] = 'yes' unless node['platform_family'] == 'smartos'
 # default['openssh']['server']['allow_agent_forwarding'] = 'yes'
 # default['openssh']['server']['allow_tcp_forwarding'] = 'yes'
 # default['openssh']['server']['gateway_ports'] = 'no'
