@@ -9,6 +9,7 @@ unreleased
 - #43 - Correct OpenSSH server package name on RHEL, Fedora
 - #31 - Allow included iptables rule to use the same port number if defined in attributes.
 - #41 - Fix default recipe order
+- #47 - Fix up iptables rule
 
 v1.3.4 (2014-04-23)
 -------------------
