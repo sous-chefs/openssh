@@ -6,7 +6,10 @@ platforms:
   - name: ubuntu-12.04
     run_list:
       - recipe[apt::default]
-  - name: centos-6.4
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[apt::default]
+  - name: centos-6.5
 
 suites:
   - name: default
