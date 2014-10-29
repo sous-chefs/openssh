@@ -19,4 +19,12 @@
 
 include_recipe 'iptables::default'
 
-iptables_rule 'port_ssh'
+sshd_port = if node['openssh'].attribute?('server') && node['openssh']['server'].attribute?('port')
+              node['openssh']['server']['port']
+            else
+              22
+            end
+
+iptables_rule 'port_ssh' do
+  variables :port => sshd_port
+end
