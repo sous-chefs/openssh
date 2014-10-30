@@ -15,6 +15,7 @@ supports 'fedora'
 supports 'freebsd'
 supports 'redhat'
 supports 'scientific'
+supports 'smartos'
 supports 'suse'
 supports 'ubuntu'
 
