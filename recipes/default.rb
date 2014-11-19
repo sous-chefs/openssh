@@ -26,6 +26,20 @@ node['openssh']['package_name'].each do |name|
   package name
 end
 
+template node['openssh']['trusted_user_ca_keys_file'] do
+  source 'trusted_user_ca_keys.erb'
+  mode '0644'
+  owner 'root'
+  group  node['openssh']['rootgroup']
+end
+
+template node['openssh']['revoked_keys_file'] do
+  source 'revoked_keys.erb'
+  mode '0644'
+  owner 'root'
+  group  node['openssh']['rootgroup']
+end
+
 template '/etc/ssh/ssh_config' do
   source 'ssh_config.erb'
   mode   '0644'
@@ -81,3 +95,6 @@ service 'ssh' do
   )
   action [:enable, :start]
 end
+
+# setup iptables for ssh
+include_recipe "openssh::iptables" if node['openssh']['setup_iptables']
