@@ -7,6 +7,7 @@ version           '1.3.5'
 
 recipe 'openssh', 'Installs openssh'
 recipe 'openssh::iptables', 'Set up iptables to allow SSH inbound'
+recipe 'openssh::lpk', 'Set up LDAP Public Key Authentication over SSH'
 
 supports 'arch'
 supports 'centos'
@@ -18,5 +19,7 @@ supports 'scientific'
 supports 'smartos'
 supports 'suse'
 supports 'ubuntu'
+
+suggests 'openldap'
 
 depends 'iptables'
