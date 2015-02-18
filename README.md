@@ -1,6 +1,6 @@
 openssh Cookbook
 ================
-[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/openssh.png?branch=master)](http://travis-ci.org/opscode-cookbooks/openssh)
+[![Build Status](https://secure.travis-ci.org/chef-cookbooks/openssh.png?branch=master)](http://travis-ci.org/chef-cookbooks/openssh)
 
 Installs openssh.
 
@@ -167,10 +167,10 @@ UserKnownHostsFile /dev/null
 
 License & Authors
 -----------------
-- Author:: Adam Jacob <adam@opscode.com>
+- Author:: Adam Jacob <adam@chef.io>
 
 ```text
-Copyright:: 2008-2009, Opscode, Inc
+Copyright:: 2008-2009, Chef Software, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

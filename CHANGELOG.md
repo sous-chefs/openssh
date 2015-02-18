@@ -14,27 +14,27 @@ v1.3.4 (2014-04-23)
 v1.3.2
 ------
 ### Bug
-- **[COOK-3995](https://tickets.opscode.com/browse/COOK-3995)** - sshd_config template needs ordering
-- **[COOK-3910](https://tickets.opscode.com/browse/COOK-3910)** - ssh fails to start in Ubuntu 13.10
-- **[COOK-2073](https://tickets.opscode.com/browse/COOK-2073)** - Add support for Match block
+- **[COOK-3995](https://tickets.chef.io/browse/COOK-3995)** - sshd_config template needs ordering
+- **[COOK-3910](https://tickets.chef.io/browse/COOK-3910)** - ssh fails to start in Ubuntu 13.10
+- **[COOK-2073](https://tickets.chef.io/browse/COOK-2073)** - Add support for Match block
 
 
 v1.3.0
 ------
 ### Improvement
-- **[COOK-3644](https://tickets.opscode.com/browse/COOK-3644)** - Add FreeBSD support
-- **[COOK-2517](https://tickets.opscode.com/browse/COOK-2517)** - Add hash support
-- **[COOK-2000](https://tickets.opscode.com/browse/COOK-2000)** - Make mode of sshd_config a configurable option
+- **[COOK-3644](https://tickets.chef.io/browse/COOK-3644)** - Add FreeBSD support
+- **[COOK-2517](https://tickets.chef.io/browse/COOK-2517)** - Add hash support
+- **[COOK-2000](https://tickets.chef.io/browse/COOK-2000)** - Make mode of sshd_config a configurable option
 
 ### Bug
-- **[COOK-3558](https://tickets.opscode.com/browse/COOK-3558)** - Fix RSA Server Config Options
-- **[COOK-3557](https://tickets.opscode.com/browse/COOK-3557)** - Fix PubkeyAuthentication option
+- **[COOK-3558](https://tickets.chef.io/browse/COOK-3558)** - Fix RSA Server Config Options
+- **[COOK-3557](https://tickets.chef.io/browse/COOK-3557)** - Fix PubkeyAuthentication option
 
 
 v1.2.2
 ------
 ### Bug
-- **[COOK-3304](https://tickets.opscode.com/browse/COOK-3304)** - Fix error setting Dynamic `ListenAddresses`
+- **[COOK-3304](https://tickets.chef.io/browse/COOK-3304)** - Fix error setting Dynamic `ListenAddresses`
 
 v1.2.0
 ------
