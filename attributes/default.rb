@@ -23,17 +23,17 @@
 
 default['openssh']['package_name'] = case node['platform_family']
                                      when 'rhel', 'fedora'
-                                       %w[openssh-clients openssh]
+                                       %w[openssh-clients openssh-server]
                                      when 'arch', 'suse', 'gentoo'
                                        %w[openssh]
-                                     when 'freebsd'
+                                     when 'freebsd','smartos'
                                        %w[]
                                      else
                                        %w[openssh-client openssh-server]
                                      end
 
 default['openssh']['service_name'] = case node['platform_family']
-                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo'
+                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch'
                                        'sshd'
                                      else
                                        'ssh'
@@ -90,6 +90,9 @@ default['openssh']['client']['host'] = '*'
 # default['openssh']['server']['host_key_v1'] = '/etc/ssh/ssh_host_key'
 # default['openssh']['server']['host_key_rsa'] = '/etc/ssh/ssh_host_rsa_key'
 # default['openssh']['server']['host_key_dsa'] = '/etc/ssh/ssh_host_dsa_key'
+if platform_family?("smartos")
+  default['openssh']['server']['host_key'] = ['/var/ssh/ssh_host_rsa_key', '/var/ssh/ssh_host_dsa_key']
+end
 # default['openssh']['server']['host_key_ecdsa'] = '/etc/ssh/ssh_host_ecdsa_key'
 # default['openssh']['server']['key_regeneration_interval'] = '1h'
 # default['openssh']['server']['server_key_bits'] = '1024'
@@ -116,7 +119,7 @@ default['openssh']['server']['challenge_response_authentication'] = 'no'
 # default['openssh']['server']['kerberos_get_afs_token'] = 'no'
 # default['openssh']['server']['gssapi_authentication'] = 'no'
 # default['openssh']['server']['gssapi_clean_up_credentials'] = 'yes'
-default['openssh']['server']['use_p_a_m'] = 'yes'
+default['openssh']['server']['use_p_a_m'] = 'yes' unless platform_family?('smartos')
 # default['openssh']['server']['allow_agent_forwarding'] = 'yes'
 # default['openssh']['server']['allow_tcp_forwarding'] = 'yes'
 # default['openssh']['server']['gateway_ports'] = 'no'
@@ -138,5 +141,5 @@ default['openssh']['server']['use_p_a_m'] = 'yes'
 # default['openssh']['server']['permit_tunnel'] = 'no'
 # default['openssh']['server']['chroot_directory'] = 'none'
 # default['openssh']['server']['banner'] = 'none'
-# default['openssh']['server']['subsystem'] =	'sftp	/usr/libexec/sftp-server'
+# default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
 default['openssh']['server']['match'] = {}

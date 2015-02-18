@@ -1,4 +1,5 @@
 site 'https://supermarket.chef.io'
+
 metadata
 
 group :integration do
