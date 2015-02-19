@@ -26,6 +26,20 @@ node['openssh']['package_name'].each do |name|
   package name
 end
 
+template node['openssh']['trusted_user_ca_keys_file'] do
+  source 'trusted_user_ca_keys.erb'
+  mode '0644'
+  owner 'root'
+  group  node['openssh']['rootgroup']
+end
+
+template node['openssh']['revoked_keys_file'] do
+  source 'revoked_keys.erb'
+  mode '0644'
+  owner 'root'
+  group  node['openssh']['rootgroup']
+end
+
 template '/etc/ssh/ssh_config' do
   source 'ssh_config.erb'
   mode   '0644'
@@ -43,11 +57,20 @@ if node['openssh']['listen_interfaces']
   node.set['openssh']['server']['listen_address'] = listen_addresses
 end
 
-template '/etc/ssh/sshd_config' do
+sshd_config = template '/etc/ssh/sshd_config' do
   source 'sshd_config.erb'
   mode   node['openssh']['config_mode']
   owner  'root'
   group  node['openssh']['rootgroup']
+  variables(:options => node['openssh'], :fqdn => node['fqdn'])
+  action :nothing
+end
+
+ruby_block 'validate sshd_config' do
+  block do
+    sshd_validate_config(sshd_config, node)
+  end
+  notifies :create, 'template[/etc/ssh/sshd_config]', :immediately
   notifies :restart, 'service[ssh]'
 end
 
@@ -72,3 +95,6 @@ service 'ssh' do
   )
   action [:enable, :start]
 end
+
+# setup iptables for ssh
+include_recipe "openssh::iptables" if node['openssh']['setup_iptables']

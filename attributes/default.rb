@@ -21,6 +21,14 @@
 # Uncomment the ones you need, or set attributes in a role.
 #
 
+default['openssh']['setup_iptables'] = false
+
+default['openssh']['trusted_user_ca_keys_file'] = '/etc/ssh/ca.pub'
+default['openssh']['revoked_keys_file'] = '/etc/ssh/revoke.pub'
+
+default['openssh']['trusted_user_ca_keys'] = %w()
+default['openssh']['revoked_keys'] = %w()
+
 default['openssh']['package_name'] = case node['platform_family']
                                      when 'rhel', 'fedora'
                                        %w[openssh-clients openssh-server]
@@ -143,3 +151,5 @@ default['openssh']['server']['use_p_a_m'] = 'yes' unless platform_family?('smart
 # default['openssh']['server']['banner'] = 'none'
 # default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
 default['openssh']['server']['match'] = {}
+default['openssh']['server']['trusted_user_c_a_keys'] = node['openssh']['trusted_user_ca_keys_file']
+default['openssh']['server']['revoked_keys'] = node['openssh']['revoked_keys_file']
