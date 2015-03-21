@@ -9,7 +9,13 @@
 <%  elsif value.kind_of? Hash -%>
 <%=   "Host #{key}"%>
 <%    value.each do |host_key, host_value| -%>
-<%=     "#{host_key.split("_").map { |w| w.capitalize}.join} #{host_value}" %>
+<%      if host_value.kind_of? Array -%>
+<%        host_value.each do |item| -%>
+<%=         "  #{host_key.split("_").map { |w| w.capitalize}.join} #{item}" %>
+<%        end -%>
+<%      else -%>
+<%=       "  #{host_key.split("_").map { |w| w.capitalize}.join} #{host_value}" %>
+<%      end -%>
 <%    end -%>
 <%  else -%>
 <%=   "#{key.split("_").map { |w| w.capitalize}.join} #{value}"%>
