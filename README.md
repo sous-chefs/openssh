@@ -1,13 +1,14 @@
 openssh Cookbook
 ================
-[![Build Status](https://secure.travis-ci.org/chef-cookbooks/openssh.png?branch=master)](http://travis-ci.org/chef-cookbooks/openssh)
+[![Build Status](https://travis-ci.org/opscode-cookbooks/openssh.svg?branch=master)](https://travis-ci.org/opscode-cookbooks/openssh)
 
 Installs openssh.
 
 
 Requirements
 ------------
-### Platform
+### Platforms
+
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific
 - Fedora
@@ -170,7 +171,7 @@ License & Authors
 - Author:: Adam Jacob <adam@chef.io>
 
 ```text
-Copyright:: 2008-2009, Chef Software, Inc
+Copyright:: 2008-2015, Chef Software, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

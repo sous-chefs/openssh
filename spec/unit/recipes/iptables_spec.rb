@@ -9,8 +9,8 @@ describe 'openssh::iptables' do
     end
 
     it 'contains the default port (22) for sshd' do
-      expect(chef_run).to render_file('/etc/iptables.d/port_ssh').
-        with_content('-A FWR -p tcp -m tcp --dport 22 -j ACCEPT')
+      expect(chef_run).to render_file('/etc/iptables.d/port_ssh')
+        .with_content('-A FWR -p tcp -m tcp --dport 22 -j ACCEPT')
     end
   end
 
@@ -22,8 +22,8 @@ describe 'openssh::iptables' do
     end
 
     it 'contains the non-default port from the attribute' do
-      expect(chef_run).to render_file('/etc/iptables.d/port_ssh').
-        with_content('-A FWR -p tcp -m tcp --dport 4242 -j ACCEPT')
+      expect(chef_run).to render_file('/etc/iptables.d/port_ssh')
+        .with_content('-A FWR -p tcp -m tcp --dport 4242 -j ACCEPT')
     end
   end
 end
