@@ -22,7 +22,6 @@ describe 'openssh::default' do
   end
 
   describe 'sshd_config' do
-
     it 'writes the sshd_config' do
       template = chef_run.template('/etc/ssh/sshd_config')
       expect(template).to be
@@ -46,6 +45,5 @@ describe 'openssh::default' do
       chef_run.converge(described_recipe)
       expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
-
   end
 end

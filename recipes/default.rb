@@ -19,7 +19,7 @@
 
 def listen_addr_for(interface, type)
   interface_node = node['network']['interfaces'][interface]['addresses']
-  interface_node.select { |address, data| data['family'] == type }.keys[0]
+  interface_node.select { |_address, data| data['family'] == type }.keys[0]
 end
 
 node['openssh']['package_name'].each do |name|
@@ -28,13 +28,13 @@ end
 
 template '/etc/ssh/ssh_config' do
   source 'ssh_config.erb'
-  mode   '0644'
-  owner  'root'
-  group  node['openssh']['rootgroup']
+  mode '0644'
+  owner 'root'
+  group node['openssh']['rootgroup']
 end
 
 if node['openssh']['listen_interfaces']
-  listen_addresses = Array.new.tap do |a|
+  listen_addresses = [].tap do |a|
     node['openssh']['listen_interfaces'].each_pair do |interface, type|
       a << listen_addr_for(interface, type)
     end
@@ -45,14 +45,14 @@ end
 
 template '/etc/ssh/sshd_config' do
   source 'sshd_config.erb'
-  mode   node['openssh']['config_mode']
-  owner  'root'
-  group  node['openssh']['rootgroup']
+  mode node['openssh']['config_mode']
+  owner 'root'
+  group node['openssh']['rootgroup']
   notifies :restart, 'service[ssh]'
 end
 
 service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platform'] &&
-  Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
+                                                       Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
 
 service 'ssh' do
   provider service_provider

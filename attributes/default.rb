@@ -23,13 +23,13 @@
 
 default['openssh']['package_name'] = case node['platform_family']
                                      when 'rhel', 'fedora'
-                                       %w[openssh-clients openssh-server]
+                                       %w(openssh-clients openssh-server)
                                      when 'arch', 'suse', 'gentoo'
-                                       %w[openssh]
-                                     when 'freebsd','smartos'
-                                       %w[]
+                                       %w(openssh)
+                                     when 'freebsd', 'smartos'
+                                       %w()
                                      else
-                                       %w[openssh-client openssh-server]
+                                       %w(openssh-client openssh-server)
                                      end
 
 default['openssh']['service_name'] = case node['platform_family']
@@ -90,7 +90,7 @@ default['openssh']['client']['host'] = '*'
 # default['openssh']['server']['host_key_v1'] = '/etc/ssh/ssh_host_key'
 # default['openssh']['server']['host_key_rsa'] = '/etc/ssh/ssh_host_rsa_key'
 # default['openssh']['server']['host_key_dsa'] = '/etc/ssh/ssh_host_dsa_key'
-if platform_family?("smartos")
+if platform_family?('smartos')
   default['openssh']['server']['host_key'] = ['/var/ssh/ssh_host_rsa_key', '/var/ssh/ssh_host_dsa_key']
 end
 # default['openssh']['server']['host_key_ecdsa'] = '/etc/ssh/ssh_host_ecdsa_key'
