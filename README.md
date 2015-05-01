@@ -7,7 +7,8 @@ Installs openssh.
 
 Requirements
 ------------
-### Platform
+### Platforms
+
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific
 - Fedora
