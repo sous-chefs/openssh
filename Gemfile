@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf',  '~> 3.0'
 gem 'chefspec',   '~> 3.0'
+gem 'berkshelf',  '~> 3.2'
 gem 'foodcritic', '~> 4.0'
 gem 'rubocop',    '~> 0.30'
 
