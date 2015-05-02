@@ -57,15 +57,10 @@ service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platfor
 service 'ssh' do
   provider service_provider
   service_name node['openssh']['service_name']
-  supports value_for_platform(
-    'debian' => { 'default' => [:restart, :reload, :status] },
-    'ubuntu' => { 'default' => [:restart, :reload, :status] },
-    'centos' => { 'default' => [:restart, :reload, :status] },
-    'redhat' => { 'default' => [:restart, :reload, :status] },
-    'fedora' => { 'default' => [:restart, :reload, :status] },
-    'scientific' => { 'default' => [:restart, :reload, :status] },
-    'arch' => { 'default' => [:restart] },
-    'default' => { 'default' => [:restart, :reload] }
+  supports value_for_platform_family(
+    %w(debian rhel fedora) => [:restart, :reload, :status],
+    %w(arch) =>  [:restart],
+    'default' => [:restart, :reload]
   )
   action [:enable, :start]
 end
