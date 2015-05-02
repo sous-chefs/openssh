@@ -1,15 +1,33 @@
-driver_plugin: vagrant
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
 driver_config:
   require_chef_omnibus: true
 
 platforms:
-  - name: ubuntu-12.04
-    run_list:
-      - recipe[apt::default]
   - name: ubuntu-14.04
     run_list:
+    - recipe[apt::default]
+  - name: ubuntu-12.04
+    run_list:
+    - recipe[apt::default]
+  - name: ubuntu-10.04
+    run_list:
       - recipe[apt::default]
+  - name: debian-7.8
+    run_list:
+    - recipe[apt::default]
+  - name: debian-6.0.10
+    run_list:
+    - recipe[apt::default]
+  - name: centos-7.1
   - name: centos-6.6
+  - name: centos-5.11
+  - name: fedora-20
+  - name: fedora-21
 
 suites:
   - name: default
