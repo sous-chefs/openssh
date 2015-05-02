@@ -2,7 +2,7 @@ openssh Cookbook
 ================
 [![Build Status](https://travis-ci.org/opscode-cookbooks/openssh.svg?branch=master)](https://travis-ci.org/opscode-cookbooks/openssh)
 
-Installs openssh.
+Installs and configures OpenSSH daemon.
 
 
 Requirements
