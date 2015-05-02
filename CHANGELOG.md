@@ -2,14 +2,19 @@ openssh Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openssh cookbook.
 
-unreleased
-----------
-
+1.4.0 (2015-05-01)
+-------------------
+- #42 - Fixed support for SmartOS
 - #46 - Correct ArchLinux service name
 - #43 - Correct OpenSSH server package name on RHEL, Fedora
 - #31 - Allow included iptables rule to use the same port number if defined in attributes.
 - #41 - Fix default recipe order
 - #47 - Fix up iptables rule
+- #49 - Fixed the print_last_log attribute in the Readme
+- Updated Test Kitchen config with all supported platforms
+- Updated Test Kitchen / Foodcritic / Rubocop / Berkshelf depedencies in the Gemfile
+- Replaced Travis Ruby 1.9.3/2.0.0 testing with 2.1.5/2.2.0
+- Resolved all Rubocop warnings
 
 v1.3.4 (2014-04-23)
 -------------------
