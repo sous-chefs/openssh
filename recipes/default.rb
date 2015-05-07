@@ -48,7 +48,13 @@ template '/etc/ssh/sshd_config' do
   mode node['openssh']['config_mode']
   owner 'root'
   group node['openssh']['rootgroup']
+  notifies :run, 'execute[sshd-config-check]', :immediately
   notifies :restart, 'service[ssh]'
+end
+
+execute 'sshd-config-check' do
+  command 'sshd -t'
+  action :nothing
 end
 
 service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platform'] &&
