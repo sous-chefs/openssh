@@ -57,8 +57,15 @@ execute 'sshd-config-check' do
   action :nothing
 end
 
-service_provider = Chef::Provider::Service::Upstart if 'ubuntu' == node['platform'] &&
-                                                       Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
+service_provider = nil
+
+if  'ubuntu' == node['platform']
+  if Chef::VersionConstraint.new('>= 15.04').include?(node['platform_version'])
+    service_provider = Chef::Provider::Service::Systemd
+  elsif Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
+    service_provider = Chef::Provider::Service::Upstart
+  end
+end
 
 service 'ssh' do
   provider service_provider
