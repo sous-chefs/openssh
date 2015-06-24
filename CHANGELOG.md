@@ -2,6 +2,13 @@ openssh Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openssh cookbook.
 
+UNRELEASED
+----------
+- Perform a config syntax check before restarting the sshd so we don't break remote access to hosts
+- Add support for Ubuntu 15.04+ with systemd
+- Added a chefignore file
+- Added Gitter badge for asking questions in a Gitter chat room
+
 1.4.0 (2015-05-01)
 -------------------
 - #42 - Fixed support for SmartOS
