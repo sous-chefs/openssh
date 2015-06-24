@@ -2,8 +2,8 @@ openssh Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openssh cookbook.
 
-UNRELEASED
-----------
+1.5.0 (2015-06-24)
+------------------
 - Perform a config syntax check before restarting the sshd so we don't break remote access to hosts
 - Add support for Ubuntu 15.04+ with systemd
 - Added a chefignore file
