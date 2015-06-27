@@ -53,7 +53,7 @@ template '/etc/ssh/sshd_config' do
 end
 
 execute 'sshd-config-check' do
-  command 'sshd -t'
+  command '/usr/sbin/sshd -t'
   action :nothing
 end
 
