@@ -2,6 +2,10 @@ openssh Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the openssh cookbook.
 
+1.5.2 (2015-06-29)
+------------------
+- Use the complete path to sshd when verifying the config file since sbin may not be in the path
+
 1.5.0 (2015-06-24)
 ------------------
 - Perform a config syntax check before restarting the sshd so we don't break remote access to hosts
