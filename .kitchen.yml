@@ -8,6 +8,9 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
+  - name: ubuntu-15.04
+    run_list:
+    - recipe[apt::default]
   - name: ubuntu-14.04
     run_list:
     - recipe[apt::default]
