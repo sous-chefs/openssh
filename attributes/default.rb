@@ -46,11 +46,11 @@ default['openssh']['config_mode'] = case node['platform_family']
                                       '0644'
                                     end
 
-default['openssh']['rootgroup']    = case node['platform_family']
-                                     when 'freebsd'
-                                       'wheel'
-                                     else
-                                       'root'
+default['openssh']['rootgroup'] = case node['platform_family']
+                                  when 'freebsd'
+                                    'wheel'
+                                  else
+                                    'root'
                                      end
 
 # ssh config group
