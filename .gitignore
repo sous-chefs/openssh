@@ -24,12 +24,15 @@ _Store
 *.bk
 *.bkup
 .ruby-version
-.idea
+.ruby-gemset
+.rvmrc
 
 # YARD artifacts
 .yardoc
 _yardoc
 doc/
+.idea
+.ruby-version
 
 #chef stuff
 Berksfile.lock
