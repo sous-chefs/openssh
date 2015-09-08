@@ -1,8 +1,7 @@
 openssh Cookbook
 ================
 
-[![Join the chat at https://gitter.im/opscode-cookbooks/openssh](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/opscode-cookbooks/openssh?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/opscode-cookbooks/openssh.svg?branch=master)](https://travis-ci.org/opscode-cookbooks/openssh)
+[![Build Status](https://travis-ci.org/chef-cookbooks/openssh.svg?branch=master)](https://travis-ci.org/chef-cookbooks/openssh)
 [![Cookbook Version](https://img.shields.io/cookbook/v/openssh.svg)](https://supermarket.chef.io/cookbooks/openssh)
 
 Installs and configures OpenSSH daemon.
