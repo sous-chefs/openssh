@@ -4,9 +4,6 @@ driver:
 provisioner:
   name: chef_zero
 
-driver_config:
-  require_chef_omnibus: true
-
 platforms:
   - name: ubuntu-15.04
     run_list:
@@ -33,9 +30,8 @@ platforms:
     run_list:
     - recipe[freebsd::portsnap]
   - name: centos-7.1
-  - name: centos-6.6
+  - name: centos-6.7
   - name: centos-5.11
-  - name: fedora-20
   - name: fedora-21
 
 suites:
