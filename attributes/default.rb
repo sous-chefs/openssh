@@ -51,7 +51,7 @@ default['openssh']['rootgroup'] = case node['platform_family']
                                     'wheel'
                                   else
                                     'root'
-                                     end
+                                  end
 
 # ssh config group
 default['openssh']['client']['host'] = '*'

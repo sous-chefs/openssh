@@ -26,5 +26,5 @@ sshd_port = if node['openssh'].attribute?('server') && node['openssh']['server']
             end
 
 iptables_rule 'port_ssh' do
-  variables :port => sshd_port
+  variables port: sshd_port
 end

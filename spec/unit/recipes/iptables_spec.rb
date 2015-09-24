@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'openssh::iptables' do
   context 'default attribute, no port set' do
-    let(:chef_run) { ChefSpec::ServerRunner.new(:step_into => ['iptables_rule']).converge(described_recipe) }
+    let(:chef_run) { ChefSpec::ServerRunner.new(step_into: ['iptables_rule']).converge(described_recipe) }
 
     it 'renders the iptables rule in a template' do
       expect(chef_run).to create_template('/etc/iptables.d/port_ssh')
@@ -16,7 +16,7 @@ describe 'openssh::iptables' do
 
   context 'non-default port set' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(:step_into => ['iptables_rule']) do |node|
+      ChefSpec::ServerRunner.new(step_into: ['iptables_rule']) do |node|
         node.set['openssh']['server']['port'] = '4242'
       end.converge(described_recipe)
     end

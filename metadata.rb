@@ -9,7 +9,6 @@ version '1.5.2'
 recipe 'openssh', 'Installs openssh'
 recipe 'openssh::iptables', 'Set up iptables to allow SSH inbound'
 
-
 %w(amazon arch centos fedora freebsd oracle redhat scientific smartos suse ubuntu).each do |os|
   supports os
 end
