@@ -71,6 +71,16 @@ This requires use of identity files to connect
 }
 ```
 
+#### Change sshd Port
+
+```json
+"openssh": {
+  "server": {
+    "port": "14188"
+  }
+}
+```
+
 #### Match
 
 ```json
