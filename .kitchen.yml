@@ -5,36 +5,26 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-15.04
-    run_list:
-    - recipe[apt::default]
-  - name: ubuntu-14.04
-    run_list:
-    - recipe[apt::default]
-  - name: ubuntu-12.04
-    run_list:
-    - recipe[apt::default]
-  - name: ubuntu-10.04
-    run_list:
-    - recipe[apt::default]
-  - name: debian-7.8
-    run_list:
-    - recipe[apt::default]
-  - name: debian-6.0.10
-    run_list:
-    - recipe[apt::default]
-  - name: freebsd-9.3
-    run_list:
-    - recipe[freebsd::portsnap]
-  - name: freebsd-10.1
-    run_list:
-    - recipe[freebsd::portsnap]
-  - name: centos-7.1
-  - name: centos-6.7
   - name: centos-5.11
+  - name: centos-6.7
+  - name: centos-7.1
+  - name: debian-7.8
+    run_list: apt::default
+  - name: debian-8.1
+    run_list: apt::default
+  - name: freebsd-9.3
+    run_list: freebsd::portsnap
+  - name: freebsd-10.1
+    run_list: freebsd::portsnap
   - name: fedora-21
+  - name: fedora-22
+  - name: ubuntu-12.04
+    run_list: apt::default
+  - name: ubuntu-14.04
+    run_list: apt::default
+  - name: ubuntu-15.04
+    run_list: apt::default
 
 suites:
   - name: default
-    run_list:
-      - recipe[openssh::default]
+    run_list: openssh::default
