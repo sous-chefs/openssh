@@ -65,6 +65,9 @@ if 'ubuntu' == node['platform']
   elsif Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
     service_provider = Chef::Provider::Service::Upstart
   end
+  unless node[:openssh][:server][:subsystem].nil?
+    node.override['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server'
+  end
 end
 
 service 'ssh' do
