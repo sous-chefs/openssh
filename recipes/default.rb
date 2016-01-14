@@ -2,7 +2,7 @@
 # Cookbook Name:: openssh
 # Recipe:: default
 #
-# Copyright 2008-2015 Chef Software, Inc.
+# Copyright 2008-2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -59,6 +59,7 @@ end
 
 service_provider = nil
 
+# when we drop Chef 11 support we can remove this logic
 if 'ubuntu' == node['platform']
   if Chef::VersionConstraint.new('>= 15.04').include?(node['platform_version'])
     service_provider = Chef::Provider::Service::Systemd
