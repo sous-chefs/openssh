@@ -6,7 +6,7 @@ Installs and configures OpenSSH client and daemon.
 ## Requirements
 ### Platforms
 - Debian/Ubuntu
-- RHEL/CentOS/Scientific
+- RHEL/CentOS/Scientific/Oracle
 - Fedora
 - ArchLinux
 - FreeBSD
