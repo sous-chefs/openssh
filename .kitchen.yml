@@ -4,6 +4,9 @@ driver:
 provisioner:
   name: chef_zero
 
+verifier:
+  name: inspec
+
 platforms:
   - name: centos-5.11
   - name: centos-6.7
@@ -28,3 +31,5 @@ platforms:
 suites:
   - name: default
     run_list: openssh::default
+  - name: iptables
+    run_list: openssh::iptables
