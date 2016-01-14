@@ -12,7 +12,7 @@ Installs and configures OpenSSH client and daemon.
 - FreeBSD
 
 ### Chef
-- Chef 11+
+- Chef 11.6+
 
 ### Cookbooks
 - iptables

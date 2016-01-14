@@ -46,13 +46,6 @@ default['openssh']['config_mode'] = case node['platform_family']
                                       '0644'
                                     end
 
-default['openssh']['rootgroup'] = case node['platform_family']
-                                  when 'freebsd'
-                                    'wheel'
-                                  else
-                                    'root'
-                                  end
-
 # ssh config group
 default['openssh']['client']['host'] = '*'
 # default['openssh']['client']['forward_agent'] = 'no'

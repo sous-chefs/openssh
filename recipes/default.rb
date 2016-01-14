@@ -30,7 +30,7 @@ template '/etc/ssh/ssh_config' do
   source 'ssh_config.erb'
   mode '0644'
   owner 'root'
-  group node['openssh']['rootgroup']
+  group node['root_group']
 end
 
 if node['openssh']['listen_interfaces']
@@ -47,7 +47,7 @@ template '/etc/ssh/sshd_config' do
   source 'sshd_config.erb'
   mode node['openssh']['config_mode']
   owner 'root'
-  group node['openssh']['rootgroup']
+  group node['root_group']
   notifies :run, 'execute[sshd-config-check]', :immediately
   notifies :restart, 'service[ssh]'
 end
