@@ -18,7 +18,7 @@ describe 'openssh::default' do
     expect(template).to be
     expect(template.mode).to eq('0644')
     expect(template.owner).to eq('root')
-    #expect(template.group).to eq('root') # disabled until fauxhai supports root_group
+    # expect(template.group).to eq('root') # disabled until fauxhai supports root_group
   end
 
   describe 'sshd_config' do
@@ -27,7 +27,7 @@ describe 'openssh::default' do
       expect(template).to be
       expect(template.mode).to eq('0644')
       expect(template.owner).to eq('root')
-      #expect(template.group).to eq('root') # disabled until fauxhai supports root_group
+      # expect(template.group).to eq('root') # disabled until fauxhai supports root_group
     end
 
     it 'allow legacy default AuthorizedKeysFile behavior' do

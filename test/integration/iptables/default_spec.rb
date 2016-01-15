@@ -3,7 +3,7 @@ service_name = case os[:family]
                  'ssh'
                else
                  'sshd'
-end
+               end
 
 describe service(service_name) do
   it { should be_enabled }
