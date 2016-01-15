@@ -4,8 +4,10 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 1.6.0 (2016-01-14)
 ------------------
+- Removed the default['openssh']['rootgroup'] attribute and instead use root_group which was introduced in Chef 11.6.0
 - UseRoaming no is now set in the client config to resolve CVE-2016-0777 and CVE-2016-0778
 - Converted bats integration test to 2 suites of Inspec tests
+- Added a libary to sort sshd_config entries while keeping port at the top to prevent sshd from failing to start
 
 1.5.2 (2015-06-29)
 ------------------
