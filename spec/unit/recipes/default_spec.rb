@@ -46,4 +46,17 @@ describe 'openssh::default' do
       expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
   end
+
+  context 'port set without listen address set' do
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new do |node|
+        node.set['openssh']['server']['port'] = 1234
+      end.converge(described_recipe)
+    end
+
+    it 'writes out port at the top of the config' do
+      expect(chef_run).to render_file('/etc/ssh/sshd_config')
+        .with_content(/# Do NOT modify this file by hand!\n\nPort 1234/)
+    end
+  end
 end
