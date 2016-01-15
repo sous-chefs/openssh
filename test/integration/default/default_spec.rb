@@ -14,3 +14,6 @@ describe port(22) do
   it { should be_listening }
 end
 
+describe ssh_config do
+  its('UseRoaming') { should eq 'no' }
+end
