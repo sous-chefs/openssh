@@ -1,8 +1,8 @@
 service_name = case os[:family]
-when 'ubuntu', 'debian'
-  'ssh'
-else
-  'sshd'
+               when 'ubuntu', 'debian'
+                 'ssh'
+               else
+                 'sshd'
 end
 
 describe service(service_name) do

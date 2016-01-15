@@ -48,9 +48,7 @@ template '/etc/ssh/sshd_config' do
   mode   node['openssh']['config_mode']
   owner  'root'
   group  node['root_group']
-  variables({
-    :options => openssh_server_options
-  })
+  variables(options: openssh_server_options)
   notifies :run, 'execute[sshd-config-check]', :immediately
 end
 
