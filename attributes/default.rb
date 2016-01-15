@@ -48,6 +48,7 @@ default['openssh']['config_mode'] = case node['platform_family']
 
 # ssh config group
 default['openssh']['client']['host'] = '*'
+default['openssh']['client']['use_roaming'] = 'no'
 # default['openssh']['client']['forward_agent'] = 'no'
 # default['openssh']['client']['forward_x11'] = 'no'
 # default['openssh']['client']['rhosts_rsa_authentication'] = 'no'
