@@ -1,6 +1,9 @@
 # openssh Cookbook CHANGELOG
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 1.6.1 (2016-01-20)
+- Restored sshd restarting post config change
+
 ## 1.6.0 (2016-01-14)
 - Removed the default['openssh']['rootgroup'] attribute and instead use root_group which was introduced in Chef 11.6.0
 - UseRoaming no is now set in the client config to resolve CVE-2016-0777 and CVE-2016-0778
