@@ -50,6 +50,7 @@ template '/etc/ssh/sshd_config' do
   group  node['root_group']
   variables(options: openssh_server_options)
   notifies :run, 'execute[sshd-config-check]', :immediately
+  notifies :restart, 'service[ssh]'
 end
 
 execute 'sshd-config-check' do
