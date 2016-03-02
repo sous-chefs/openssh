@@ -50,7 +50,13 @@ default['openssh']['config_mode'] = case node['platform_family']
 default['openssh']['client']['host'] = '*'
 
 # Workaround for CVE-2016-0777 and CVE-2016-0778
-default['openssh']['client']['use_roaming'] = 'no'
+if node['platform_family'] == 'rhel'
+  if Chef::VersionConstraint.new('> 6.7').include?(node['platform_version'])
+    default['openssh']['client']['use_roaming'] = 'no'
+  end
+else
+  default['openssh']['client']['use_roaming'] = 'no'
+end
 # default['openssh']['client']['forward_agent'] = 'no'
 # default['openssh']['client']['forward_x11'] = 'no'
 # default['openssh']['client']['rhosts_rsa_authentication'] = 'no'
