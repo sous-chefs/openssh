@@ -13,7 +13,7 @@ recipe 'openssh::iptables', 'Set up iptables to allow SSH inbound'
   supports os
 end
 
-depends 'iptables', '~> 1.0'
+depends 'iptables', '>= 1.0'
 
 source_url 'https://github.com/chef-cookbooks/openssh' if respond_to?(:source_url)
 issues_url 'https://github.com/chef-cookbooks/openssh/issues' if respond_to?(:issues_url)
