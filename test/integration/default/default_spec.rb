@@ -5,6 +5,12 @@ service_name = case os[:family]
                  'sshd'
                end
 
+use_roaming_value = if os[:family] == 'centos' && os[:release].to_i < 7
+                      nil
+                    else
+                      'no'
+                    end
+
 describe service(service_name) do
   it { should be_enabled }
   it { should be_running }
@@ -15,5 +21,5 @@ describe port(22) do
 end
 
 describe ssh_config do
-  its('UseRoaming') { should eq 'no' }
+  its('UseRoaming') { should eq use_roaming_value }
 end
