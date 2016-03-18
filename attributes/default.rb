@@ -50,7 +50,9 @@ default['openssh']['config_mode'] = case node['platform_family']
 default['openssh']['client']['host'] = '*'
 
 # Workaround for CVE-2016-0777 and CVE-2016-0778
-default['openssh']['client']['use_roaming'] = 'no'
+if platform?("redhat", "centos") and node.platform_version.to_f  >= 7.0 then
+  default['openssh']['client']['use_roaming']                     = 'no'
+end
 # default['openssh']['client']['forward_agent'] = 'no'
 # default['openssh']['client']['forward_x11'] = 'no'
 # default['openssh']['client']['rhosts_rsa_authentication'] = 'no'
