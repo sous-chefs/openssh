@@ -49,8 +49,9 @@ default['openssh']['config_mode'] = case node['platform_family']
 # ssh config group
 default['openssh']['client']['host'] = '*'
 
-# Workaround for CVE-2016-0777 and CVE-2016-0778
-default['openssh']['client']['use_roaming'] = 'no'
+# Workaround for CVE-2016-0777 and CVE-2016-0778.
+# Older versions of RHEL should not receive this directive
+default['openssh']['client']['use_roaming'] = 'no' unless node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
 # default['openssh']['client']['forward_agent'] = 'no'
 # default['openssh']['client']['forward_x11'] = 'no'
 # default['openssh']['client']['rhosts_rsa_authentication'] = 'no'
