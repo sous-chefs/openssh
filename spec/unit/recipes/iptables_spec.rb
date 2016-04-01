@@ -26,4 +26,18 @@ describe 'openssh::iptables' do
         .with_content('-A FWR -p tcp -m tcp --dport 4242 -j ACCEPT')
     end
   end
+
+  context 'supports multiple ports' do
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new(step_into: ['iptables_rule']) do |node|
+        node.set['openssh']['server']['port'] = [1234, 1235]
+      end.converge(described_recipe)
+    end
+
+    it 'contains both ports from' do
+      expect(chef_run).to render_file('/etc/iptables.d/port_ssh')
+        .with_content('-A FWR -p tcp -m tcp --dport 1234 -j ACCEPT')
+        .with_content('-A FWR -p tcp -m tcp --dport 1235 -j ACCEPT')
+    end
+  end
 end
