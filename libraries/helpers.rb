@@ -23,7 +23,7 @@
 module Openssh
   module Helpers
     def openssh_server_options
-      options = node['openssh']['server'].sort.reject { |key, _value| key == 'port' || key == 'match' }
+      options = node['openssh']['server'].sort.reject { |key, _value| key == 'port' || key == 'match' || key == 'subsystem' }
       unless node['openssh']['server']['port'].nil?
         port = node['openssh']['server'].select { |key| key == 'port' }.to_a
         options.unshift(*port)
