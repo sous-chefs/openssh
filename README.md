@@ -11,8 +11,8 @@ Installs and configures OpenSSH client and daemon.
 - Debian/Ubuntu
 - RHEL/CentOS/Scientific/Oracle
 - Fedora
-- ArchLinux
 - FreeBSD
+- openSUSE
 
 ### Chef
 
