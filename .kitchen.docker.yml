@@ -21,6 +21,7 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install lsb-release net-tools -y
+      - RUN mkdir /var/run
 
 - name: debian-8
   driver:
