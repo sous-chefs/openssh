@@ -59,4 +59,18 @@ describe 'openssh::default' do
         .with_content(/# Do NOT modify this file by hand!\n\nPort 1234/)
     end
   end
+
+  context 'supports multiple ports' do
+    let(:chef_run) do
+      ChefSpec::ServerRunner.new do |node|
+        node.set['openssh']['server']['port'] = [1234, 1235]
+      end.converge(described_recipe)
+    end
+
+    it 'writes both ports to sshd_config' do
+      expect(chef_run).to render_file('/etc/ssh/sshd_config')
+        .with_content(/Port 1234/)
+        .with_content(/Port 1235/)
+    end
+  end
 end
