@@ -16,7 +16,7 @@ Installs and configures OpenSSH client and daemon.
 
 ### Chef
 
-- Chef 12+
+- Chef 12.1+
 
 ### Cookbooks
 

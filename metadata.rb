@@ -15,7 +15,7 @@ end
 
 depends 'iptables', '>= 1.0'
 
-source_url 'https://github.com/chef-cookbooks/openssh' if respond_to?(:source_url)
-issues_url 'https://github.com/chef-cookbooks/openssh/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/chef-cookbooks/openssh'
+issues_url 'https://github.com/chef-cookbooks/openssh/issues'
 
-chef_version '>= 12.0' if respond_to?(:chef_version)
+chef_version '>= 12.1'
