@@ -35,13 +35,13 @@ describe 'openssh::default' do
     end
 
     it 'writes a match group block' do
-      chef_run.node.set['openssh']['server']['match'] = { 'Group admins' => { 'permit_tunnel' => 'yes' } }
+      chef_run.node.normal['openssh']['server']['match'] = { 'Group admins' => { 'permit_tunnel' => 'yes' } }
       chef_run.converge(described_recipe)
       expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
 
     it 'skips match group block' do
-      chef_run.node.set['openssh']['server']['match'] = {}
+      chef_run.node.normal['openssh']['server']['match'] = {}
       chef_run.converge(described_recipe)
       expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
@@ -50,7 +50,7 @@ describe 'openssh::default' do
   context 'port set without listen address set' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new do |node|
-        node.set['openssh']['server']['port'] = 1234
+        node.normal['openssh']['server']['port'] = 1234
       end.converge(described_recipe)
     end
 
@@ -63,7 +63,7 @@ describe 'openssh::default' do
   context 'supports multiple ports' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new do |node|
-        node.set['openssh']['server']['port'] = [1234, 1235]
+        node.normal['openssh']['server']['port'] = [1234, 1235]
       end.converge(described_recipe)
     end
 

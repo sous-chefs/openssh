@@ -17,7 +17,7 @@ describe 'openssh::iptables' do
   context 'non-default port set' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(step_into: ['iptables_rule']) do |node|
-        node.set['openssh']['server']['port'] = '4242'
+        node.normal['openssh']['server']['port'] = '4242'
       end.converge(described_recipe)
     end
 
@@ -30,7 +30,7 @@ describe 'openssh::iptables' do
   context 'supports multiple ports' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(step_into: ['iptables_rule']) do |node|
-        node.set['openssh']['server']['port'] = [1234, 1235]
+        node.normal['openssh']['server']['port'] = [1234, 1235]
       end.converge(described_recipe)
     end
 
