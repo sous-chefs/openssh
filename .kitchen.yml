@@ -29,9 +29,22 @@ platforms:
     run_list: apt::default
   - name: ubuntu-16.04
     run_list: apt::default
+  - name: macosx-10.10
+    run_list: homebrew::default
+    driver:
+      box: chef/macosx-10.10 # private box in Chef's Atlas account
+      provider: vmware_fusion
+  - name: macosx-10.11
+    run_list: homebrew::default
+    driver:
+      box: chef/macosx-10.11 # private box in Chef's Atlas account
+      provider: vmware_fusion
 
 suites:
   - name: default
     run_list: openssh::default
   - name: iptables
     run_list: openssh::iptables
+    excludes:
+      - macosx-10.10
+      - macosx-10.11
