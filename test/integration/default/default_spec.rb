@@ -1,11 +1,10 @@
-service_name = case os[:family]
-               when 'ubuntu', 'debian'
+service_name = if os.debian?
                  'ssh'
                else
                  'sshd'
                end
 
-use_roaming_value = if os[:family] == 'centos' && os[:release].to_i < 7
+use_roaming_value = if os.redhat? && os[:release].to_i < 7
                       nil
                     else
                       'no'
