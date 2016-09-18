@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'openssh::default' do
-  let(:chef_run) { ChefSpec::ServerRunner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe) }
 
   it 'installs the openssh packages' do
     expect(chef_run).to install_package('openssh-client')
@@ -18,7 +18,7 @@ describe 'openssh::default' do
     expect(template).to be
     expect(template.mode).to eq('0644')
     expect(template.owner).to eq('root')
-    # expect(template.group).to eq('root') # disabled until fauxhai supports root_group
+    expect(template.group).to eq('root')
   end
 
   describe 'sshd_config' do
@@ -27,7 +27,7 @@ describe 'openssh::default' do
       expect(template).to be
       expect(template.mode).to eq('0644')
       expect(template.owner).to eq('root')
-      # expect(template.group).to eq('root') # disabled until fauxhai supports root_group
+      expect(template.group).to eq('root')
     end
 
     it 'allow legacy default AuthorizedKeysFile behavior' do
@@ -49,7 +49,7 @@ describe 'openssh::default' do
 
   context 'port set without listen address set' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new do |node|
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
         node.normal['openssh']['server']['port'] = 1234
       end.converge(described_recipe)
     end
