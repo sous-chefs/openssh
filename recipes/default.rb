@@ -58,22 +58,7 @@ execute 'sshd-config-check' do
   action :nothing
 end
 
-service_provider = nil
-
-# when we drop Chef 11 support we can remove this logic
-if 'ubuntu' == node['platform']
-  if Chef::VersionConstraint.new('>= 15.04').include?(node['platform_version'])
-    service_provider = Chef::Provider::Service::Systemd
-  elsif Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
-    service_provider = Chef::Provider::Service::Upstart
-  end
-  unless node[:openssh][:server][:subsystem].nil?
-    node.override['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server'
-  end
-end
-
 service 'ssh' do
-  provider service_provider
   service_name node['openssh']['service_name']
   supports value_for_platform_family(
     %w(debian rhel fedora) => [:restart, :reload, :status],
