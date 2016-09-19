@@ -2,6 +2,20 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.1.0 (2016-09-18)
+- Add support for multiple sshd ports.
+- Switch to kitchen-dokken for integration testing in Travis CI
+- EL7 intentionally lacks of auto-gen'd DSA key
+- Fix commented default for ciphers and macs
+- Add chef_version metadata
+- Remove hostnames from the templates
+- Basic Mac OS support
+- Avoid node.set deprecation warnings
+- Require Chef 12.1+
+- Fix inspec tests
+- Remove the service provider logic that isn't necessary in Chef 12
+- Set the sftp subsystem on Ubuntu
+
 ## 2.0.0 (2016-03-18)
 
 - Don't set the Roaming No directive on RHEL systems before 7.0 as they ship with a sshd release which does not handle this directive
