@@ -19,6 +19,13 @@ describe port(22) do
   it { should be_listening }
 end
 
+describe file('/var/run/sshd') do
+  it { should be_directory }
+  it { should be_mode 0755 }
+  it { should be_owned_by 'root' }
+  it { should be_grouped_into 'root' }
+end
+
 describe ssh_config do
   its('UseRoaming') { should eq use_roaming_value }
 end

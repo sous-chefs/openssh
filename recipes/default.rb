@@ -49,8 +49,16 @@ template '/etc/ssh/sshd_config' do
   owner 'root'
   group node['root_group']
   variables(options: openssh_server_options)
+  notifies :create, 'directory[/var/run/sshd]', :immediately
   notifies :run, 'execute[sshd-config-check]', :immediately
   notifies :restart, 'service[ssh]'
+end
+
+directory '/var/run/sshd' do
+  mode '0755'
+  owner 'root'
+  group 'root'
+  action :nothing
 end
 
 execute 'sshd-config-check' do
