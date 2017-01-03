@@ -2,7 +2,13 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.1.1 (2017-01-03)
+
+- Fix for sftp on rhel
+- Add all supported SUSE releases to the readme and metadata
+
 ## 2.1.0 (2016-09-18)
+
 - Add support for multiple sshd ports.
 - Switch to kitchen-dokken for integration testing in Travis CI
 - EL7 intentionally lacks of auto-gen'd DSA key
