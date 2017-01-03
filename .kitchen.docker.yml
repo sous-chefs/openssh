@@ -96,7 +96,7 @@ platforms:
     image: opensuse:leap
     pid_one_command: /bin/systemd
     intermediate_instructions:
-      - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which hostname
+      - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools
 
 suites:
   - name: default
