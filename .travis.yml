@@ -24,7 +24,7 @@ env:
   - INSTANCE=default-ubuntu-1604
     #  - INSTANCE=default-debian-7 # fails due to missing /var/run/sshd in docker
   - INSTANCE=default-debian-8
-  - INSTANCE=default-fedora-latest
+    #  - INSTANCE=default-fedora-latest # fails due to missing ssh keys in the docker instance
   - INSTANCE=default-centos-6
   - INSTANCE=default-centos-7
   - INSTANCE=default-opensuse-132
