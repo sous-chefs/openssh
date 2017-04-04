@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.2.0 (2017-04-03)
+
+- Test with Local Delivery instead of Rake
+- Initial Amazon Linux support for Chef 13
+
 ## 2.1.1 (2017-01-03)
 
 - Fix for sftp on rhel
