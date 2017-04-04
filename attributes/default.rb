@@ -22,7 +22,7 @@
 #
 
 default['openssh']['package_name'] = case node['platform_family']
-                                     when 'rhel', 'fedora'
+                                     when 'rhel', 'fedora', 'amazon'
                                        %w(openssh-clients openssh-server)
                                      when 'arch', 'suse', 'gentoo'
                                        %w(openssh)
@@ -33,14 +33,14 @@ default['openssh']['package_name'] = case node['platform_family']
                                      end
 
 default['openssh']['service_name'] = case node['platform_family']
-                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x'
+                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon'
                                        'sshd'
                                      else
                                        'ssh'
                                      end
 
 default['openssh']['config_mode'] = case node['platform_family']
-                                    when 'rhel', 'fedora'
+                                    when 'rhel', 'fedora', 'amazon'
                                       '0600'
                                     else
                                       '0644'
