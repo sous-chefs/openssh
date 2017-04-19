@@ -33,7 +33,7 @@ default['openssh']['package_name'] = case node['platform_family']
                                      end
 
 default['openssh']['service_name'] = case node['platform_family']
-                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon'
+                                    when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix'
                                        'sshd'
                                      else
                                        'ssh'
