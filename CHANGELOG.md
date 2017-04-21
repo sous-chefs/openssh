@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.3.1 (2017-04-20)
+
+- Fix AIX service to skip enable since AIX does not support enable
+
 ## 2.3.0 (2017-04-19)
 
 - Add basic AIX support
