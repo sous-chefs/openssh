@@ -65,5 +65,8 @@ service 'ssh' do
     %w(arch) =>  [:restart],
     'default' => [:restart, :reload]
   )
-  action [:enable, :start]
+  action value_for_platform_family(
+    %w(aix) => [:start],
+    'default' => [:enable, :start]
+  )
 end
