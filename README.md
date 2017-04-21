@@ -14,6 +14,7 @@ Installs and configures OpenSSH client and daemon.
 - FreeBSD
 - Suse Enterprise Linux
 - openSUSE / openSUSE leap
+- AIX 7.1
 
 ### Chef
 
