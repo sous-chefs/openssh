@@ -90,7 +90,8 @@ default['openssh']['client']['use_roaming'] = 'no' unless node['platform_family'
 if platform_family?('smartos') || (platform_family?('rhel') && node['platform_version'].to_i == 6)
   default['openssh']['server']['host_key'] = ['/var/ssh/ssh_host_rsa_key', '/var/ssh/ssh_host_dsa_key']
 end
-if (platform_family?('rhel') && node['platform_version'].to_i == 7) || platform?('amazon')
+
+if (platform_family?('rhel') && node['platform_version'].to_i == 7) || platform?('amazon') || platform_family?('debian')
   # EL7 does not generate a DSA key by default like EL6 used to, yet
   # the upstream OpenSSH code wants to find one, so continually spits
   # out a harmless error line to syslog. So we explicitly indicate the
