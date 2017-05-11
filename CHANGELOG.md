@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.4.0 (2017-05-11)
+
+- Config fixes for the sshd config on Amazon Linux
+- Use the correct ssh host keys on RHEL 6
+- Use the right sftp subsystem on Debian and Fedora
+- Make sure the hostkeys are set on Debian/Ubuntu
+
 ## 2.3.1 (2017-04-20)
 
 - Fix AIX service to skip enable since AIX does not support enable
