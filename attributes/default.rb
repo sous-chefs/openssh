@@ -90,7 +90,7 @@ default['openssh']['client']['use_roaming'] = 'no' unless node['platform_family'
 if platform_family?('smartos')
   default['openssh']['server']['host_key'] = ['/var/ssh/ssh_host_rsa_key', '/var/ssh/ssh_host_dsa_key']
 end
-if platform_family?('rhel') && node['platform_version'].to_i == 7
+if (platform_family?('rhel') && node['platform_version'].to_i == 7) || platform?('amazon')
   # EL7 does not generate a DSA key by default like EL6 used to, yet
   # the upstream OpenSSH code wants to find one, so continually spits
   # out a harmless error line to syslog. So we explicitly indicate the
@@ -114,7 +114,7 @@ end
 # default['openssh']['server']['host_based_authentication'] = 'no'
 # default['openssh']['server']['ignore_user_known_hosts'] = 'no'
 # default['openssh']['server']['ignore_rhosts'] = 'yes'
-# default['openssh']['server']['password_authentication'] = 'yes'
+default['openssh']['server']['password_authentication'] = 'no' if platform?('amazon')
 # default['openssh']['server']['permit_empty_passwords'] = 'no'
 default['openssh']['server']['challenge_response_authentication'] = 'no'
 # default['openssh']['server']['kerberos_authentication'] = 'no'
@@ -146,7 +146,7 @@ default['openssh']['server']['use_p_a_m'] = 'yes' unless platform_family?('smart
 # default['openssh']['server']['chroot_directory'] = 'none'
 # default['openssh']['server']['banner'] = 'none'
 # default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
-default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/openssh/sftp-server' if platform_family?('rhel')
+default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/openssh/sftp-server' if platform_family?('rhel', 'amazon')
 default['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server' if platform_family?('fedora')
 default['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server' if platform?('ubuntu')
 default['openssh']['server']['match'] = {}
