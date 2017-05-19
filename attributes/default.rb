@@ -46,6 +46,11 @@ default['openssh']['config_mode'] = case node['platform_family']
                                       '0644'
                                     end
 
+# trusted ca keys
+default['openssh']['ca_keys'] = %w()
+# revoked keys
+default['openssh']['revoked_keys'] = %w()
+
 # ssh config group
 default['openssh']['client']['host'] = '*'
 
@@ -147,6 +152,8 @@ default['openssh']['server']['use_p_a_m'] = 'yes' unless platform_family?('smart
 # default['openssh']['server']['chroot_directory'] = 'none'
 # default['openssh']['server']['banner'] = 'none'
 # default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
+default['openssh']['server']['trusted_user_c_a_keys'] = '/etc/ssh/ca_keys'
+default['openssh']['server']['revoked_keys'] = '/etc/ssh/revoked_keys'
 default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/openssh/sftp-server' if platform_family?('rhel', 'amazon', 'fedora')
 default['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server' if platform_family?('debian')
 default['openssh']['server']['match'] = {}

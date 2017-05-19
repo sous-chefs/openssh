@@ -62,6 +62,45 @@ describe 'openssh::default on any platform (happens to be Ubuntu)' do
           .with_content(/Port 1235/)
       end
     end
+
+    context 'supports ca keys and revoked keys' do
+      let(:chef_run) do
+        ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+          node.normal['openssh']['ca_keys'] = ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJt7VN0YkI2jVnWUod8I/Qy9Am4lq0VOmFUTbzrMVTM8iut8E7heWu8G5QsDFLi3BNcU5wnwWO8rTWZZh1CJq6+zVn010rUYZhDxjlvFD4ZOUrN4RqsxSPBAaW2tgNXwoNeBgx/ZIrDSqj1xKP2Dixri2AxAuTQvxLn249dAv6MRwBGWJDtqOo0606VdQ933lq7eoYy57wvLtHBQHqZnjboIUtBxQTLyHrGTc0UdUrWRTtU8geynX2ABRWYKrHsXixgqPcYiiJOyrMufQEWzXr4u6PQs5LiSVsM9b6n8Aq184LDJiybDhQXEYnO8VeCV8v8GaDOGV4HB9W/15Fpxd/ ca']
+          node.normal['openssh']['revoked_keys'] = ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeNFbS05i75Na662aH5uzXvdWqWxLELs1kEy3L60EYJpZ9GzJ4ByR7Gk2EQE5Knvpm/ck3en6ef1nyJzniELrPwO1OwVqVfNGjiz+4cl9EjReuk+wKWhoHpM2clEpp52Kl0TSBKt+oDCsv0REc0uSyi7rWkQSuRqnZvoxx3M7UIWJhMpFYKM2Few8c90ckHG4SY1Qcj2E/zI5ueVDz/jRfogF10dgSC8J4H6OO9+4N42EASQDbWFx1CO5jqB+1dmf3/7KbvdZUsO9zF1D5Kphk+bLm4SnIQsOJE5cfnqSNIvP6UcW2gNxHD4inxGQvz5Gljk3yYZ7n6HwDHo7hukpP user']
+        end.converge('openssh::default')
+      end
+
+      it 'writes the ca_keys' do
+        template = chef_run.template('/etc/ssh/ca_keys')
+        expect(template).to be
+        expect(template.mode).to eq('0644')
+        expect(template.owner).to eq('root')
+        expect(template.group).to eq('root')
+      end
+
+      it 'writes the revoked_keys' do
+        template = chef_run.template('/etc/ssh/revoked_keys')
+        expect(template).to be
+        expect(template.mode).to eq('0644')
+        expect(template.owner).to eq('root')
+        expect(template.group).to eq('root')
+      end
+
+      it 'writes ca public key to ca_keys file' do
+        expect(chef_run).to render_file('/etc/ssh/ca_keys')
+          .with_content { |content|
+            expect(content).to include('ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJt7VN0YkI2jVnWUod8I/Qy9Am4lq0VOmFUTbzrMVTM8iut8E7heWu8G5QsDFLi3BNcU5wnwWO8rTWZZh1CJq6+zVn010rUYZhDxjlvFD4ZOUrN4RqsxSPBAaW2tgNXwoNeBgx/ZIrDSqj1xKP2Dixri2AxAuTQvxLn249dAv6MRwBGWJDtqOo0606VdQ933lq7eoYy57wvLtHBQHqZnjboIUtBxQTLyHrGTc0UdUrWRTtU8geynX2ABRWYKrHsXixgqPcYiiJOyrMufQEWzXr4u6PQs5LiSVsM9b6n8Aq184LDJiybDhQXEYnO8VeCV8v8GaDOGV4HB9W/15Fpxd/ ca')
+          }
+      end
+
+      it 'writes user public key to revoked_keys file' do
+        expect(chef_run).to render_file('/etc/ssh/revoked_keys')
+          .with_content { |content|
+            expect(content).to include('ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeNFbS05i75Na662aH5uzXvdWqWxLELs1kEy3L60EYJpZ9GzJ4ByR7Gk2EQE5Knvpm/ck3en6ef1nyJzniELrPwO1OwVqVfNGjiz+4cl9EjReuk+wKWhoHpM2clEpp52Kl0TSBKt+oDCsv0REc0uSyi7rWkQSuRqnZvoxx3M7UIWJhMpFYKM2Few8c90ckHG4SY1Qcj2E/zI5ueVDz/jRfogF10dgSC8J4H6OO9+4N42EASQDbWFx1CO5jqB+1dmf3/7KbvdZUsO9zF1D5Kphk+bLm4SnIQsOJE5cfnqSNIvP6UcW2gNxHD4inxGQvz5Gljk3yYZ7n6HwDHo7hukpP user')
+          }
+      end
+    end
   end
 end
 

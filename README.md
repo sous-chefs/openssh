@@ -28,7 +28,7 @@ Installs and configures OpenSSH client and daemon.
 
 ### default
 
-Installs openssh packages, manages the sshd config file, and starts/enables the sshd service.
+Installs openssh packages, manages the sshd config file, configure trusted ca keys, configure revoked keys, and starts/enables the sshd service.
 
 ### iptables
 
@@ -134,6 +134,31 @@ Not to be used with `node['openssh']['listen_interfaces']`.
   "listen_interfaces": {
     "eth0": "inet",
     "eth1": "inet6"
+  }
+}
+```
+### Configure Trusted User CA Keys.
+
+```json
+"openssh": {
+  "server": {
+    "trusted_user_c_a_keys": [
+      "ssh-rsa key... ca_id_1",
+      "ssh-rsa key... ca_id_2"
+    ]
+  }
+}
+```
+
+### Configure Revoked Keys.
+
+```json
+"openssh": {
+  "server": {
+    "revoked_keys": [
+      "ssh-rsa key... user_key_1",
+      "ssh-rsa key... user_key_2"
+    ]
   }
 }
 ```
