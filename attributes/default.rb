@@ -91,7 +91,7 @@ if platform_family?('smartos')
   default['openssh']['server']['host_key'] = ['/var/ssh/ssh_host_rsa_key', '/var/ssh/ssh_host_dsa_key']
 end
 
-if (platform_family?('rhel') && node['platform_version'].to_i == 6)
+if platform_family?('rhel') && node['platform_version'].to_i == 6
   default['openssh']['server']['host_key'] = ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_dsa_key']
 end
 
