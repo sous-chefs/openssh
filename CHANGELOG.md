@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.4.1 (2017-05-22)
+
+- Fix a bug that resulted in RHEL 6 cert paths being incorrect and expanded testing to check ssh login behavior not just config validation.
+
 ## 2.4.0 (2017-05-11)
 
 - Config fixes for the sshd config on Amazon Linux
