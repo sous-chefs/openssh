@@ -108,7 +108,7 @@ describe 'openssh::default on CentOS 6.8' do
 end
 
 describe 'openssh::default on Fedora' do
-  let(:chef_run) { ChefSpec::ServerRunner.new(platform: 'fedora', version: '23').converge('openssh::default') }
+  let(:chef_run) { ChefSpec::ServerRunner.new(platform: 'fedora', version: '25').converge('openssh::default') }
 
   it 'installs the openssh packages' do
     expect(chef_run).to install_package('openssh-clients')
