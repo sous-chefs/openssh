@@ -69,6 +69,12 @@ template '/etc/ssh/sshd_config' do
   notifies :restart, 'service[ssh]'
 end
 
+service 'sshd-keygen' do
+  supports [:restart, :reload, :status]
+  action [:enable, :start]
+  only_if { ::File.exist?('/usr/lib/systemd/system/sshd-keygen.service') }
+end
+
 execute 'sshd-config-check' do
   command '/usr/sbin/sshd -t'
   action :nothing
