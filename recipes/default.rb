@@ -22,9 +22,7 @@ def listen_addr_for(interface, type)
   interface_node.select { |_address, data| data['family'] == type }.keys[0]
 end
 
-node['openssh']['package_name'].each do |name|
-  package name
-end
+package node['openssh']['package_name'] unless node['openssh']['package_name'].empty?
 
 template '/etc/ssh/ssh_config' do
   source 'ssh_config.erb'
