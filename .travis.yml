@@ -23,6 +23,7 @@ env:
   - INSTANCE=default-ubuntu-1604
     #  - INSTANCE=default-debian-7 # fails due to missing /var/run/sshd in docker
   - INSTANCE=default-debian-8
+  - INSTANCE=default-debian-9
   - INSTANCE=default-fedora-latest
   - INSTANCE=default-centos-6
   - INSTANCE=default-centos-7
