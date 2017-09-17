@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.5.0 (2017-09-16)
+
+- Added TrustedUserCAKeys and RevokedKeys support
+- Enabled Foodcritic FC024 again
+- Generate keys on systemd boxes before validating configs by starting sshd-keygen service if it exists. This prevents failures in docker
+- Use multipackage installs to install client/server packages to speed up the chef run
+- Add Debian 9 testing in Travis
+- Add more platforms to Chefspecs, avoid deprecation warnings, and greatly speed up specs
+
 ## 2.4.1 (2017-05-22)
 
 - Fix a bug that resulted in RHEL 6 cert paths being incorrect and expanded testing to check ssh login behavior not just config validation.
