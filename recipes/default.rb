@@ -22,9 +22,7 @@ def listen_addr_for(interface, type)
   interface_node.select { |_address, data| data['family'] == type }.keys[0]
 end
 
-node['openssh']['package_name'].each do |name|
-  package name
-end
+package node['openssh']['package_name'] unless node['openssh']['package_name'].empty?
 
 template '/etc/ssh/ssh_config' do
   source 'ssh_config.erb'
@@ -65,6 +63,7 @@ template '/etc/ssh/sshd_config' do
   owner 'root'
   group node['root_group']
   variables(options: openssh_server_options)
+  notifies :start, 'service[sshd-keygen]', :immediately
   notifies :run, 'execute[sshd-config-check]', :immediately
   notifies :restart, 'service[ssh]'
 end
@@ -72,6 +71,12 @@ end
 execute 'sshd-config-check' do
   command '/usr/sbin/sshd -t'
   action :nothing
+end
+
+service 'sshd-keygen' do
+  supports [:restart, :reload, :status]
+  action :nothing
+  only_if { ::File.exist?('/usr/lib/systemd/system/sshd-keygen.service') }
 end
 
 service 'ssh' do
