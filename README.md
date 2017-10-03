@@ -141,12 +141,10 @@ Not to be used with `node['openssh']['listen_interfaces']`.
 
 ```json
 "openssh": {
-  "server": {
-    "trusted_user_c_a_keys": [
-      "ssh-rsa key... ca_id_1",
-      "ssh-rsa key... ca_id_2"
-    ]
-  }
+  "ca_keys": [
+    "ssh-rsa key... ca_id_1",
+    "ssh-rsa key... ca_id_2"
+  ]
 }
 ```
 
