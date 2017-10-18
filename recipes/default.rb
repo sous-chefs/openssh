@@ -57,6 +57,12 @@ template 'sshd_revoked_keys_file' do
   group node['root_group']
 end
 
+execute 'generate sshd host keys' do
+  command sshd_keygen_command
+  action :run
+  only_if { keygen_platform? && sshd_host_keys_missing? }
+end
+
 template '/etc/ssh/sshd_config' do
   source 'sshd_config.erb'
   mode node['openssh']['config_mode']
@@ -70,12 +76,6 @@ end
 execute 'sshd-config-check' do
   command '/usr/sbin/sshd -t'
   action :nothing
-end
-
-execute 'generate sshd host keys' do
-  command sshd_keygen_command
-  action :run
-  only_if { keygen_platform? && sshd_host_keys_missing? }
 end
 
 service 'ssh' do
