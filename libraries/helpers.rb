@@ -31,16 +31,19 @@ module Openssh
       options
     end
 
+    # path to the sshd-keygen binary
     def sshd_keygen_command
       platform_family?('rhel') ? '/usr/sbin/sshd-keygen' : '/usr/libexec/openssh/sshd-keygen'
     end
 
+    # are we on a platform that has the sshd-keygen command. It's a redhat-ism so it's a limited number
     def keygen_platform?
       platform_family?('rhel', 'fedora') &&
         node['platform_version'].to_i >= 7 &&
         !platform?('amazon')
     end
 
+    # are any of the host keys defined in the attribute missing from the filesystem
     def sshd_host_keys_missing?
       !node['openssh']['server']['host_key'].all? { |f| ::File.exist?(f) }
     end
