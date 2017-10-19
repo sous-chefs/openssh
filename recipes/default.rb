@@ -57,10 +57,15 @@ template 'sshd_revoked_keys_file' do
   group node['root_group']
 end
 
-execute 'generate sshd host keys' do
-  command sshd_keygen_command
-  action :run
-  only_if { keygen_platform? && sshd_host_keys_missing? }
+if keygen_platform? && sshd_host_keys_missing?
+  if platform?('fedora')
+    node['openssh']['server']['host_key'].each do |key|
+      keytype = key.split('_')[-2]
+      execute "/usr/libexec/openssh/sshd-keygen #{keytype}"
+    end
+  elsif platform_family?('rhel')
+    execute '/usr/sbin/sshd-keygen'
+  end
 end
 
 template '/etc/ssh/sshd_config' do

@@ -31,11 +31,6 @@ module Openssh
       options
     end
 
-    # path to the sshd-keygen binary
-    def sshd_keygen_command
-      platform_family?('rhel') ? '/usr/sbin/sshd-keygen' : '/usr/libexec/openssh/sshd-keygen'
-    end
-
     # are we on a platform that has the sshd-keygen command. It's a redhat-ism so it's a limited number
     def keygen_platform?
       platform_family?('rhel', 'fedora') &&
@@ -51,3 +46,4 @@ module Openssh
 end
 
 Chef::Resource.send(:include, ::Openssh::Helpers)
+Chef::Recipe.send(:include, ::Openssh::Helpers)
