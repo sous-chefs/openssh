@@ -57,6 +57,8 @@ template 'sshd_revoked_keys_file' do
   group node['root_group']
 end
 
+# this will only execute on RHEL / Fedora systems where sshd has never been started
+# 99.99% of the time this is going to be a docker container
 if keygen_platform? && sshd_host_keys_missing?
   if platform?('fedora')
     node['openssh']['server']['host_key'].each do |key|
