@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.6.0 (2017-10-18)
+
+- Fixed trusted user CA key documentation
+- Collapse the smartos hostkey attributes into the centos 6 attributes since they were the same values
+- Make sure the hostkey attribute works when RHEL 8 comes out by not constraining the version check too much
+- Run sshd-keygen on Fedora / CentOS 7 when host keys are missing. Why would keys be missing? Well if you've never run sshd then you don't have keys on RHEL/Fedora. This happens primarily when you try to Chef a container
+- Add Testing on Chef 12 to Travis so we test both 12 and 13
+- Move the flat helper methods into an actual library that is properly loaded
+
 ## 2.5.0 (2017-09-16)
 
 - Added TrustedUserCAKeys and RevokedKeys support
