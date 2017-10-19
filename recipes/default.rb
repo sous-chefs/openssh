@@ -57,13 +57,25 @@ template 'sshd_revoked_keys_file' do
   group node['root_group']
 end
 
+# this will only execute on RHEL / Fedora systems where sshd has never been started
+# 99.99% of the time this is going to be a docker container
+if keygen_platform? && sshd_host_keys_missing?
+  if platform?('fedora')
+    node['openssh']['server']['host_key'].each do |key|
+      keytype = key.split('_')[-2]
+      execute "/usr/libexec/openssh/sshd-keygen #{keytype}"
+    end
+  elsif platform_family?('rhel')
+    execute '/usr/sbin/sshd-keygen'
+  end
+end
+
 template '/etc/ssh/sshd_config' do
   source 'sshd_config.erb'
   mode node['openssh']['config_mode']
   owner 'root'
   group node['root_group']
   variables(options: openssh_server_options)
-  notifies :start, 'service[sshd-keygen]', :immediately
   notifies :run, 'execute[sshd-config-check]', :immediately
   notifies :restart, 'service[ssh]'
 end
@@ -71,12 +83,6 @@ end
 execute 'sshd-config-check' do
   command '/usr/sbin/sshd -t'
   action :nothing
-end
-
-service 'sshd-keygen' do
-  supports [:restart, :reload, :status]
-  action :nothing
-  only_if { ::File.exist?('/usr/lib/systemd/system/sshd-keygen.service') }
 end
 
 service 'ssh' do
