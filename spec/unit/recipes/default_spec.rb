@@ -104,6 +104,19 @@ describe 'openssh::default on any platform (happens to be Ubuntu)' do
   end
 end
 
+describe 'openssh::default on Debian 7' do
+  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'debian', version: '7.9').converge('openssh::default') }
+
+  it 'upgrades the openssh packages using wheezy-backports' do
+    expect(chef_run).to upgrade_package(['openssh-client', 'openssh-server']).with(default_release: 'wheezy-backports', options: ["-o", "Dpkg::Options::=--force-confnew"])
+  end
+
+  it 'starts the ssh service' do
+    expect(chef_run).to start_service('ssh')
+    expect(chef_run).to enable_service('ssh')
+  end
+end
+
 describe 'openssh::default on Debian 8' do
   cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9').converge('openssh::default') }
 
