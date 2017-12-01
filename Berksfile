@@ -5,5 +5,4 @@ metadata
 group :integration do
   cookbook 'apt'
   cookbook 'homebrew'
-  cookbook 'freebsd'
 end

@@ -65,7 +65,7 @@ if keygen_platform? && sshd_host_keys_missing?
       keytype = key.split('_')[-2]
       execute "/usr/libexec/openssh/sshd-keygen #{keytype}"
     end
-  elsif platform_family?('rhel')
+  elsif platform_family?('rhel', 'amazon')
     execute '/usr/sbin/sshd-keygen'
   end
 end

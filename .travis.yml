@@ -19,6 +19,7 @@ services: docker
 
 env:
   matrix:
+  - CHEF_VERSION=12 INSTANCE=default-amazonlinux
   - CHEF_VERSION=12 INSTANCE=default-ubuntu-1404
   - CHEF_VERSION=12 INSTANCE=default-ubuntu-1604
     # - CHEF_VERSION=12 INSTANCE=default-debian-7 # fails due to missing /var/run/sshd in docker
@@ -28,6 +29,7 @@ env:
   - CHEF_VERSION=12 INSTANCE=default-centos-6
   - CHEF_VERSION=12 INSTANCE=default-centos-7
   - CHEF_VERSION=12 INSTANCE=default-opensuse-leap
+  - CHEF_VERSION=13 INSTANCE=default-amazonlinux
   - CHEF_VERSION=13 INSTANCE=default-ubuntu-1404
   - CHEF_VERSION=13 INSTANCE=default-ubuntu-1604
     # - CHEF_VERSION=13 INSTANCE=default-debian-7 # fails due to missing /var/run/sshd in docker
