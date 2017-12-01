@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.6.1 (2017-11-30)
+
+- Generate missing ssh keys on amazon linux as well. This impacts containers where ssh keys have not already been generated
+
 ## 2.6.0 (2017-10-18)
 
 - Fixed trusted user CA key documentation
