@@ -19,16 +19,16 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=default-amazonlinux
-  - INSTANCE=default-ubuntu-1404
-  - INSTANCE=default-ubuntu-1604
-  - INSTANCE=default-ubuntu-1804
-  - INSTANCE=default-debian-8
-  - INSTANCE=default-debian-9
-  - INSTANCE=default-fedora-latest
-  - INSTANCE=default-centos-6
-  - INSTANCE=default-centos-7
-  - INSTANCE=default-opensuse-leap
+  - CHEF_VERSION=current INSTANCE=default-amazonlinux
+  - CHEF_VERSION=current INSTANCE=default-ubuntu-1404
+  - CHEF_VERSION=current INSTANCE=default-ubuntu-1604
+  - CHEF_VERSION=current INSTANCE=default-ubuntu-1804
+  - CHEF_VERSION=current INSTANCE=default-debian-8
+  - CHEF_VERSION=current INSTANCE=default-debian-9
+  - CHEF_VERSION=current INSTANCE=default-fedora-latest
+  - CHEF_VERSION=current INSTANCE=default-centos-6
+  - CHEF_VERSION=current INSTANCE=default-centos-7
+  - CHEF_VERSION=current INSTANCE=default-opensuse-leap
   - CHEF_VERSION=13 INSTANCE=default-amazonlinux
   - CHEF_VERSION=13 INSTANCE=default-ubuntu-1404
   - CHEF_VERSION=13 INSTANCE=default-ubuntu-1604
