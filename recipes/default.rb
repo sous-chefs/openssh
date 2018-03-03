@@ -80,6 +80,12 @@ template '/etc/ssh/sshd_config' do
   notifies :restart, 'service[ssh]'
 end
 
+# we probably need this on multiple platforms but we 100% need it on debian based platforms
+if platform_family?('debian')
+  dir = platform?('ubuntu') && node['platform_version'].to_i >= 18 ? '/run/sshd' : '/var/run/sshd'
+  directory dir
+end
+
 execute 'sshd-config-check' do
   command '/usr/sbin/sshd -t'
   action :nothing
