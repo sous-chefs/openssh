@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.6.2 (2018-03-02)
+
+- Swap Chef 12 testing for Chef 14 testing
+- Create the privilege separation directory on debian/ubuntu, which is not always there on Docker images
+- Add Ubuntu 18.04 testing
+
 ## 2.6.1 (2017-11-30)
 
 - Generate missing ssh keys on amazon linux as well. This impacts containers where ssh keys have not already been generated
