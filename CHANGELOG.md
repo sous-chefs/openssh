@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.6.3 (2018-03-19)
+
+- Support Amazon Linux 2 in containers
+
 ## 2.6.2 (2018-03-02)
 
 - Swap Chef 12 testing for Chef 14 testing
