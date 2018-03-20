@@ -26,10 +26,10 @@ platforms:
     run_list: apt::default
   - name: ubuntu-16.04
     run_list: apt::default
-  - name: macosx-10.12
+  - name: macos-10.12
     run_list: homebrew::default
     driver:
-      box: chef/macosx-10.12 # private box in Chef's Atlas account
+      box: chef/macos-10.12 # private box in Chef's Atlas account
       provider: vmware_fusion
 
 suites:
