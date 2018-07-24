@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.7.0 (2018-07-24)
+
+- Add support for array values under a host hash and added indentation for host values
+
 ## 2.6.3 (2018-03-19)
 
 - Support Amazon Linux 2 in containers
