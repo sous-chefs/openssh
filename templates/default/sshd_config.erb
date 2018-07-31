@@ -11,6 +11,20 @@
 <%  end -%>
 <% end -%>
 
+<%  if defined?(node['openssh']['server']['subsystem']) -%>
+<%    if  node['openssh']['server']['subsystem'].is_a?(Hash) -%>
+<%      node['openssh']['server']['subsystem'].map do |subsystem_name, subsystem_value| -%>
+Subsystem <%= subsystem_name %> <%= subsystem_value %>
+<%      end -%>
+<%    elsif node['openssh']['server']['subsystem'].is_a?(Array) -%>
+<%      node['openssh']['server']['subsystem'].each do |subsystem| -%>
+Subsystem <%= subsystem %>
+<%      end -%>
+<%    elsif node['openssh']['server']['subsystem'].is_a?(String) -%>
+Subsystem <%= node['openssh']['server']['subsystem'] %>
+<%    end -%>
+<%  end -%>
+
 <%  unless node['openssh']['server']['match'].empty? || !defined?(node['openssh']['server']['match']) -%>
 <%    node['openssh']['server']['match'].sort.map do |match_key, match_items| -%>
 Match <%= match_key %>

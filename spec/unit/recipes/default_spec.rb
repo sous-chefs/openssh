@@ -36,6 +36,36 @@ describe 'openssh::default on any platform (happens to be Ubuntu)' do
       expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
 
+    it 'write multiple SSH subsystems from Hash' do
+      chef_run.node.normal['openssh']['server']['subsystem'] = {
+        sftp: '/usr/lib/openssh/sftp-server',
+        test: '/my/subsystem/bin',
+      }
+      chef_run.converge('openssh::default')
+      expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(%r{Subsystem sftp \/usr\/lib\/openssh\/sftp-server\nSubsystem test.*})
+    end
+
+    it 'skips subsystems block' do
+      chef_run.node.normal['openssh']['server']['subsystem'] = {}
+      chef_run.converge('openssh::default')
+      expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/^Subsystem?/)
+    end
+
+    it 'supports legacy subsystem format' do
+      chef_run.node.normal['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server'
+      chef_run.converge('openssh::default')
+      expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(%r{Subsystem sftp \/usr\/lib\/openssh\/sftp-server\n})
+    end
+
+    it 'allows subsystem from Array attribute' do
+      chef_run.node.normal['openssh']['server']['subsystem'] = [
+        'sftp /usr/lib/openssh/sftp-server',
+        'test /my/subsystem/bin',
+      ]
+      chef_run.converge('openssh::default')
+      expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(%r{Subsystem sftp \/usr\/lib\/openssh\/sftp-server\nSubsystem test.*})
+    end
+
     context 'port set without listen address set' do
       cached(:chef_run) do
         ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
