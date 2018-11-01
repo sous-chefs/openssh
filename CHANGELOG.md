@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.7.1 (2018-11-01)
+
+- Add support for multiple subsystems
+- Use template verify property instead of notify to handle configuration verification so we don't ever template out a non-functional config
+
 ## 2.7.0 (2018-07-24)
 
 - Add support for array values under a host hash and added indentation for host values

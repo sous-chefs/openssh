@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@chef.io'
 license 'Apache-2.0'
 description 'Installs and configures OpenSSH client and daemon'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.7.0'
+version '2.7.1'
 
 recipe 'openssh', 'Installs openssh'
 recipe 'openssh::iptables', 'Set up iptables to allow SSH inbound'
