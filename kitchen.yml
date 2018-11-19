@@ -18,7 +18,6 @@ platforms:
     run_list: apt::default
   - name: debian-9
     run_list: apt::default
-  - name: freebsd-10
   - name: freebsd-11
   - name: fedora-28
   - name: opensuse-leap-42
@@ -26,6 +25,8 @@ platforms:
     run_list: apt::default
   - name: ubuntu-16.04
     run_list: apt::default
+  - name: ubuntu-18.04
+    run_list: apt::default    
   - name: macos-10.12
     run_list: homebrew::default
     driver:
@@ -38,4 +39,4 @@ suites:
   - name: iptables
     run_list: openssh::iptables
     excludes:
-      - macosx-10.11
+      - macosx-10.12
