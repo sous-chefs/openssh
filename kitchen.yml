@@ -12,6 +12,7 @@ platforms:
   - name: amazonlinux
     driver_config:
       box: mvbcoding/awslinux
+  - name: amazonlinux-2
   - name: centos-6
   - name: centos-7
   - name: debian-8
@@ -21,12 +22,11 @@ platforms:
   - name: freebsd-11
   - name: fedora-28
   - name: opensuse-leap-42
-  - name: ubuntu-14.04
-    run_list: apt::default
+  - name: opensuse-leap-15
   - name: ubuntu-16.04
     run_list: apt::default
   - name: ubuntu-18.04
-    run_list: apt::default    
+    run_list: apt::default
   - name: macos-10.12
     run_list: homebrew::default
     driver:

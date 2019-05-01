@@ -21,7 +21,6 @@ env:
   matrix:
   - CHEF_VERSION=current INSTANCE=default-amazonlinux
   - CHEF_VERSION=current INSTANCE=default-amazonlinux-2
-  - CHEF_VERSION=current INSTANCE=default-ubuntu-1404
   - CHEF_VERSION=current INSTANCE=default-ubuntu-1604
   - CHEF_VERSION=current INSTANCE=default-ubuntu-1804
   - CHEF_VERSION=current INSTANCE=default-debian-8
@@ -29,9 +28,8 @@ env:
   - CHEF_VERSION=current INSTANCE=default-fedora-latest
   - CHEF_VERSION=current INSTANCE=default-centos-6
   - CHEF_VERSION=current INSTANCE=default-centos-7
-  - CHEF_VERSION=current INSTANCE=default-opensuse-leap
+  - CHEF_VERSION=current INSTANCE=default-opensuse-leap-42
   - CHEF_VERSION=13 INSTANCE=default-amazonlinux
-  - CHEF_VERSION=13 INSTANCE=default-ubuntu-1404
   - CHEF_VERSION=13 INSTANCE=default-ubuntu-1604
   - CHEF_VERSION=13 INSTANCE=default-ubuntu-1804
   - CHEF_VERSION=13 INSTANCE=default-debian-8
@@ -39,7 +37,7 @@ env:
   - CHEF_VERSION=13 INSTANCE=default-fedora-latest
   - CHEF_VERSION=13 INSTANCE=default-centos-6
   - CHEF_VERSION=13 INSTANCE=default-centos-7
-  - CHEF_VERSION=13 INSTANCE=default-opensuse-leap
+  - CHEF_VERSION=13 INSTANCE=default-opensuse-leap-42
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
