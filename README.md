@@ -215,13 +215,13 @@ Configure multiple SSH subsystems (e.g. sftp, netconf):
     "subsystem": {
       "sftp": "/usr/lib/openssh/sftp-server",
       "appX": "/usr/sbin/appX"
-    } 
+    }
   }
 }
 ```
 
 Former declaration of single subsystem:
- 
+
 ```json
 "openssh": {
   "server": {
@@ -234,7 +234,7 @@ Former declaration of single subsystem:
 
 **Author:** Cookbook Engineering Team ([cookbooks@chef.io](mailto:cookbooks@chef.io))
 
-**Copyright:** 2008-2016, Chef Software, Inc.
+**Copyright:** 2008-2019, Chef Software, Inc.
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");

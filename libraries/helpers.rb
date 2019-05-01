@@ -2,7 +2,7 @@
 # Cookbook:: openssh
 # library:: helpers
 #
-# Copyright:: 2016-2017, Chef Software, Inc.
+# Copyright:: 2016-2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,13 +33,21 @@ module Openssh
 
     # are we on a platform that has the sshd-keygen command. It's a redhat-ism so it's a limited number
     def keygen_platform?
-      return true if platform?('amazon')
-      platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 7
+      return true if platform?('amazon', 'fedora')
+      platform_family?('rhel') && node['platform_version'].to_i >= 7
     end
 
     # are any of the host keys defined in the attribute missing from the filesystem
     def sshd_host_keys_missing?
       !node['openssh']['server']['host_key'].all? { |f| ::File.exist?(f) }
+    end
+
+    def openssh_service_name
+      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix')
+        'sshd'
+      else
+        'ssh'
+      end
     end
   end
 end

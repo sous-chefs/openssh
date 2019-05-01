@@ -2,7 +2,7 @@
 # Cookbook:: openssh
 # Recipe:: default
 #
-# Copyright:: 2008-2017, Chef Software, Inc.
+# Copyright:: 2008-2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ template '/etc/ssh/sshd_config' do
 end
 
 service 'ssh' do
-  service_name node['openssh']['service_name']
+  service_name openssh_service_name
   supports value_for_platform_family(
     %w(debian rhel fedora aix) => [:restart, :reload, :status],
     %w(arch) => [:restart],
