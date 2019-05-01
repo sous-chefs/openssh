@@ -3,7 +3,7 @@
 # Attributes:: default
 #
 # Author:: Ernie Brodeur <ebrodeur@ujami.net>
-# Copyright:: 2008-2017, Chef Software, Inc.
+# Copyright:: 2008-2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,13 +30,6 @@ default['openssh']['package_name'] = case node['platform_family']
                                        %w()
                                      else
                                        %w(openssh-client openssh-server)
-                                     end
-
-default['openssh']['service_name'] = case node['platform_family']
-                                     when 'rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix'
-                                       'sshd'
-                                     else
-                                       'ssh'
                                      end
 
 default['openssh']['config_mode'] = case node['platform_family']

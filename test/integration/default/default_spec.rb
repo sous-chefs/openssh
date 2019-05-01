@@ -4,7 +4,7 @@ service_name = if os.debian?
                  'sshd'
                end
 
-use_roaming_value = if os.redhat? && os[:release].to_i < 7
+use_roaming_value = if os.redhat? && os[:release].to_i == 6
                       nil
                     else
                       'no'
