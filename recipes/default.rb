@@ -67,6 +67,8 @@ if keygen_platform? && sshd_host_keys_missing?
     end
   elsif platform_family?('rhel', 'amazon')
     execute '/usr/sbin/sshd-keygen'
+  elsif platform_family?('suse')
+    execute '/usr/sbin/sshd-gen-keys-start'
   end
 end
 

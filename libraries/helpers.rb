@@ -34,7 +34,8 @@ module Openssh
     # are we on a platform that has the sshd-keygen command. It's a redhat-ism so it's a limited number
     def keygen_platform?
       return true if platform?('amazon', 'fedora')
-      platform_family?('rhel') && node['platform_version'].to_i >= 7
+      return true if platform_family?('rhel') && node['platform_version'].to_i >= 7
+      platform_family?('suse') && node['platform_version'].to_i >= 15 && node['platform_version'].to_i < 42
     end
 
     # are any of the host keys defined in the attribute missing from the filesystem
