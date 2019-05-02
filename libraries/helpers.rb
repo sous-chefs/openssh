@@ -55,6 +55,13 @@ module Openssh
       return false if node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
       return false if node['platform_family'] == 'suse' && node['platform_version'].to_i >= 15 && node['platform_version'].to_i < 42
     end
+
+    def supported_ssh_host_keys
+      keys = ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_ecdsa_key']
+      keys << '/etc/ssh/ssh_host_dsa_key' if (platform_family?('rhel') && node['platform_version'].to_i == 6) || platform_family?('smartos, suse')
+      keys << '/etc/ssh/ssh_host_ed25519_key' if (platform_family?('rhel') && node['platform_version'].to_i >= 7) || platform?('amazon', 'fedora') || platform_family?('debian') || (node['platform_family'] == 'suse' && node['platform_version'].to_i >= 15)
+      keys
+    end
   end
 end
 
