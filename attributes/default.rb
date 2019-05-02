@@ -150,4 +150,5 @@ default['openssh']['server']['trusted_user_c_a_keys'] = '/etc/ssh/ca_keys'
 default['openssh']['server']['revoked_keys'] = '/etc/ssh/revoked_keys'
 default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/openssh/sftp-server' if platform_family?('rhel', 'amazon', 'fedora')
 default['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server' if platform_family?('debian')
+default['openssh']['server']['subsystem'] = 'sftp /usr/lib/ssh/sftp-server' if platform_family?('suse')
 default['openssh']['server']['match'] = {}
