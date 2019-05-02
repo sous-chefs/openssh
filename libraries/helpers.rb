@@ -50,8 +50,14 @@ module Openssh
         'ssh'
       end
     end
+
+    def supports_use_roaming?
+      return false if node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
+      return false if node['platform_family'] == 'suse' && node['platform_version'].to_i >= 15 && node['platform_version'].to_i < 42
+    end
   end
 end
 
 Chef::Resource.send(:include, ::Openssh::Helpers)
 Chef::Recipe.send(:include, ::Openssh::Helpers)
+Chef::Node.send(:include, ::Openssh::Helpers)
