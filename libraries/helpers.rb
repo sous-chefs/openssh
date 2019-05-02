@@ -54,6 +54,7 @@ module Openssh
     def supports_use_roaming?
       return false if node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
       return false if node['platform_family'] == 'suse' && node['platform_version'].to_i >= 15 && node['platform_version'].to_i < 42
+      return true
     end
 
     def supported_ssh_host_keys
