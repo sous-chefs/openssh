@@ -90,7 +90,7 @@ default['openssh']['client']['use_roaming'] = 'no' if supports_use_roaming?
 # ed25519 keys, but if you tell sshd to look for all of them it will spam syslog with
 # whatever it can't find so choose a sane set of supported keys based on version using
 # a helper method.
-default['openssh']['server']['host_key'] = supported_ssh_host_keys # use the helper to determine the supported keys based on OS release
+default['openssh']['server']['host_key'] = supported_ssh_host_keys # ~FC044 use the helper to determine the supported keys based on OS release
 
 # default['openssh']['server']['host_key_ecdsa'] = '/etc/ssh/ssh_host_ecdsa_key'
 # default['openssh']['server']['key_regeneration_interval'] = '1h'
