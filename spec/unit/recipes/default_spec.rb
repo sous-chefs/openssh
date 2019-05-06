@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'openssh::default' do
-
   it 'writes the ssh_config' do
     template = chef_run.template('/etc/ssh/ssh_config')
     expect(template).to be
