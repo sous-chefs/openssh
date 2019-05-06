@@ -34,7 +34,8 @@ module Openssh
     # are we on a platform that has the sshd-keygen command. It's a redhat-ism so it's a limited number
     def keygen_platform?
       return true if platform?('amazon', 'fedora')
-      platform_family?('rhel') && node['platform_version'].to_i >= 7
+      return true if rhel_7_plus?
+      opensuse_15_plus?
     end
 
     # are any of the host keys defined in the attribute missing from the filesystem
@@ -49,8 +50,34 @@ module Openssh
         'ssh'
       end
     end
+
+    def supports_use_roaming?
+      return false if rhel_less_than_7?
+      return false if opensuse_15_plus?
+      true
+    end
+
+    def supported_ssh_host_keys
+      keys = ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_ecdsa_key']
+      keys << '/etc/ssh/ssh_host_dsa_key' if rhel_less_than_7? || platform_family?('smartos, suse')
+      keys << '/etc/ssh/ssh_host_ed25519_key' if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian') || opensuse_15_plus?
+      keys
+    end
+
+    def rhel_less_than_7?
+      node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
+    end
+
+    def rhel_7_plus?
+      platform_family?('rhel') && node['platform_version'].to_i >= 7
+    end
+
+    def opensuse_15_plus?
+      platform_family?('suse') && node['platform_version'].to_i >= 15 && node['platform_version'].to_i < 42
+    end
   end
 end
 
 Chef::Resource.send(:include, ::Openssh::Helpers)
 Chef::Recipe.send(:include, ::Openssh::Helpers)
+Chef::Node.send(:include, ::Openssh::Helpers)

@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-describe 'openssh::default on any platform (happens to be Ubuntu)' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new.converge('openssh::default') }
-
+describe 'openssh::default' do
   it 'writes the ssh_config' do
     template = chef_run.template('/etc/ssh/ssh_config')
     expect(template).to be
@@ -132,95 +130,134 @@ describe 'openssh::default on any platform (happens to be Ubuntu)' do
       end
     end
   end
-end
 
-describe 'openssh::default on Debian 8' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'debian', version: '8.9').converge('openssh::default') }
+  context 'openssh::default on Debian 8' do
+    platform 'debian', '8'
 
-  it 'installs the openssh packages' do
-    expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+    end
+
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
   end
 
-  it 'starts the ssh service' do
-    expect(chef_run).to start_service('ssh')
-    expect(chef_run).to enable_service('ssh')
-  end
-end
+  context 'openssh::default on Debian 9' do
+    platform 'debian', '9'
 
-describe 'openssh::default on Ubuntu 16.04' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge('openssh::default') }
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+    end
 
-  it 'installs the openssh packages' do
-    expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
-  end
-
-  it 'starts the ssh service' do
-    expect(chef_run).to start_service('ssh')
-    expect(chef_run).to enable_service('ssh')
-  end
-end
-
-describe 'openssh::default on CentOS 6' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9').converge('openssh::default') }
-
-  it 'installs the openssh packages' do
-    expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
   end
 
-  it 'starts the ssh service' do
-    expect(chef_run).to start_service('ssh')
-    expect(chef_run).to enable_service('ssh')
-  end
-end
+  context 'openssh::default on Ubuntu 16.04' do
+    platform 'ubuntu', '16.04'
 
-describe 'openssh::default on CentOS 7' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '7.3.1611').converge('openssh::default') }
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+    end
 
-  it 'installs the openssh packages' do
-    expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
-  end
-
-  it 'starts the ssh service' do
-    expect(chef_run).to start_service('ssh')
-    expect(chef_run).to enable_service('ssh')
-  end
-end
-
-describe 'openssh::default on Fedora' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'fedora', version: '26').converge('openssh::default') }
-
-  it 'installs the openssh packages' do
-    expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
   end
 
-  it 'starts the ssh service' do
-    expect(chef_run).to start_service('ssh')
-    expect(chef_run).to enable_service('ssh')
-  end
-end
+  context 'openssh::default on Ubuntu 18.04' do
+    platform 'ubuntu', '18.04'
 
-describe 'openssh::default on openSUSE Leap' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'opensuse', version: '42.3').converge('openssh::default') }
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+    end
 
-  it 'installs the openssh packages' do
-    expect(chef_run).to install_package(['openssh'])
-  end
-
-  it 'starts the ssh service' do
-    expect(chef_run).to start_service('ssh')
-    expect(chef_run).to enable_service('ssh')
-  end
-end
-
-describe 'openssh::default on macOS' do
-  cached(:chef_run) { ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.12').converge('openssh::default') }
-
-  it 'does not install an openssh package' do
-    expect(chef_run).to_not install_package(['openssh'])
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
   end
 
-  it 'starts the ssh service' do
-    expect(chef_run).to start_service('sshd')
-    expect(chef_run).to enable_service('sshd')
+  context 'openssh::default on CentOS 6' do
+    platform 'centos', '6'
+
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+    end
+
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
+  end
+
+  context 'openssh::default on CentOS 7' do
+    platform 'centos', '7'
+
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+    end
+
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
+  end
+
+  context 'openssh::default on Fedora' do
+    platform 'fedora', '28'
+
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+    end
+
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
+  end
+
+  context 'openssh::default on openSUSE 42' do
+    platform 'opensuse', '42'
+
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(['openssh'])
+    end
+
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
+  end
+
+  # context 'openssh::default on openSUSE 15' do
+  #   platform 'opensuse', '15'
+
+  #   it 'installs the openssh packages' do
+  #     expect(chef_run).to install_package(['openssh'])
+  #   end
+
+  #   it 'starts the ssh service' do
+  #     expect(chef_run).to start_service('ssh')
+  #     expect(chef_run).to enable_service('ssh')
+  #   end
+  # end
+
+  context 'openssh::default on macOS' do
+    platform 'mac_os_x', '10.14'
+
+    it 'does not install an openssh package' do
+      expect(chef_run).to_not install_package(['openssh'])
+    end
+
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('sshd')
+      expect(chef_run).to enable_service('sshd')
+    end
   end
 end

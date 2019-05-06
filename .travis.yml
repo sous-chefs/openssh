@@ -29,15 +29,17 @@ env:
   - CHEF_VERSION=current INSTANCE=default-centos-6
   - CHEF_VERSION=current INSTANCE=default-centos-7
   - CHEF_VERSION=current INSTANCE=default-opensuse-leap-42
-  - CHEF_VERSION=13 INSTANCE=default-amazonlinux
-  - CHEF_VERSION=13 INSTANCE=default-ubuntu-1604
-  - CHEF_VERSION=13 INSTANCE=default-ubuntu-1804
-  - CHEF_VERSION=13 INSTANCE=default-debian-8
-  - CHEF_VERSION=13 INSTANCE=default-debian-9
-  - CHEF_VERSION=13 INSTANCE=default-fedora-latest
-  - CHEF_VERSION=13 INSTANCE=default-centos-6
-  - CHEF_VERSION=13 INSTANCE=default-centos-7
-  - CHEF_VERSION=13 INSTANCE=default-opensuse-leap-42
+  # - CHEF_VERSION=current INSTANCE=default-opensuse-leap-15 enable this when 15 hits stable
+  - CHEF_VERSION=14 INSTANCE=default-amazonlinux
+  - CHEF_VERSION=14 INSTANCE=default-ubuntu-1604
+  - CHEF_VERSION=14 INSTANCE=default-ubuntu-1804
+  - CHEF_VERSION=14 INSTANCE=default-debian-8
+  - CHEF_VERSION=14 INSTANCE=default-debian-9
+  - CHEF_VERSION=14 INSTANCE=default-fedora-latest
+  - CHEF_VERSION=14 INSTANCE=default-centos-6
+  - CHEF_VERSION=14 INSTANCE=default-centos-7
+  - CHEF_VERSION=14 INSTANCE=default-opensuse-leap-42
+  # - CHEF_VERSION=14 INSTANCE=default-opensuse-leap-15 enable if we backport
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
