@@ -2,6 +2,28 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.8.0 (2019-05-06)
+
+- This release greatly improves the default attributes on openSUSE/SLES systems
+- Update test kitchen config - [@tas50](https://github.com/tas50)
+- Add code owners file - [@tas50](https://github.com/tas50)
+- Cookstyle fixes - [@tas50](https://github.com/tas50)
+- Remove testing of EOL Ubuntu 14.04 - [@tas50](https://github.com/tas50)
+- Move the service name to a helper - [@tas50](https://github.com/tas50)
+- Fix the roaming test for Amazon Linux 2 - [@tas50](https://github.com/tas50)
+- Add opensuseleap 15 testing and Chef 14 testing - [@tas50](https://github.com/tas50)
+- Disable roaming on SLES 15 as well - [@tas50](https://github.com/tas50)
+- Support generating ssh keys in opensuse 15 containers - [@tas50](https://github.com/tas50)
+- Move use_roaming attribute default logic to a helper - [@tas50](https://github.com/tas50)
+- Configure the subystem properly on SUSE platform family - [@tas50](https://github.com/tas50)
+- Move ssh host key determination to a helper with SLES 15 support - [@tas50](https://github.com/tas50)
+- Make sure we return true when supported - [@tas50](https://github.com/tas50)
+- Modernize the specs for the new ChefSpec release - [@tas50](https://github.com/tas50)
+- Add platform version helpers for readability - [@tas50](https://github.com/tas50)
+- Default specs to 18.04 - [@tas50](https://github.com/tas50)
+- Avoid FC warning - [@tas50](https://github.com/tas50)
+- Disable opensuse 15 testing for now - [@tas50](https://github.com/tas50)
+
 ## 2.7.1 (2018-11-01)
 
 - Add support for multiple subsystems
