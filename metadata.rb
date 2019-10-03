@@ -5,7 +5,7 @@ license 'Apache-2.0'
 description 'Installs and configures OpenSSH client and daemon'
 version '2.8.0'
 
-%w(aix amazon arch centos fedora freebsd opensuse opensuseleap oracle redhat scientific smartos suse ubuntu zlinux).each do |os|
+%w(aix amazon arch centos fedora freebsd opensuseleap oracle redhat scientific smartos suse ubuntu zlinux).each do |os|
   supports os
 end
 
