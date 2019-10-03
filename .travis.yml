@@ -5,7 +5,6 @@ addons:
     packages:
       - chef-workstation
 
-# Don't `bundle install` which takes about 1.5 mins
 install: echo "skip bundle install"
 
 env:
@@ -28,8 +27,11 @@ env:
   - CHEF_VERSION=current INSTANCE=default-fedora-latest
   - CHEF_VERSION=current INSTANCE=default-centos-6
   - CHEF_VERSION=current INSTANCE=default-centos-7
-  - CHEF_VERSION=current INSTANCE=default-opensuse-leap-42
-  # - CHEF_VERSION=current INSTANCE=default-opensuse-leap-15 enable this when 15 hits stable
+  - CHEF_VERSION=current INSTANCE=default-centos-8
+  - CHEF_VERSION=current INSTANCE=default-oraclelinux-6
+  - CHEF_VERSION=current INSTANCE=default-oraclelinux-7
+  - CHEF_VERSION=current INSTANCE=default-oraclelinux-8
+  - CHEF_VERSION=current INSTANCE=default-opensuse-leap-15
   - CHEF_VERSION=14 INSTANCE=default-amazonlinux
   - CHEF_VERSION=14 INSTANCE=default-ubuntu-1604
   - CHEF_VERSION=14 INSTANCE=default-ubuntu-1804
@@ -38,22 +40,24 @@ env:
   - CHEF_VERSION=14 INSTANCE=default-fedora-latest
   - CHEF_VERSION=14 INSTANCE=default-centos-6
   - CHEF_VERSION=14 INSTANCE=default-centos-7
+  # - CHEF_VERSION=14 INSTANCE=default-centos-8 enable when 14.14 ships
+  - CHEF_VERSION=14 INSTANCE=default-oraclelinux-6
+  - CHEF_VERSION=14 INSTANCE=default-oraclelinux-7
+  # - CHEF_VERSION=14 INSTANCE=default-oraclelinux-8 enable when 14.14 ships
   - CHEF_VERSION=14 INSTANCE=default-opensuse-leap-42
-  # - CHEF_VERSION=14 INSTANCE=default-opensuse-leap-15 enable if we backport
+  # - CHEF_VERSION=14 INSTANCE=default-opensuse-leap-15 enable when 14.14 ships
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
   - eval "$(chef shell-init bash)"
   - chef --version
-  - cookstyle --version
-  - foodcritic --version
 
 script: KITCHEN_LOCAL_YAML=kitchen.dokken.yml CHEF_VERSION=${CHEF_VERSION} kitchen verify ${INSTANCE}
 
 matrix:
   include:
     - script:
-      - chef exec delivery local all
+      - delivery local all
       env:
         - UNIT_AND_LINT=1
         - CHEF_LICENSE=accept

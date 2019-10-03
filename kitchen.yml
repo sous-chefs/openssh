@@ -15,13 +15,15 @@ platforms:
   - name: amazonlinux-2
   - name: centos-6
   - name: centos-7
+  - name: centos-8
   - name: debian-8
     run_list: apt::default
   - name: debian-9
     run_list: apt::default
+  - name: debian-10
+    run_list: apt::default
   - name: freebsd-11
-  - name: fedora-28
-  - name: opensuse-leap-42
+  - name: fedora-30
   - name: opensuse-leap-15
   - name: ubuntu-16.04
     run_list: apt::default
@@ -40,3 +42,6 @@ suites:
     run_list: openssh::iptables
     excludes:
       - macosx-10.12
+      - centos-6
+      - centos-7
+      - centos-8

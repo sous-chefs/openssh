@@ -2,6 +2,7 @@ driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_license: accept-no-persist
 
 transport:
   name: dokken
@@ -38,6 +39,13 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
 
+- name: debian-10
+  driver:
+    image: dokken/debian-10
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
 - name: centos-6
   driver:
     image: dokken/centos-6
@@ -46,6 +54,26 @@ platforms:
 - name: centos-7
   driver:
     image: dokken/centos-7
+    pid_one_command: /usr/lib/systemd/systemd
+
+- name: centos-8
+  driver:
+    image: dokken/centos-8
+    pid_one_command: /usr/lib/systemd/systemd
+
+- name: oraclelinux-6
+  driver:
+    image: dokken/oraclelinux-6
+    pid_one_command: /sbin/init
+
+- name: oraclelinux-7
+  driver:
+    image: dokken/oraclelinux-7
+    pid_one_command: /usr/lib/systemd/systemd
+
+- name: oraclelinux-8
+  driver:
+    image: dokken/oraclelinux-8
     pid_one_command: /usr/lib/systemd/systemd
 
 - name: fedora-latest
@@ -66,11 +94,6 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-
-- name: opensuse-leap-42
-  driver:
-    image: dokken/opensuse-leap-42
-    pid_one_command: /bin/systemd
 
 - name: opensuse-leap-15
   driver:
