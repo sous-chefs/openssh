@@ -4,6 +4,7 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: true
+  chef_license: accept-no-persist
 
 verifier:
   name: inspec
@@ -22,7 +23,7 @@ platforms:
     run_list: apt::default
   - name: debian-10
     run_list: apt::default
-  - name: freebsd-11
+  - name: freebsd-12
   - name: fedora-30
   - name: opensuse-leap-15
   - name: ubuntu-16.04
