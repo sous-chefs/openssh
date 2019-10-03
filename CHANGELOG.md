@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## 2.8.1 (2019-10-03)
+
+- Expand platform testing to the latest platforms - [@tas50](https://github.com/tas50)
+- Move template files out of the default directory - [@tas50](https://github.com/tas50)
+- Remove deprecated recipe and long_description metadata - [@tas50](https://github.com/tas50)
+- Remove EOL opensuse platform from the metadata - [@tas50](https://github.com/tas50)
+- Cookstyle fixes in the library - [@tas50](https://github.com/tas50)
+- Add RHEL 8 docker container support - [@tas50](https://github.com/tas50)
+
 ## 2.8.0 (2019-05-06)
 
 - This release greatly improves the default attributes on openSUSE/SLES systems

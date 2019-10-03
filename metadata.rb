@@ -3,7 +3,7 @@ maintainer 'Chef Software, Inc.'
 maintainer_email 'cookbooks@chef.io'
 license 'Apache-2.0'
 description 'Installs and configures OpenSSH client and daemon'
-version '2.8.0'
+version '2.8.1'
 
 %w(aix amazon arch centos fedora freebsd opensuseleap oracle redhat scientific smartos suse ubuntu zlinux).each do |os|
   supports os
