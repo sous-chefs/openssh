@@ -60,12 +60,12 @@ end
 # this will only execute on RHEL / Fedora systems where sshd has never been started
 # 99.99% of the time this is going to be a docker container
 if keygen_platform? && sshd_host_keys_missing?
-  if platform?('fedora')
+  if platform_family?('fedora', 'rhel') && node['platform_version'].to_i >= 8 # fedora and RHEL 8+
     node['openssh']['server']['host_key'].each do |key|
       keytype = key.split('_')[-2]
       execute "/usr/libexec/openssh/sshd-keygen #{keytype}"
     end
-  elsif platform_family?('rhel', 'amazon')
+  elsif platform_family?('rhel', 'amazon') # RHEL < 8 or Amazon Linux
     execute '/usr/sbin/sshd-keygen'
   elsif platform_family?('suse')
     execute '/usr/sbin/sshd-gen-keys-start'
