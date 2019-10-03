@@ -23,19 +23,19 @@ describe 'openssh::default' do
     end
 
     it 'writes a match group block' do
-      chef_run.node.normal['openssh']['server']['match'] = { 'Group admins' => { 'permit_tunnel' => 'yes' } }
+      chef_run.node.override['openssh']['server']['match'] = { 'Group admins' => { 'permit_tunnel' => 'yes' } }
       chef_run.converge('openssh::default')
       expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
 
     it 'skips match group block' do
-      chef_run.node.normal['openssh']['server']['match'] = {}
+      chef_run.node.override['openssh']['server']['match'] = {}
       chef_run.converge('openssh::default')
       expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/Match Group admins\n\s\sPermitTunnel yes/)
     end
 
     it 'write multiple SSH subsystems from Hash' do
-      chef_run.node.normal['openssh']['server']['subsystem'] = {
+      chef_run.node.override['openssh']['server']['subsystem'] = {
         sftp: '/usr/lib/openssh/sftp-server',
         test: '/my/subsystem/bin',
       }
@@ -44,19 +44,19 @@ describe 'openssh::default' do
     end
 
     it 'skips subsystems block' do
-      chef_run.node.normal['openssh']['server']['subsystem'] = {}
+      chef_run.node.override['openssh']['server']['subsystem'] = {}
       chef_run.converge('openssh::default')
       expect(chef_run).to_not render_file('/etc/ssh/sshd_config').with_content(/^Subsystem?/)
     end
 
     it 'supports legacy subsystem format' do
-      chef_run.node.normal['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server'
+      chef_run.node.override['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server'
       chef_run.converge('openssh::default')
       expect(chef_run).to render_file('/etc/ssh/sshd_config').with_content(%r{Subsystem sftp \/usr\/lib\/openssh\/sftp-server\n})
     end
 
     it 'allows subsystem from Array attribute' do
-      chef_run.node.normal['openssh']['server']['subsystem'] = [
+      chef_run.node.override['openssh']['server']['subsystem'] = [
         'sftp /usr/lib/openssh/sftp-server',
         'test /my/subsystem/bin',
       ]
@@ -135,7 +135,7 @@ describe 'openssh::default' do
     platform 'debian', '8'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+      expect(chef_run).to install_package(%w(openssh-client openssh-server))
     end
 
     it 'starts the ssh service' do
@@ -148,7 +148,7 @@ describe 'openssh::default' do
     platform 'debian', '9'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+      expect(chef_run).to install_package(%w(openssh-client openssh-server))
     end
 
     it 'starts the ssh service' do
@@ -161,7 +161,7 @@ describe 'openssh::default' do
     platform 'ubuntu', '16.04'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+      expect(chef_run).to install_package(%w(openssh-client openssh-server))
     end
 
     it 'starts the ssh service' do
@@ -174,7 +174,7 @@ describe 'openssh::default' do
     platform 'ubuntu', '18.04'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(['openssh-client', 'openssh-server'])
+      expect(chef_run).to install_package(%w(openssh-client openssh-server))
     end
 
     it 'starts the ssh service' do
@@ -187,7 +187,7 @@ describe 'openssh::default' do
     platform 'centos', '6'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+      expect(chef_run).to install_package(%w(openssh-clients openssh-server))
     end
 
     it 'starts the ssh service' do
@@ -200,7 +200,7 @@ describe 'openssh::default' do
     platform 'centos', '7'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+      expect(chef_run).to install_package(%w(openssh-clients openssh-server))
     end
 
     it 'starts the ssh service' do
@@ -213,7 +213,7 @@ describe 'openssh::default' do
     platform 'fedora', '28'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(['openssh-clients', 'openssh-server'])
+      expect(chef_run).to install_package(%w(openssh-clients openssh-server))
     end
 
     it 'starts the ssh service' do
