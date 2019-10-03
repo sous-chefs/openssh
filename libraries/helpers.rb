@@ -65,7 +65,7 @@ module Openssh
     end
 
     def rhel_less_than_7?
-      node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
+      platform_family?('rhel') && node['platform_version'].to_i < 7
     end
 
     def rhel_7_plus?
