@@ -32,8 +32,7 @@ default['openssh']['package_name'] = case node['platform_family']
                                        %w(openssh-client openssh-server)
                                      end
 
-default['openssh']['config_mode'] = case node['platform_family']
-                                    when 'rhel', 'fedora', 'amazon', 'aix'
+default['openssh']['config_mode'] = if platform_family?('rhel', 'fedora', 'amazon', 'aix')
                                       '0600'
                                     else
                                       '0644'
