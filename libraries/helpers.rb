@@ -78,6 +78,6 @@ module Openssh
   end
 end
 
-Chef::Resource.send(:include, ::Openssh::Helpers)
-Chef::Recipe.send(:include, ::Openssh::Helpers)
-Chef::Node.send(:include, ::Openssh::Helpers)
+Chef::Resource.include ::Openssh::Helpers
+Chef::Recipe.include ::Openssh::Helpers
+Chef::Node.include ::Openssh::Helpers
