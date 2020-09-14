@@ -79,5 +79,5 @@ module Openssh
 end
 
 Chef::Resource.include ::Openssh::Helpers
-Chef::Recipe.include ::Openssh::Helpers
+Chef::DSL::Recipe.include ::Openssh::Helpers
 Chef::Node.include ::Openssh::Helpers
