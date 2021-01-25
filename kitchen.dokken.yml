@@ -15,22 +15,11 @@ verifier:
   name: inspec
 
 platforms:
-- name: amazonlinux
-  driver:
-    image: dokken/amazonlinux
-    pid_one_command: /sbin/init
 
 - name: amazonlinux-2
   driver:
     image: dokken/amazonlinux-2
     pid_one_command: /usr/lib/systemd/systemd
-
-- name: debian-8
-  driver:
-    image: dokken/debian-8
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
 
 - name: debian-9
   driver:
@@ -46,11 +35,6 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
 
-- name: centos-6
-  driver:
-    image: dokken/centos-6
-    pid_one_command: /sbin/init
-
 - name: centos-7
   driver:
     image: dokken/centos-7
@@ -60,11 +44,6 @@ platforms:
   driver:
     image: dokken/centos-8
     pid_one_command: /usr/lib/systemd/systemd
-
-- name: oraclelinux-6
-  driver:
-    image: dokken/oraclelinux-6
-    pid_one_command: /sbin/init
 
 - name: oraclelinux-7
   driver:
@@ -91,6 +70,13 @@ platforms:
 - name: ubuntu-18.04
   driver:
     image: dokken/ubuntu-18.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
+- name: ubuntu-20.04
+  driver:
+    image: dokken/ubuntu-20.04
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update

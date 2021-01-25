@@ -10,15 +10,9 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux
-    driver_config:
-      box: mvbcoding/awslinux
   - name: amazonlinux-2
-  - name: centos-6
   - name: centos-7
   - name: centos-8
-  - name: debian-8
-    run_list: apt::default
   - name: debian-9
     run_list: apt::default
   - name: debian-10
@@ -26,9 +20,9 @@ platforms:
   - name: freebsd-12
   - name: fedora-30
   - name: opensuse-leap-15
-  - name: ubuntu-16.04
-    run_list: apt::default
   - name: ubuntu-18.04
+    run_list: apt::default
+  - name: ubuntu-20.04
     run_list: apt::default
   - name: macos-10.12
     run_list: homebrew::default
@@ -43,6 +37,5 @@ suites:
     run_list: openssh::iptables
     excludes:
       - macosx-10.12
-      - centos-6
       - centos-7
       - centos-8
