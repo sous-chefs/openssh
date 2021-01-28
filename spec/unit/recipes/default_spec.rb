@@ -66,7 +66,7 @@ describe 'openssh::default' do
 
     context 'port set without listen address set' do
       cached(:chef_run) do
-        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+        ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '20.04') do |node|
           node.normal['openssh']['server']['port'] = 1234
         end.converge('openssh::default')
       end
@@ -131,19 +131,6 @@ describe 'openssh::default' do
     end
   end
 
-  context 'openssh::default on Debian 8' do
-    platform 'debian', '8'
-
-    it 'installs the openssh packages' do
-      expect(chef_run).to install_package(%w(openssh-client openssh-server))
-    end
-
-    it 'starts the ssh service' do
-      expect(chef_run).to start_service('ssh')
-      expect(chef_run).to enable_service('ssh')
-    end
-  end
-
   context 'openssh::default on Debian 9' do
     platform 'debian', '9'
 
@@ -157,8 +144,8 @@ describe 'openssh::default' do
     end
   end
 
-  context 'openssh::default on Ubuntu 16.04' do
-    platform 'ubuntu', '16.04'
+  context 'openssh::default on Debian 10' do
+    platform 'debian', '10'
 
     it 'installs the openssh packages' do
       expect(chef_run).to install_package(%w(openssh-client openssh-server))
@@ -183,11 +170,11 @@ describe 'openssh::default' do
     end
   end
 
-  context 'openssh::default on CentOS 6' do
-    platform 'centos', '6'
+  context 'openssh::default on Ubuntu 20.04' do
+    platform 'ubuntu', '20.04'
 
     it 'installs the openssh packages' do
-      expect(chef_run).to install_package(%w(openssh-clients openssh-server))
+      expect(chef_run).to install_package(%w(openssh-client openssh-server))
     end
 
     it 'starts the ssh service' do
@@ -209,8 +196,8 @@ describe 'openssh::default' do
     end
   end
 
-  context 'openssh::default on Fedora' do
-    platform 'fedora', '28'
+  context 'openssh::default on CentOS 8' do
+    platform 'centos', '8'
 
     it 'installs the openssh packages' do
       expect(chef_run).to install_package(%w(openssh-clients openssh-server))
@@ -222,8 +209,21 @@ describe 'openssh::default' do
     end
   end
 
-  context 'openssh::default on openSUSE 42' do
-    platform 'opensuse', '42'
+  context 'openssh::default on Fedora' do
+    platform 'fedora', '32'
+
+    it 'installs the openssh packages' do
+      expect(chef_run).to install_package(%w(openssh-clients openssh-server))
+    end
+
+    it 'starts the ssh service' do
+      expect(chef_run).to start_service('ssh')
+      expect(chef_run).to enable_service('ssh')
+    end
+  end
+
+  context 'openssh::default on openSUSE 15' do
+    platform 'opensuse', '15'
 
     it 'installs the openssh packages' do
       expect(chef_run).to install_package(['openssh'])
