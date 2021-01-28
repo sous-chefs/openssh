@@ -9,7 +9,7 @@ version '2.8.1'
   supports os
 end
 
-depends 'iptables', '>= 1.0'
+depends 'iptables', '>= 7.0'
 
 source_url 'https://github.com/chef-cookbooks/openssh'
 issues_url 'https://github.com/chef-cookbooks/openssh/issues'
