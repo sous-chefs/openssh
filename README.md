@@ -8,6 +8,10 @@
 
 Installs and configures OpenSSH client and daemon.
 
+## Maintainers
+
+This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you’d like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
+
 ## Requirements
 
 ### Platforms
@@ -117,7 +121,7 @@ This requires use of identity files to connect
 }
 ```
 
-### Bind to a specific set of address (this example actually binds to all).
+### Bind to a specific set of address (this example actually binds to all)
 
 Not to be used with `node['openssh']['listen_interfaces']`.
 
@@ -131,7 +135,7 @@ Not to be used with `node['openssh']['listen_interfaces']`.
 }
 ```
 
-### Bind to the addresses tied to a set of interfaces.
+### Bind to the addresses tied to a set of interfaces
 
 ```json
 "openssh": {
@@ -141,7 +145,8 @@ Not to be used with `node['openssh']['listen_interfaces']`.
   }
 }
 ```
-### Configure Trusted User CA Keys.
+
+### Configure Trusted User CA Keys
 
 ```json
 "openssh": {
@@ -152,7 +157,7 @@ Not to be used with `node['openssh']['listen_interfaces']`.
 }
 ```
 
-### Configure Revoked Keys.
+### Configure Revoked Keys
 
 ```json
 "openssh": {
@@ -233,6 +238,7 @@ Former declaration of single subsystem:
   }
 }
 ```
+
 ## Contributors
 
 This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)
