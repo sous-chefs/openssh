@@ -170,7 +170,7 @@ Not to be used with `node['openssh']['listen_interfaces']`.
 }
 ```
 
-### Host-specific configurations with hashes.
+### Host-specific configurations with hashes
 
 You can use a `Hash` with `node['openssh']['client']` to configure different values for different hosts.
 

@@ -24,11 +24,9 @@ platforms:
     run_list: apt::default
   - name: ubuntu-20.04
     run_list: apt::default
-  - name: macos-10.12
-    run_list: homebrew::default
-    driver:
-      box: chef/macos-10.12 # private box in Chef's Atlas account
-      provider: vmware_fusion
+  - name: macosx-10.15
+    driver_config:
+      box: tas50/macos_10.15
 
 suites:
   - name: default
@@ -38,6 +36,6 @@ suites:
       - openssh::default
       - openssh::iptables
     excludes:
-      - macosx-10.12
+      - macosx-10.15
       - centos-7
       - centos-8
