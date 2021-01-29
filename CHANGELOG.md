@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- Sous Chefs Adoption
+- Cookstyle fixes
+- Standardise files with files in sous-chefs/repo-management
 - resolved cookstyle error: libraries/helpers.rb:81:16 warning: `Lint/SendWithMixinArgument`
 - resolved cookstyle error: libraries/helpers.rb:82:14 warning: `Lint/SendWithMixinArgument`
 - resolved cookstyle error: libraries/helpers.rb:83:12 warning: `Lint/SendWithMixinArgument`
