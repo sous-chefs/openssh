@@ -39,3 +39,4 @@ suites:
       - macosx-10.15
       - centos-7
       - centos-8
+      - opensuse-leap-15

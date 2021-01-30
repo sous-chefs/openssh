@@ -57,6 +57,8 @@ jobs:
             suite: 'iptables'
           - os: 'centos-8'
             suite: 'iptables'
+          - os: 'opensuse-leap-15'
+            suite: 'iptables'
       fail-fast: false
 
     steps:
@@ -99,7 +101,7 @@ jobs:
           os: ${{ matrix.os }}
 
   final:
-    needs: [dokken]
+    needs: [dokken, macos-latest]
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
