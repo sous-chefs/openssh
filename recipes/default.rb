@@ -85,18 +85,27 @@ template '/etc/ssh/sshd_config' do
   group node['root_group']
   variables(options: openssh_server_options)
   verify '/usr/sbin/sshd -t -f %{path}'
-  notifies :restart, 'service[ssh]'
+  notifies :restart, platform_family?('mac_os_x') ? 'macosx_service[ssh]' : 'service[ssh]'
 end
 
-service 'ssh' do
-  service_name openssh_service_name
-  supports value_for_platform_family(
-    %w(debian rhel fedora aix) => [:restart, :reload, :status],
-    %w(arch) => [:restart],
-    'default' => [:restart, :reload]
-  )
-  action value_for_platform_family(
-    %w(aix) => [:start],
-    'default' => [:enable, :start]
-  )
+if platform_family?('mac_os_x')
+  macosx_service 'ssh' do
+    service_name openssh_service_name
+    plist '/System/Library/LaunchDaemons/ssh.plist'
+    supports [:restart, :reload]
+    action [:enable, :start]
+  end
+else
+  service 'ssh' do
+    service_name openssh_service_name
+    supports value_for_platform_family(
+      %w(debian rhel fedora aix) => [:restart, :reload, :status],
+      %w(arch) => [:restart],
+      'default' => [:restart, :reload]
+    )
+    action value_for_platform_family(
+      %w(aix) => [:start],
+      'default' => [:enable, :start]
+    )
+  end
 end

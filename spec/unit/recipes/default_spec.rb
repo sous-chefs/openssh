@@ -256,8 +256,8 @@ describe 'openssh::default' do
     end
 
     it 'starts the ssh service' do
-      expect(chef_run).to start_service('ssh')
-      expect(chef_run).to enable_service('ssh')
+      expect(chef_run).to start_macosx_service('ssh')
+      expect(chef_run).to enable_macosx_service('ssh')
     end
   end
 end

@@ -1,4 +1,4 @@
-service_name = if os.debian?
+service_name = if os.debian? || os.darwin?
                  'ssh'
                else
                  'sshd'
