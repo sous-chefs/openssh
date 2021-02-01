@@ -249,7 +249,11 @@ describe 'openssh::default' do
   # end
 
   context 'openssh::default on macOS' do
-    platform 'mac_os_x', '10.14'
+    cached(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.15') do
+        stub_command('test `sudo systemsetup -getremotelogin` = "Remote Login: On"').and_return(1)
+      end.converge('openssh::default')
+    end
 
     it 'does not install an openssh package' do
       expect(chef_run).to_not install_package(['openssh'])
