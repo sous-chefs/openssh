@@ -92,7 +92,7 @@ if platform_family?('mac_os_x')
   # Need to make sure remote access is enabled on mac os before trying to start service
   bash 'enable remote access' do
     code 'sudo systemsetup -f -setremotelogin on'
-    not_if 'test `sudo systemsetup -getremotelogin` = "Remote Login: On"'
+    not_if 'sudo systemsetup -getremotelogin | grep "On"'
   end
 
   macosx_service 'ssh' do

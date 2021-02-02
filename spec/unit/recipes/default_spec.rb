@@ -251,7 +251,7 @@ describe 'openssh::default' do
   context 'openssh::default on macOS' do
     cached(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'mac_os_x', version: '10.15') do
-        stub_command('test `sudo systemsetup -getremotelogin` = "Remote Login: On"').and_return(1)
+        stub_command('sudo systemsetup -getremotelogin | grep "On"').and_return(1)
       end.converge('openssh::default')
     end
 
