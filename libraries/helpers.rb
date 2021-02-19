@@ -44,7 +44,7 @@ module Openssh
     end
 
     def openssh_service_name
-      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'amazon', 'aix')
+      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix')
         'sshd'
       else
         'ssh'

@@ -85,33 +85,18 @@ template '/etc/ssh/sshd_config' do
   group node['root_group']
   variables(options: openssh_server_options)
   verify '/usr/sbin/sshd -t -f %{path}'
-  notifies :restart, platform_family?('mac_os_x') ? 'macosx_service[ssh]' : 'service[ssh]'
+  notifies :restart, 'service[ssh]'
 end
 
-if platform_family?('mac_os_x')
-  # Need to make sure remote access is enabled on mac os before trying to start service
-  bash 'enable remote access' do
-    code 'sudo systemsetup -f -setremotelogin on'
-    not_if 'sudo systemsetup -getremotelogin | grep "On"'
-  end
-
-  macosx_service 'ssh' do
-    service_name openssh_service_name
-    plist '/System/Library/LaunchDaemons/ssh.plist'
-    supports [:restart, :reload]
-    action [:enable, :start]
-  end
-else
-  service 'ssh' do
-    service_name openssh_service_name
-    supports value_for_platform_family(
-      %w(debian rhel fedora aix) => [:restart, :reload, :status],
-      %w(arch) => [:restart],
-      'default' => [:restart, :reload]
-    )
-    action value_for_platform_family(
-      %w(aix) => [:start],
-      'default' => [:enable, :start]
-    )
-  end
+service 'ssh' do
+  service_name openssh_service_name
+  supports value_for_platform_family(
+    %w(debian rhel fedora aix) => [:restart, :reload, :status],
+    %w(arch) => [:restart],
+    'default' => [:restart, :reload]
+  )
+  action value_for_platform_family(
+    %w(aix) => [:start],
+    'default' => [:enable, :start]
+  )
 end
