@@ -29,6 +29,7 @@ platforms:
   - name: macosx-10.15
     driver_config:
       box: tas50/macos_10.15
+      provider: vmware_desktop
 
 suites:
   - name: default
