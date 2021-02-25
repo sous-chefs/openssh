@@ -1,14 +1,8 @@
-service_name = if os.debian?
+service_name = if os.debian? || os.darwin?
                  'ssh'
                else
                  'sshd'
                end
-
-use_roaming_value = if os.redhat? && os[:release].to_i == 6
-                      nil
-                    else
-                      'no'
-                    end
 
 describe service(service_name) do
   it { should be_enabled }
@@ -20,7 +14,7 @@ describe port(22) do
 end
 
 describe ssh_config do
-  its('UseRoaming') { should eq use_roaming_value }
+  its('UseRoaming') { should eq 'no' }
 end
 
 # Attempt to ssh to localhost

@@ -38,7 +38,7 @@ if node['openssh']['listen_interfaces']
     end
   end
 
-  node.normal['openssh']['server']['listen_address'] = listen_addresses
+  node.default['openssh']['server']['listen_address'] = listen_addresses
 end
 
 template 'sshd_ca_keys_file' do

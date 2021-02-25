@@ -51,21 +51,11 @@ module Openssh
       end
     end
 
-    def supports_use_roaming?
-      return false if rhel_less_than_7?
-      return false if opensuse_15_plus?
-      true
-    end
-
     def supported_ssh_host_keys
       keys = ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_ecdsa_key']
-      keys << '/etc/ssh/ssh_host_dsa_key' if rhel_less_than_7? || platform_family?('smartos, suse')
+      keys << '/etc/ssh/ssh_host_dsa_key' if platform_family?('smartos, suse')
       keys << '/etc/ssh/ssh_host_ed25519_key' if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian') || opensuse_15_plus?
       keys
-    end
-
-    def rhel_less_than_7?
-      platform_family?('rhel') && node['platform_version'].to_i < 7
     end
 
     def rhel_7_plus?

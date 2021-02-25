@@ -15,5 +15,6 @@ describe port(22) do
 end
 
 describe iptables do
-  it { should have_rule('-A FWR -p tcp -m tcp --dport 22 -j ACCEPT') }
+  it { should have_rule('-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT') }
+  it { should have_rule('-A OUTPUT -p tcp -m tcp --sport 22 -j ACCEPT') }
 end

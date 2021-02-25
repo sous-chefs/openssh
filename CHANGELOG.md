@@ -4,9 +4,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
-- resolved cookstyle error: libraries/helpers.rb:81:16 warning: `Lint/SendWithMixinArgument`
-- resolved cookstyle error: libraries/helpers.rb:82:14 warning: `Lint/SendWithMixinArgument`
-- resolved cookstyle error: libraries/helpers.rb:83:12 warning: `Lint/SendWithMixinArgument`
+- Sous Chefs Adoption
+- Cookstyle fixes
 
 ## 2.8.1 (2019-10-03)
 

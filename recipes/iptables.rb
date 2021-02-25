@@ -17,14 +17,33 @@
 # limitations under the License.
 #
 
-include_recipe 'iptables::default'
+iptables_packages 'install iptables'
+iptables_service 'start iptables'
 
 sshd_port = if node['openssh'].attribute?('server') && node['openssh']['server'].attribute?('port')
-              node['openssh']['server']['port']
+              if node['openssh']['server']['port'].is_a?(Array)
+                node['openssh']['server']['port']
+              else
+                [node['openssh']['server']['port']]
+              end
             else
-              22
+              [22]
             end
 
-iptables_rule 'port_ssh' do
-  variables port: sshd_port
+sshd_port.each do |port|
+  iptables_rule 'ssh_input' do
+    chain :INPUT
+    jump 'ACCEPT'
+    protocol 'tcp'
+    match 'tcp'
+    extra_options "--dport #{port}"
+  end
+
+  iptables_rule 'ssh_output' do
+    chain :OUTPUT
+    jump 'ACCEPT'
+    protocol 'tcp'
+    match 'tcp'
+    extra_options "--sport #{port}"
+  end
 end

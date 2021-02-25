@@ -3,6 +3,8 @@ driver:
 
 provisioner:
   name: chef_zero
+  enforce_idempotency: true
+  multiple_converge: 2
   deprecations_as_errors: true
   chef_license: accept-no-persist
 
@@ -10,39 +12,30 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux
-    driver_config:
-      box: mvbcoding/awslinux
   - name: amazonlinux-2
-  - name: centos-6
   - name: centos-7
   - name: centos-8
-  - name: debian-8
-    run_list: apt::default
   - name: debian-9
-    run_list: apt::default
   - name: debian-10
-    run_list: apt::default
   - name: freebsd-12
   - name: fedora-30
   - name: opensuse-leap-15
-  - name: ubuntu-16.04
-    run_list: apt::default
   - name: ubuntu-18.04
-    run_list: apt::default
-  - name: macos-10.12
-    run_list: homebrew::default
-    driver:
-      box: chef/macos-10.12 # private box in Chef's Atlas account
-      provider: vmware_fusion
+  - name: ubuntu-20.04
+  - name: macosx-10.15
+    driver_config:
+      box: tas50/macos_10.15
+      provider: vmware_desktop
 
 suites:
   - name: default
     run_list: openssh::default
   - name: iptables
-    run_list: openssh::iptables
+    run_list:
+      - openssh::default
+      - openssh::iptables
     excludes:
-      - macosx-10.12
-      - centos-6
+      - macosx-10.15
       - centos-7
       - centos-8
+      - opensuse-leap-15
