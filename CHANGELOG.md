@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
-## Unreleased
+## 2.9.0 - *2021-02-25*
 
 - Sous Chefs Adoption
 - Cookstyle fixes
