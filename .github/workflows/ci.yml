@@ -75,35 +75,35 @@ jobs:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-# unable to get SSH service to start
-#  macos-latest:
-#    needs: [mdl, yamllint, delivery]
-#    runs-on: macos-latest
-#    strategy:
-#      matrix:
-#        os:
-#          - 'macos-latest'
-#        suite:
-#          - 'default'
-#      fail-fast: false
-#
-#    steps:
-#      - name: Check out code
-#        uses: actions/checkout@master
-#      - name: Install Chef
-#        uses: actionshub/chef-install@main
-#      - name: test-kitchen
-#        uses: actionshub/test-kitchen@main
-#        env:
-#          CHEF_LICENSE: accept-no-persist
-#          KITCHEN_LOCAL_YAML: kitchen.exec.yml
-#        with:
-#          suite: ${{ matrix.suite }}
-#          os: ${{ matrix.os }}
-#      - name: Print debug output on failure
-#        if: failure()
-#        run: |
-#            sudo syslog
+  # unable to get SSH service to start
+  #  macos-latest:
+  #    needs: [mdl, yamllint, delivery]
+  #    runs-on: macos-latest
+  #    strategy:
+  #      matrix:
+  #        os:
+  #          - 'macos-latest'
+  #        suite:
+  #          - 'default'
+  #      fail-fast: false
+  #
+  #    steps:
+  #      - name: Check out code
+  #        uses: actions/checkout@master
+  #      - name: Install Chef
+  #        uses: actionshub/chef-install@main
+  #      - name: test-kitchen
+  #        uses: actionshub/test-kitchen@main
+  #        env:
+  #          CHEF_LICENSE: accept-no-persist
+  #          KITCHEN_LOCAL_YAML: kitchen.exec.yml
+  #        with:
+  #          suite: ${{ matrix.suite }}
+  #          os: ${{ matrix.os }}
+  #      - name: Print debug output on failure
+  #        if: failure()
+  #        run: |
+  #            sudo syslog
 
   final:
     needs: [dokken]

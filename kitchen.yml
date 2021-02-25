@@ -16,16 +16,12 @@ platforms:
   - name: centos-7
   - name: centos-8
   - name: debian-9
-    run_list: apt::default
   - name: debian-10
-    run_list: apt::default
   - name: freebsd-12
   - name: fedora-30
   - name: opensuse-leap-15
   - name: ubuntu-18.04
-    run_list: apt::default
   - name: ubuntu-20.04
-    run_list: apt::default
   - name: macosx-10.15
     driver_config:
       box: tas50/macos_10.15
