@@ -59,7 +59,7 @@ module Openssh
     end
 
     def rhel_7_plus?
-      platform_family?('rhel') && node['platform_version'].to_i >= 7
+      platform_family?('rhel') && node['platform_version'].split(/\./)[0].to_i >= 7
     end
 
     def opensuse_15_plus?
