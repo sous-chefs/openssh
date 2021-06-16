@@ -5,14 +5,14 @@ name: ci
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   delivery:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Run Chef Delivery
         uses: actionshub/chef-delivery@main
         env:
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Run yaml Lint
         uses: actionshub/yamllint@main
 
@@ -30,11 +30,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Run Markdown Lint
         uses: actionshub/markdownlint@main
 
-  dokken:
+  integration:
     needs: [delivery]
     runs-on: ubuntu-latest
     strategy:
@@ -63,11 +63,11 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Dokken
-        uses: actionshub/kitchen-dokken@main
+        uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
@@ -76,7 +76,7 @@ jobs:
           os: ${{ matrix.os }}
 
   # unable to get SSH service to start
-  #  macos-latest:
+  #  integration-macos:
   #    needs: [mdl, yamllint, delivery]
   #    runs-on: macos-latest
   #    strategy:
@@ -89,7 +89,7 @@ jobs:
   #
   #    steps:
   #      - name: Check out code
-  #        uses: actions/checkout@master
+  #        uses: actions/checkout@v2
   #      - name: Install Chef
   #        uses: actionshub/chef-install@main
   #      - name: test-kitchen
@@ -104,10 +104,3 @@ jobs:
   #        if: failure()
   #        run: |
   #            sudo syslog
-
-  final:
-    needs: [dokken]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
