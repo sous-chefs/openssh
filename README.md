@@ -61,8 +61,7 @@ This means anything located in [sshd_config](http://www.openbsd.org/cgi-bin/man.
 - If it is an `Array`, each item in the array will get it's own line in the config file.
 - `Hash` attributes are meant to used with `ssh_config` namespace to create host-specific configurations. The keys of the `Hash` will be used as the `Host` entries and their associated entries as the configuration values.
 - All the values in openssh are commented out in the `attributes/default.rb` file for a base starting point.
-- There is one special attribute name, which is `match`. This is not included in the default template like the others. `node['openssh']['server']['match']` must be a Hash, where the key is the match pattern criteria and the value should be a Hash of normal keywords and values. The same transformations listed above apply to these keywords. See examples below.
-    - To get improved sorting of match items, you can prefix the key with a number.  See examples below.
+- There is one special attribute name, which is `match`. This is not included in the default template like the others. `node['openssh']['server']['match']` must be a Hash, where the key is the match pattern criteria and the value should be a Hash of normal keywords and values. The same transformations listed above apply to these keywords. To get improved sorting of match items, you can prefix the key with a number.  See examples below.
 
 ## Dynamic ListenAddress
 
