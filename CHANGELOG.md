@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- Improved sorting of Match objects in sshd_config
+
 ## 2.9.2 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management

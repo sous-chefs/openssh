@@ -27,7 +27,7 @@ Subsystem <%= node['openssh']['server']['subsystem'] %>
 
 <%  unless node['openssh']['server']['match'].empty? || !defined?(node['openssh']['server']['match']) -%>
 <%    node['openssh']['server']['match'].sort.map do |match_key, match_items| -%>
-Match <%= match_key %>
+Match <%= match_key.sub(/^[0-9]+/, '').strip %>
 <%      match_items.sort.map do |key, value| -%>
 <%        if value.kind_of? Array -%>
 <%          value.each do |item| -%>
