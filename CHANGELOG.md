@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- Update tested platforms
+
 ## 2.10.0 - *2022-01-24*
 
 - Improved sorting of Match objects in sshd_config
