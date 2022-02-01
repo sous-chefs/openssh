@@ -40,24 +40,30 @@ jobs:
     strategy:
       matrix:
         os:
+          - 'almalinux-8'
           - 'amazonlinux-2'
           - 'centos-7'
-          - 'centos-8'
-          - 'debian-9'
+          - 'centos-stream-8'
           - 'debian-10'
+          - 'debian-11'
           - 'fedora-latest'
           - 'opensuse-leap-15'
           - 'ubuntu-1804'
           - 'ubuntu-2004'
+          - 'rockylinux-8'
         suite:
           - 'default'
           - 'iptables'
         exclude:
+          - os: 'almalinux-8'
+            suite: 'iptables'
           - os: 'centos-7'
             suite: 'iptables'
-          - os: 'centos-8'
+          - os: 'centos-stream-8'
             suite: 'iptables'
           - os: 'opensuse-leap-15'
+            suite: 'iptables'
+          - os: 'rockylinux-8'
             suite: 'iptables'
       fail-fast: false
 
