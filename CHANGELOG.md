@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- Remove delivery folder
+
 ## 2.10.1 - *2022-02-01*
 
 - Update tested platforms
