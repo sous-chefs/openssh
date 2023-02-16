@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 2.10.6 - *2023-02-14*
 
 ## 2.10.5 - *2023-02-14*
