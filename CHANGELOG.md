@@ -10,6 +10,14 @@ This file is used to list changes made in each version of the openssh cookbook.
 - Update stale workflow to v8
 - Update renovate config
 
+## 2.10.11 - *2023-03-20*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 2.10.10 - *2023-03-15*
+
+Standardise files with files in sous-chefs/repo-management
+
 ## 2.10.9 - *2023-02-23*
 
 Standardise files with files in sous-chefs/repo-management
@@ -29,8 +37,6 @@ Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
 ## 2.10.4 - *2022-12-08*
-
-Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
