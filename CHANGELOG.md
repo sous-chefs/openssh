@@ -4,6 +4,12 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- Update lint-unit workflow to 2.0.1
+- Update yamlint config
+- Update overcommit config
+- Update stale workflow to v8
+- Update renovate config
+
 ## 2.10.9 - *2023-02-23*
 
 Standardise files with files in sous-chefs/repo-management

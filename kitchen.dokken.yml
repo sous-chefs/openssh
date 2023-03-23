@@ -9,13 +9,8 @@ transport:
 
 provisioner:
   name: dokken
-  deprecations_as_errors: true
-
-verifier:
-  name: inspec
 
 platforms:
-
   - name: almalinux-8
     driver:
       image: dokken/almalinux-8

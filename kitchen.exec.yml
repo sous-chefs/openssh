@@ -7,7 +7,6 @@ transport:
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: true
 
 platforms:
   - name: macos-latest
