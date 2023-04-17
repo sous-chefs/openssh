@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
-## Unreleased
+## 2.10.16 - *2023-04-17*
 
 ## 2.10.15 - *2023-04-07*
 
