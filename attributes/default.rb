@@ -26,7 +26,7 @@ default['openssh']['package_name'] = case node['platform_family']
                                        %w(openssh-clients openssh-server)
                                      when 'arch', 'suse', 'gentoo'
                                        %w(openssh)
-                                     when 'freebsd', 'smartos', 'mac_os_x', 'aix'
+                                     when 'freebsd', 'smartos', 'mac_os_x', 'aix', 'windows'
                                        %w()
                                      else
                                        %w(openssh-client openssh-server)

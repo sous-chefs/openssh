@@ -9,6 +9,15 @@ describe 'openssh::default' do
     expect(template.group).to eq('root')
   end
 
+  context 'Windows' do
+    platform 'windows', '2016'
+
+    it 'writes the ssh_config' do
+      template = chef_run.template('C:\\ProgramData\\ssh\\ssh_config')
+      expect(template).to be
+    end
+  end
+
   describe 'sshd_config' do
     it 'writes the sshd_config' do
       template = chef_run.template('/etc/ssh/sshd_config')

@@ -21,6 +21,7 @@ supports 'scientific'
 supports 'smartos'
 supports 'suse'
 supports 'ubuntu'
+supports 'windows'
 supports 'zlinux'
 
 depends 'iptables', '>= 7.0'

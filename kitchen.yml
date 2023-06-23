@@ -41,3 +41,8 @@ suites:
       - macosx-10.15
       - opensuse-leap-15
       - rockylinux-8
+  - name: windows
+    run_list: openssh:default
+    includes:
+      - windows-2012r2
+      - windows-2016
