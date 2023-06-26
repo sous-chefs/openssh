@@ -1,15 +1,12 @@
 require 'spec_helper'
 
 describe 'openssh::default' do
-
-  describe 'ssh_config' do
-    it 'writes the ssh_config' do
-      template = chef_run.template('/etc/ssh/ssh_config')
-      expect(template).to be
-      expect(template.mode).to eq('0644')
-      expect(template.owner).to eq('root')
-      expect(template.group).to eq('root')
-    end
+  it 'writes the ssh_config' do
+    template = chef_run.template('/etc/ssh/ssh_config')
+    expect(template).to be
+    expect(template.mode).to eq('0644')
+    expect(template.owner).to eq('root')
+    expect(template.group).to eq('root')
   end
 
   describe 'sshd_config' do
