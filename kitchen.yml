@@ -46,3 +46,4 @@ suites:
     includes:
       - windows-2012r2
       - windows-2016
+      - windows-2019

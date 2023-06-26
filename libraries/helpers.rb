@@ -44,17 +44,25 @@ module Openssh
     end
 
     def openssh_service_name
-      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix')
+      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix', 'windows')
         'sshd'
       else
         'ssh'
       end
     end
 
+    def base_ssh_dir
+      if platform_family?('windows')
+        'C:\\ProgramData\\ssh'
+      else
+        '/etc/ssh'
+      end
+    end
+
     def supported_ssh_host_keys
-      keys = ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_ecdsa_key']
-      keys << '/etc/ssh/ssh_host_dsa_key' if platform_family?('smartos, suse')
-      keys << '/etc/ssh/ssh_host_ed25519_key' if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian') || opensuse_15_plus?
+      keys = [File.join(base_ssh_dir(), 'ssh_host_rsa_key'), File.join(base_ssh_dir(), 'ssh_host_ecdsa_key')]
+      keys << File.join(base_ssh_dir(), 'ssh_host_dsa_key') if platform_family?('smartos', 'suse', 'windows')
+      keys << File.join(base_ssh_dir(), 'ssh_host_ed25519_key') if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian', 'windows') || opensuse_15_plus?
       keys
     end
 

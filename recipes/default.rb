@@ -24,13 +24,7 @@ end
 
 package node['openssh']['package_name'] unless node['openssh']['package_name'].empty?
 
-if platform_family?('windows')
-  ssh_config_path = 'C:\\ProgramData\\ssh\\ssh_config'
-else
-  ssh_config_path = '/etc/ssh/ssh_config'
-end
-
-template ssh_config_path do
+template File.join(base_ssh_dir(), 'ssh_config') do
   source 'ssh_config.erb'
   mode '0644'
   owner 'root'
@@ -84,13 +78,7 @@ if platform_family?('debian')
   directory dir
 end
 
-if platform_family?('windows')
-  sshd_config_path = 'C:\\ProgramData\\ssh\\sshd_config'
-else
-  sshd_config_path = '/etc/ssh/sshd_config'
-end
-
-template sshd_config_path do
+template File.join(base_ssh_dir(), 'sshd_config') do
   source 'sshd_config.erb'
   mode node['openssh']['config_mode']
   owner 'root'

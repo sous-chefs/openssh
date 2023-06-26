@@ -1,20 +1,23 @@
 require 'spec_helper'
 
 describe 'openssh::default' do
-  it 'writes the ssh_config' do
-    template = chef_run.template('/etc/ssh/ssh_config')
-    expect(template).to be
-    expect(template.mode).to eq('0644')
-    expect(template.owner).to eq('root')
-    expect(template.group).to eq('root')
-  end
 
-  context 'Windows' do
-    platform 'windows', '2016'
-
+  describe 'ssh_config' do
     it 'writes the ssh_config' do
-      template = chef_run.template('C:\\ProgramData\\ssh\\ssh_config')
+      template = chef_run.template('/etc/ssh/ssh_config')
       expect(template).to be
+      expect(template.mode).to eq('0644')
+      expect(template.owner).to eq('root')
+      expect(template.group).to eq('root')
+    end
+
+    context 'Windows' do
+      platform 'windows', '2016'
+
+      it 'writes the ssh_config' do
+        template = chef_run.template(File.join('C:\\ProgramData\\ssh', 'ssh_config'))
+        expect(template).to be
+      end
     end
   end
 
@@ -25,6 +28,15 @@ describe 'openssh::default' do
       expect(template.mode).to eq('0644')
       expect(template.owner).to eq('root')
       expect(template.group).to eq('root')
+    end
+
+    context 'Windows' do
+      platform 'windows', '2016'
+
+      it 'writes the sshd_config' do
+        template = chef_run.template(File.join('C:\\ProgramData\\ssh', 'sshd_config'))
+        expect(template).to be
+      end
     end
 
     it 'allow legacy default AuthorizedKeysFile behavior' do

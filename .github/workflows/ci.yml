@@ -34,6 +34,7 @@ jobs:
           - "ubuntu-1804"
           - "ubuntu-2004"
           - "rockylinux-8"
+          - "windows-2019"
         suite:
           - "default"
           - "iptables"
