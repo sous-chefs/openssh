@@ -8,3 +8,7 @@ RSpec.configure do |config|
   config.platform = 'ubuntu'
   config.version = '18.04'
 end
+
+def join_path(*path)
+  Chef::Util::PathHelper.cleanpath(::File.join(path))
+end
