@@ -34,7 +34,6 @@ jobs:
           - "ubuntu-1804"
           - "ubuntu-2004"
           - "rockylinux-8"
-          - "windows-2019"
         suite:
           - "default"
           - "iptables"
@@ -61,6 +60,32 @@ jobs:
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+
+  integration-windows:
+    needs: lint-unit
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+        suite:
+          - "windows-default"
+          - "windows-iptables"
+      fail-fast: false
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Install Chef
+        uses: actionshub/chef-install@2.0.4
+      - name: test-kitchen
+        uses: actionshub/test-kitchen@2.1.0
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.exec.yml
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
