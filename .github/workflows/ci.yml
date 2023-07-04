@@ -84,7 +84,7 @@ jobs:
       - name: Install Openssh
         uses: ConorMacBride/install-package@v1
         with:
-          choco: openssh
+          choco: openssh --version=9.2.2
       - name: test-kitchen
         uses: actionshub/test-kitchen@2.1.0
         env:

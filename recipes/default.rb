@@ -90,7 +90,7 @@ template join_path(base_ssh_config_dir(), 'sshd_config') do
   owner 'root' unless platform_family?('windows')
   group node['root_group']
   variables(options: openssh_server_options)
-  verify "#{default_sshd_path} -t -f %{path}"
+  verify "'#{default_sshd_path}' -t -f %{path}"
   notifies :restart, 'service[ssh]'
 end
 
