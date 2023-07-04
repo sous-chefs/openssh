@@ -26,8 +26,8 @@ package node['openssh']['package_name'] unless node['openssh']['package_name'].e
 
 template join_path(base_ssh_dir(), 'ssh_config') do
   source 'ssh_config.erb'
-  mode '0644'
-  owner 'root'
+  mode '0644' unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
 end
 
