@@ -141,8 +141,8 @@ default['openssh']['server']['use_p_a_m'] = 'yes' unless platform_family?('smart
 # default['openssh']['server']['banner'] = 'none'
 # default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
 if platform_family?('windows')
-  default_ca_keys_path = join_path(base_ssh_dir(), 'ca_userkeys.pub')
-  default_revoked_keys_path = join_path(base_ssh_dir(), 'revoked_keys')
+  default_ca_keys_path = join_path(base_ssh_config_dir(), 'ca_userkeys.pub')
+  default_revoked_keys_path = join_path(base_ssh_config_dir(), 'revoked_keys')
 else
   default_ca_keys_path = '/etc/ssh/ca_keys'
   default_revoked_keys_path = '/etc/ssh/revoked_keys'

@@ -51,11 +51,19 @@ module Openssh
       end
     end
 
-    def base_ssh_dir
+    def base_ssh_config_dir
       if platform_family?('windows')
         'C:\\ProgramData\\ssh'
       else
         '/etc/ssh'
+      end
+    end
+
+    def base_ssh_bin_dir
+      if platform_family?('windows')
+        'C:\\Program Files\\OpenSSH'
+      else
+        '/usr/sbin/'
       end
     end
 
@@ -64,9 +72,9 @@ module Openssh
     end
 
     def supported_ssh_host_keys
-      keys = [join_path(base_ssh_dir(), 'ssh_host_rsa_key'), join_path(base_ssh_dir(), 'ssh_host_ecdsa_key')]
-      keys << join_path(base_ssh_dir(), 'ssh_host_dsa_key') if platform_family?('smartos', 'suse', 'windows')
-      keys << join_path(base_ssh_dir(), 'ssh_host_ed25519_key') if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian', 'windows') || opensuse_15_plus?
+      keys = [join_path(base_ssh_config_dir(), 'ssh_host_rsa_key'), join_path(base_ssh_config_dir(), 'ssh_host_ecdsa_key')]
+      keys << join_path(base_ssh_config_dir(), 'ssh_host_dsa_key') if platform_family?('smartos', 'suse', 'windows')
+      keys << join_path(base_ssh_config_dir(), 'ssh_host_ed25519_key') if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian', 'windows') || opensuse_15_plus?
       keys
     end
 

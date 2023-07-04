@@ -24,7 +24,7 @@ end
 
 package node['openssh']['package_name'] unless node['openssh']['package_name'].empty?
 
-template join_path(base_ssh_dir(), 'ssh_config') do
+template join_path(base_ssh_config_dir(), 'ssh_config') do
   source 'ssh_config.erb'
   mode '0644' unless platform_family?('windows')
   owner 'root' unless platform_family?('windows')
@@ -78,13 +78,19 @@ if platform_family?('debian')
   directory dir
 end
 
-template join_path(base_ssh_dir(), 'sshd_config') do
+if platform_family?('windows')
+  default_sshd_path = join_path(base_ssh_bin_dir(), 'sshd.exe')
+else
+  default_sshd_path = join_path(base_ssh_bin_dir(), 'sshd')
+end
+
+template join_path(base_ssh_config_dir(), 'sshd_config') do
   source 'sshd_config.erb'
   mode node['openssh']['config_mode'] unless platform_family?('windows')
   owner 'root' unless platform_family?('windows')
   group node['root_group']
   variables(options: openssh_server_options)
-  verify '/usr/sbin/sshd -t -f %{path}'
+  verify "#{default_sshd_path} -t -f %{path}"
   notifies :restart, 'service[ssh]'
 end
 
