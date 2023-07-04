@@ -44,16 +44,16 @@ end
 template 'sshd_ca_keys_file' do
   source 'ca_keys.erb'
   path node['openssh']['server']['trusted_user_c_a_keys']
-  mode node['openssh']['config_mode']
-  owner 'root'
+  mode node['openssh']['config_mode'] unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
 end
 
 template 'sshd_revoked_keys_file' do
   source 'revoked_keys.erb'
   path node['openssh']['server']['revoked_keys']
-  mode node['openssh']['config_mode']
-  owner 'root'
+  mode node['openssh']['config_mode'] unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
 end
 
@@ -80,8 +80,8 @@ end
 
 template join_path(base_ssh_dir(), 'sshd_config') do
   source 'sshd_config.erb'
-  mode node['openssh']['config_mode']
-  owner 'root'
+  mode node['openssh']['config_mode'] unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
   variables(options: openssh_server_options)
   verify '/usr/sbin/sshd -t -f %{path}'
