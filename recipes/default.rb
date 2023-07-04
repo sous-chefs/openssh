@@ -78,11 +78,11 @@ if platform_family?('debian')
   directory dir
 end
 
-if platform_family?('windows')
-  default_sshd_path = join_path(base_ssh_bin_dir(), 'sshd.exe')
-else
-  default_sshd_path = join_path(base_ssh_bin_dir(), 'sshd')
-end
+default_sshd_path = if platform_family?('windows')
+                      join_path(base_ssh_bin_dir(), 'sshd.exe')
+                    else
+                      join_path(base_ssh_bin_dir(), 'sshd')
+                    end
 
 template join_path(base_ssh_config_dir(), 'sshd_config') do
   source 'sshd_config.erb'
