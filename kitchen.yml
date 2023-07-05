@@ -40,6 +40,7 @@ platforms:
       multiple_converge: 1
       lifecycle:
         pre_converge:
+          - local: cat /etc/ssl/openssl.cnf
           - remote: |
               mkdir installer
               [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
