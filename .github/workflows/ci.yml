@@ -89,9 +89,9 @@ jobs:
       - name: Install Openssh
         run: |
           echo %cd%
-          dir
-          $file = "installer/OpenSSH-Win64-v9.2.2.0.msi"
-          $log = "installer/install.log"
+          dir installer
+          $file = "installer\\OpenSSH-Win64-v9.2.2.0.msi"
+          $log = "installer\\install.log"
           $procMain = Start-Process "msiexec" "/i `"$file`" /qn /l*! `"$log`"" -NoNewWindow -PassThru
           $procLog = Start-Process "powershell" "Get-Content -Path `"$log`" -Wait" -NoNewWindow -PassThru
           $procMain.WaitForExit()
