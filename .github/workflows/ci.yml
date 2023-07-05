@@ -88,6 +88,8 @@ jobs:
           target: installer/
       - name: Install Openssh
         run: |
+          echo %cd%
+          dir
           $file = "installer/OpenSSH-Win64-v9.2.2.0.msi"
           $log = "installer/install.log"
           $procMain = Start-Process "msiexec" "/i `"$file`" /qn /l*! `"$log`"" -NoNewWindow -PassThru
