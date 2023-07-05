@@ -79,7 +79,7 @@ if platform_family?('debian')
 end
 
 default_sshd_path = if platform_family?('windows')
-                      join_path(base_ssh_bin_dir(), 'sshd.exe')
+                      "\"#{join_path(base_ssh_bin_dir(), 'sshd.exe')}\""
                     else
                       join_path(base_ssh_bin_dir(), 'sshd')
                     end
@@ -90,7 +90,7 @@ template join_path(base_ssh_config_dir(), 'sshd_config') do
   owner 'root' unless platform_family?('windows')
   group node['root_group']
   variables(options: openssh_server_options)
-  verify "'#{default_sshd_path}' -t -f %{path}"
+  verify "#{default_sshd_path} -t -f %{path}"
   notifies :restart, 'service[ssh]'
 end
 
