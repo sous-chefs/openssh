@@ -38,6 +38,20 @@ platforms:
     provisioner:
       enforce_idempotency: false
       multiple_converge: 1
+      lifecycle:
+        pre_converge:
+        - remote: |
+          mkdir installer
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          wget https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.2.2.0p1-Beta/OpenSSH-Win64-v9.2.2.0.msi -outfile installer\OpenSSH-Win64-v9.2.2.0.msi
+          echo %cd%
+          dir installer
+          $file = "installer\\OpenSSH-Win64-v9.2.2.0.msi"
+          $log = "installer\\install.log"
+          $procMain = Start-Process "msiexec" "/i `"$file`" /qn /l*! `"$log`"" -NoNewWindow -PassThru
+          $procLog = Start-Process "powershell" "Get-Content -Path `"$log`" -Wait" -NoNewWindow -PassThru
+          $procMain.WaitForExit()
+          $procLog.Kill()
   - name: windows-2019
     driver:
       box: tas50/windows_2019
@@ -50,6 +64,20 @@ platforms:
     provisioner:
       enforce_idempotency: false
       multiple_converge: 1
+      lifecycle:
+        pre_converge:
+        - remote: |
+          mkdir installer
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          wget https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.2.2.0p1-Beta/OpenSSH-Win64-v9.2.2.0.msi -outfile installer\OpenSSH-Win64-v9.2.2.0.msi
+          echo %cd%
+          dir installer
+          $file = "installer\\OpenSSH-Win64-v9.2.2.0.msi"
+          $log = "installer\\install.log"
+          $procMain = Start-Process "msiexec" "/i `"$file`" /qn /l*! `"$log`"" -NoNewWindow -PassThru
+          $procLog = Start-Process "powershell" "Get-Content -Path `"$log`" -Wait" -NoNewWindow -PassThru
+          $procMain.WaitForExit()
+          $procLog.Kill()
 
 suites:
   - name: default
