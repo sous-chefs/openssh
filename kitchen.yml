@@ -39,8 +39,9 @@ platforms:
       enforce_idempotency: false
       multiple_converge: 1
       lifecycle:
-        pre_converge:
+        pre_create:
           - local: cat /etc/ssl/openssl.cnf
+        pre_converge:
           - remote: |
               mkdir installer
               [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
