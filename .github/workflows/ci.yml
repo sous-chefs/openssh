@@ -70,8 +70,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - windows-2016
-          - windows-2019
+          - windows-latest
         suite:
           - "windows-default"
       fail-fast: false
