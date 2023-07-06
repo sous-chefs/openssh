@@ -33,19 +33,6 @@ platforms:
     driver_config:
       box: tas50/windows_2019
 
-  - name: windows-2019
-    driver:
-      box: tas50/windows_2019
-      customize:
-        cpus: 2
-        memory: 4096
-    transport:
-      name: winrm
-      elevated: true
-    provisioner:
-      enforce_idempotency: false
-      multiple_converge: 1
-
 suites:
   - name: default
     run_list: openssh::default
