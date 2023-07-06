@@ -27,17 +27,11 @@ platforms:
       box: tas50/macos_10.15
       provider: vmware_desktop
   - name: windows-2016
-    driver:
+    driver_config:
       box: tas50/windows_2016
-      customize:
-        cpus: 2
-        memory: 4096
-    transport:
-      name: winrm
-      elevated: true
-    provisioner:
-      enforce_idempotency: false
-      multiple_converge: 1
+  - name: windows-2019
+    driver_config:
+      box: tas50/windows_2019
 
   - name: windows-2019
     driver:
@@ -58,6 +52,7 @@ suites:
     excludes:
       - windows-2016
       - windows-2019
+      - windows-latest
   - name: iptables
     run_list:
       - openssh::default
@@ -71,8 +66,10 @@ suites:
       - rockylinux-8
       - windows-2016
       - windows-2019
+      - windows-latest
   - name: windows-default
     run_list: openssh::default
     includes:
       - windows-2016
       - windows-2019
+      - windows-latest
