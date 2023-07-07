@@ -70,7 +70,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - windows-latest
+          - "windows-latest"
         suite:
           - "windows-default"
       fail-fast: false
