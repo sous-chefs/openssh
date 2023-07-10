@@ -96,7 +96,7 @@ jobs:
           $procMain.WaitForExit()
           $procLog.Kill()
 
-      - name: test-kitchen
+      - name: Kitchen Converge
         uses: actionshub/test-kitchen@2.1.0
         env:
           CHEF_LICENSE: accept-no-persist
@@ -104,6 +104,16 @@ jobs:
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
+          action: converge
+      - name: Kitchen Verify
+        uses: actionshub/test-kitchen@2.1.0
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.exec.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+          action: verify
 
   # unable to get SSH service to start
   #  integration-macos:
