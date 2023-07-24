@@ -15,7 +15,7 @@ end
 
 # Attempt to ssh to localhost
 ssh_cmd = 'ssh -oStrictHostKeyChecking=no -oPasswordAuthentication=no -v localhost'
-stderr = Mixlib::ShellOut.new(ssh_cmd).run_command.stderr
+stderr = shell_out(ssh_cmd).stderr
 expected_string = 'Next authentication method'
 
 describe "Command #{ssh_cmd}" do
