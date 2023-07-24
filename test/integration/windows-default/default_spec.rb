@@ -1,4 +1,4 @@
-include Chef::Mixin::ShellOut
+require 'chef/mixin/shell_out'
 
 service_name = 'sshd'
 
