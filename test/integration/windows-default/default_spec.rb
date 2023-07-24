@@ -1,3 +1,5 @@
+include Chef::Mixin::ShellOut
+
 service_name = 'sshd'
 
 describe service(service_name) do
