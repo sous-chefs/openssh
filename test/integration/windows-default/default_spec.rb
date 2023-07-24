@@ -15,7 +15,10 @@ end
 
 # Attempt to ssh to localhost
 script = <<-EOF
-  Start-Process ssh "-oStrictHostKeyChecking=no -oPasswordAuthentication=no -v localhost" -NoNewWindow -Wait -RedirectStandardOutput stdOut.log -RedirectStandardError stdErr.log; gc *.log; rm *.log
+  Start-Process ssh "-oStrictHostKeyChecking=no -oPasswordAuthentication=no -v localhost" -NoNewWindow -Wait -RedirectStandardOutput stdOut.log -RedirectStandardError stdErr.log
+  gc stdOut.log
+  cmd.exe /C 'type stdErr.log 1>&2'
+  rm *.log
 EOF
 
 describe powershell(script) do
