@@ -13,24 +13,11 @@ describe ssh_config do
   its('UseRoaming') { should eq 'no' }
 end
 
-# # Attempt to ssh to localhost
-# ssh_cmd = 'ssh -oStrictHostKeyChecking=no -oPasswordAuthentication=no -v localhost'
-# stderr = shell_out(ssh_cmd).stderr
-# expected_string = 'Next authentication method'
-
-# describe "Command #{ssh_cmd}" do
-#   it "stderr is expected to include '#{expected_string}'" do
-#     # No way of actually sshing in without a keypair or password
-#     # but being prompted for an authentication method should be sufficient to
-#     # test that SSH is working as expected, for the most part
-#     expect(stderr).to(include expected_string)
-#   end
-# end
-
 # Attempt to ssh to localhost
 describe powershell('ssh -oStrictHostKeyChecking=no -oPasswordAuthentication=no -v localhost') do
   # No way of actually sshing in without a keypair or password
   # but being prompted for an authentication method should be sufficient to
   # test that SSH is working as expected, for the most part
+  its('stdout') { should match 'Next authentication method' }
   its('stderr') { should match 'Next authentication method' }
 end
