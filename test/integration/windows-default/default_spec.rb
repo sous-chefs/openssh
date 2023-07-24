@@ -14,7 +14,11 @@ describe ssh_config do
 end
 
 # Attempt to ssh to localhost
-describe powershell('ssh -oStrictHostKeyChecking=no -oPasswordAuthentication=no -v localhost') do
+script = <<-EOF
+  Start-Process ssh "-oStrictHostKeyChecking=no -oPasswordAuthentication=no -v localhost" -NoNewWindow -RedirectStandardOutput stdOut.log -RedirectStandardError stdErr.log; gc *.log; rm *.log
+EOF
+
+describe powershell(script) do
   # No way of actually sshing in without a keypair or password
   # but being prompted for an authentication method should be sufficient to
   # test that SSH is working as expected, for the most part
