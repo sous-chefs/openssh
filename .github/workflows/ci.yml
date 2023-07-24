@@ -67,6 +67,7 @@ jobs:
   integration-windows:
     needs: lint-unit
     runs-on: windows-latest
+    timeout-minutes: 20
     strategy:
       matrix:
         os:
