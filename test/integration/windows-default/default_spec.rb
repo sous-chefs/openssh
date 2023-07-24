@@ -18,6 +18,6 @@ describe powershell('ssh -oStrictHostKeyChecking=no -oPasswordAuthentication=no 
   # No way of actually sshing in without a keypair or password
   # but being prompted for an authentication method should be sufficient to
   # test that SSH is working as expected, for the most part
-  its('stdout') { should match 'Next authentication method' }
-  its('stderr') { should match 'Next authentication method' }
+  its('stdout') { should match /Next authentication method/ }
+  its('stderr') { should match /Next authentication method/ }
 end
