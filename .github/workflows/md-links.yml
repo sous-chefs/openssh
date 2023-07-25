@@ -15,5 +15,6 @@ jobs:
       - name: markdown-link-check
         uses: gaurav-nelson/github-action-markdown-link-check@1.0.15
         with:
-          use-verbose-mode: "yes"
-          folder-path: "documentation"
+          use-verbose-mode: 'yes'
+          folder-path: 'documentation'
+          check-modified-files-only: 'no'
