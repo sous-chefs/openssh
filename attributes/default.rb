@@ -148,7 +148,7 @@ default['openssh']['server']['trusted_user_c_a_keys'] = if platform_family?('win
 default['openssh']['server']['revoked_keys'] = if platform_family?('windows')
                                                  join_path(base_ssh_config_dir, 'revoked_keys')
                                                else
-                                                '/etc/ssh/revoked_keys'
+                                                 '/etc/ssh/revoked_keys'
                                                end
 default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/openssh/sftp-server' if platform_family?('rhel', 'amazon', 'fedora')
 default['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server' if platform_family?('debian')
