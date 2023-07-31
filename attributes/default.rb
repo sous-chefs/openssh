@@ -140,15 +140,16 @@ default['openssh']['server']['use_p_a_m'] = 'yes' unless platform_family?('smart
 # default['openssh']['server']['chroot_directory'] = 'none'
 # default['openssh']['server']['banner'] = 'none'
 # default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
-if platform_family?('windows')
-  default_ca_keys_path = join_path(base_ssh_config_dir(), 'ca_userkeys.pub')
-  default_revoked_keys_path = join_path(base_ssh_config_dir(), 'revoked_keys')
-else
-  default_ca_keys_path = '/etc/ssh/ca_keys'
-  default_revoked_keys_path = '/etc/ssh/revoked_keys'
-end
-default['openssh']['server']['trusted_user_c_a_keys'] = default_ca_keys_path
-default['openssh']['server']['revoked_keys'] = default_revoked_keys_path
+default['openssh']['server']['trusted_user_c_a_keys'] = if platform_family?('windows')
+                                                          join_path(base_ssh_config_dir, 'ca_userkeys.pub')
+                                                        else
+                                                          '/etc/ssh/ca_keys'
+                                                        end
+default['openssh']['server']['revoked_keys'] = if platform_family?('windows')
+                                                 join_path(base_ssh_config_dir, 'revoked_keys')
+                                               else
+                                                '/etc/ssh/revoked_keys'
+                                               end
 default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/openssh/sftp-server' if platform_family?('rhel', 'amazon', 'fedora')
 default['openssh']['server']['subsystem'] = 'sftp /usr/lib/openssh/sftp-server' if platform_family?('debian')
 default['openssh']['server']['subsystem'] = 'sftp /usr/lib/ssh/sftp-server' if platform_family?('suse')

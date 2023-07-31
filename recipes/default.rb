@@ -24,7 +24,7 @@ end
 
 package node['openssh']['package_name'] unless node['openssh']['package_name'].empty?
 
-template join_path(base_ssh_config_dir(), 'ssh_config') do
+template join_path(base_ssh_config_dir, 'ssh_config') do
   source 'ssh_config.erb'
   mode '0644' unless platform_family?('windows')
   owner 'root' unless platform_family?('windows')
@@ -79,12 +79,12 @@ if platform_family?('debian')
 end
 
 default_sshd_path = if platform_family?('windows')
-                      "\"#{join_path(base_ssh_bin_dir(), 'sshd.exe')}\""
+                      "\"#{join_path(base_ssh_bin_dir, 'sshd.exe')}\""
                     else
-                      join_path(base_ssh_bin_dir(), 'sshd')
+                      join_path(base_ssh_bin_dir, 'sshd')
                     end
 
-template join_path(base_ssh_config_dir(), 'sshd_config') do
+template join_path(base_ssh_config_dir, 'sshd_config') do
   source 'sshd_config.erb'
   mode node['openssh']['config_mode'] unless platform_family?('windows')
   owner 'root' unless platform_family?('windows')
