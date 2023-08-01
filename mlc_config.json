@@ -1,0 +1,10 @@
+{
+    "ignorePatterns": [
+        {
+            "pattern": "^https://tickets.chef.io/browse/COOK"
+        },
+        {
+            "pattern": "^https://opencollective.com/sous-chefs/contributors.svg"
+        }
+    ]
+}

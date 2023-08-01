@@ -44,17 +44,29 @@ module Openssh
     end
 
     def openssh_service_name
-      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix')
+      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix', 'windows')
         'sshd'
       else
         'ssh'
       end
     end
 
+    def base_ssh_config_dir
+      platform_family?('windows') ? 'C:\\ProgramData\\ssh' : '/etc/ssh'
+    end
+
+    def base_ssh_bin_dir
+      platform_family?('windows') ? 'C:\\Program Files\\OpenSSH' : '/usr/sbin/'
+    end
+
+    def join_path(*path)
+      Chef::Util::PathHelper.cleanpath(::File.join(path))
+    end
+
     def supported_ssh_host_keys
-      keys = ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_ecdsa_key']
-      keys << '/etc/ssh/ssh_host_dsa_key' if platform_family?('smartos, suse')
-      keys << '/etc/ssh/ssh_host_ed25519_key' if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian') || opensuse_15_plus?
+      keys = [join_path(base_ssh_config_dir, 'ssh_host_rsa_key'), join_path(base_ssh_config_dir, 'ssh_host_ecdsa_key')]
+      keys << join_path(base_ssh_config_dir, 'ssh_host_dsa_key') if platform_family?('smartos', 'suse', 'windows')
+      keys << join_path(base_ssh_config_dir, 'ssh_host_ed25519_key') if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian', 'windows') || opensuse_15_plus?
       keys
     end
 

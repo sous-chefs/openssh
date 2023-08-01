@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+# The iptables cookbook doesn't support Windows
+return if platform_family?('windows')
+
 iptables_packages 'install iptables'
 iptables_service 'start iptables'
 

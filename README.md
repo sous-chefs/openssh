@@ -23,6 +23,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 - Suse Enterprise Linux
 - openSUSE / openSUSE leap
 - AIX 7.1
+- Windows
 
 ### Chef
 

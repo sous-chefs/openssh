@@ -1,10 +1,10 @@
+---
 driver:
   name: vagrant
 
 provisioner:
-  name: chef_infra
-  enforce_idempotency: true
-  multiple_converge: 2
+  name: chef_zero
+  product_name: chef
   deprecations_as_errors: true
   chef_license: accept-no-persist
 
@@ -26,10 +26,20 @@ platforms:
     driver_config:
       box: tas50/macos_10.15
       provider: vmware_desktop
+  - name: windows-2016
+    driver_config:
+      box: tas50/windows_2016
+  - name: windows-2019
+    driver_config:
+      box: tas50/windows_2019
 
 suites:
   - name: default
     run_list: openssh::default
+    excludes:
+      - windows-2016
+      - windows-2019
+      - windows-latest
   - name: iptables
     run_list:
       - openssh::default
@@ -41,3 +51,12 @@ suites:
       - macosx-10.15
       - opensuse-leap-15
       - rockylinux-8
+      - windows-2016
+      - windows-2019
+      - windows-latest
+  - name: windows-default
+    run_list: openssh::default
+    includes:
+      - windows-2016
+      - windows-2019
+      - windows-latest

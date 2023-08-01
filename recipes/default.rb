@@ -24,10 +24,10 @@ end
 
 package node['openssh']['package_name'] unless node['openssh']['package_name'].empty?
 
-template '/etc/ssh/ssh_config' do
+template join_path(base_ssh_config_dir, 'ssh_config') do
   source 'ssh_config.erb'
-  mode '0644'
-  owner 'root'
+  mode '0644' unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
 end
 
@@ -44,16 +44,16 @@ end
 template 'sshd_ca_keys_file' do
   source 'ca_keys.erb'
   path node['openssh']['server']['trusted_user_c_a_keys']
-  mode node['openssh']['config_mode']
-  owner 'root'
+  mode node['openssh']['config_mode'] unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
 end
 
 template 'sshd_revoked_keys_file' do
   source 'revoked_keys.erb'
   path node['openssh']['server']['revoked_keys']
-  mode node['openssh']['config_mode']
-  owner 'root'
+  mode node['openssh']['config_mode'] unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
 end
 
@@ -78,13 +78,19 @@ if platform_family?('debian')
   directory dir
 end
 
-template '/etc/ssh/sshd_config' do
+default_sshd_path = if platform_family?('windows')
+                      "\"#{join_path(base_ssh_bin_dir, 'sshd.exe')}\""
+                    else
+                      join_path(base_ssh_bin_dir, 'sshd')
+                    end
+
+template join_path(base_ssh_config_dir, 'sshd_config') do
   source 'sshd_config.erb'
-  mode node['openssh']['config_mode']
-  owner 'root'
+  mode node['openssh']['config_mode'] unless platform_family?('windows')
+  owner 'root' unless platform_family?('windows')
   group node['root_group']
   variables(options: openssh_server_options)
-  verify '/usr/sbin/sshd -t -f %{path}'
+  verify "#{default_sshd_path} -t -f %{path}"
   notifies :restart, 'service[ssh]'
 end
 

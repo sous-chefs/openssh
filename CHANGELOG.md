@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- Add Windows Support
+
 ## 2.10.18 - *2023-07-10*
 
 ## 2.10.17 - *2023-05-16*
