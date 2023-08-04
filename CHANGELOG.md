@@ -6,6 +6,10 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+## 2.11.1 - *2023-08-04*
+
+- Disable PAM option on Windows
+
 ## 2.11.0 - *2023-08-01*
 
 - Add Windows Support
