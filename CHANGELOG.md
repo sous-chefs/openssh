@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## Unreleased
+
 ## 2.11.1 - *2023-08-04*
 
 - Disable PAM option on Windows
