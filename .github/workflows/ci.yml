@@ -51,6 +51,12 @@ jobs:
       fail-fast: false
 
     steps:
+      - name: Install openssh on Amazon Linux
+        if: matrix.os == 'amazonlinux-2'
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: 'openssh-server'
+          version: 1.0
       - name: Check out code
         uses: actions/checkout@v3
       - name: Install Chef
