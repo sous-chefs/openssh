@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: Install openssh on Amazon Linux
         if: matrix.os == 'amazonlinux-2'
-        run: 'sudo yum install openssh-server'
+        run: 'sudo apt-get install openssh-server'
         shell: bash
       - name: Check out code
         uses: actions/checkout@v3
