@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## Unreleased
+
 ## 2.11.3 - *2023-08-05*
 
 - resolved cookstyle error: attributes/default.rb:120:58 refactor: `Chef/RedundantCode/MultiplePlatformChecks`
