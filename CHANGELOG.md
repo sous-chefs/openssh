@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- resolved cookstyle error: attributes/default.rb:120:58 refactor: `Chef/RedundantCode/MultiplePlatformChecks`
 ## 2.11.2 - *2023-08-04*
 
 Standardise files with files in sous-chefs/repo-management
