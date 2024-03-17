@@ -9,7 +9,7 @@ name: ci
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@3.0.0
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@3.1.0
     permissions:
       actions: write
       checks: write
@@ -82,7 +82,7 @@ jobs:
       - name: Install Chef
         uses: actionshub/chef-install@2.0.4
       - name: Download Openssh Installer
-        uses: suisei-cn/actions-download-file@v1.4.0
+        uses: suisei-cn/actions-download-file@v1.6.0
         with:
           url: https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.2.2.0p1-Beta/OpenSSH-Win64-v9.2.2.0.msi
           target: installer/
