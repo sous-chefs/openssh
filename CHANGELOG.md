@@ -10,6 +10,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 - fix sshd-keygen command location for Amazon Linux 2023
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 2.11.6 - *2023-12-21*
 
 ## 2.11.5 - *2023-09-29*
