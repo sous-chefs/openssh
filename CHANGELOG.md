@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## Unreleased
+
 ## 2.11.9 - *2024-03-18*
 
 ## 2.11.8 - *2024-03-17*
