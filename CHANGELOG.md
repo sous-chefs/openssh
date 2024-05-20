@@ -6,7 +6,17 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
+## 2.11.11 - *2024-05-03*
+
+## 2.11.10 - *2024-05-03*
+
+## 2.11.9 - *2024-03-18*
+
+## 2.11.8 - *2024-03-17*
+
+## 2.11.7 - *2024-03-12*
+
+- fix sshd-keygen command location for Amazon Linux 2023
 
 ## 2.11.6 - *2023-12-21*
 
