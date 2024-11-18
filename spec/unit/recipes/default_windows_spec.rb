@@ -22,6 +22,10 @@ describe 'openssh::default' do
         expect(template).to be
       end
 
+      it 'does not use PAM option on Windows' do
+        expect(chef_run).to_not render_file(sshd_config_path).with_content(/UsePAM/)
+      end
+
       it 'allow legacy default AuthorizedKeysFile behavior' do
         expect(chef_run).to_not render_file(sshd_config_path).with_content(/AuthorizedKeysFile.*/)
       end
