@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the openssh cookbook.
 
+## Unreleased
+
 ## 2.11.15 - *2024-11-27*
 
 - In more recent enterprise linux (rhel, oel, etc) systems system policies are added at end of sshd config and therefor any match block needs to be closed
