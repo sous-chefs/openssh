@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the openssh cookbook.
 
 ## Unreleased
 
+- In more recent enterprise linux (rhel, oel, etc) systems system policies are added at end of sshd config and therefor any match block needs to be closed
+
 ## 2.11.14 - *2024-11-18*
 
 Standardise files with files in sous-chefs/repo-management
