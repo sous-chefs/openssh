@@ -19,7 +19,7 @@
 
 def listen_addr_for(interface, type)
   interface_node = node['network']['interfaces'][interface]['addresses']
-  interface_node.select { |_address, data| data['family'] == type }.keys[0]
+  interface_node.select { |_address, data| data['family'] == type }.keys.first
 end
 
 package node['openssh']['package_name'] unless node['openssh']['package_name'].empty?
