@@ -5,6 +5,11 @@ This file is used to list changes made in each version of the openssh cookbook.
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## Unreleased
+
+Standardise files with files in sous-chefs/repo-management
+
+
 ## [2.11.19](https://github.com/sous-chefs/openssh/compare/v2.11.18...v2.11.19) (2025-10-16)
 
 
