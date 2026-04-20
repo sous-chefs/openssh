@@ -15,7 +15,7 @@ The `openssh` cookbook now provides custom resources for package-managed Linux O
 
 ## Chef
 
-- Chef Infra Client `>= 15.3`
+- Chef Infra Client `>= 16.0`
 
 ## Resources
 

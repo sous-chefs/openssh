@@ -8,7 +8,7 @@ description       'Provides openssh_client, openssh_server, and openssh_firewall
 version           '2.11.19'
 source_url        'https://github.com/sous-chefs/openssh'
 issues_url        'https://github.com/sous-chefs/openssh/issues'
-chef_version      '>= 15.3'
+chef_version      '>= 16.0'
 
 supports 'amazon', '>= 2023.0'
 supports 'debian', '>= 12.0'
