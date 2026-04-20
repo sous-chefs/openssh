@@ -5,6 +5,23 @@ This file is used to list changes made in each version of the openssh cookbook.
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [3.0.0](https://github.com/sous-chefs/openssh/compare/v2.11.19...v3.0.0) (2026-04-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* removes the legacy recipes, attributes, and template entrypoints in favor of custom resources and a current Linux-only support matrix.
+
+### Features
+
+* migrate openssh to custom resources ([#209](https://github.com/sous-chefs/openssh/issues/209)) ([d8c402e](https://github.com/sous-chefs/openssh/commit/d8c402eba5f3b5769f931a35b853c1806c8e2919))
+
+
+### Bug Fixes
+
+* align workflows and kitchen naming ([#210](https://github.com/sous-chefs/openssh/issues/210)) ([149c6af](https://github.com/sous-chefs/openssh/commit/149c6af9ab6aad72f1b9c5aa3cdbc0fdcb2f71fb))
+* **ci:** Update workflows to use release pipeline ([#203](https://github.com/sous-chefs/openssh/issues/203)) ([37620a3](https://github.com/sous-chefs/openssh/commit/37620a3cb2a54760ba4d3563fb82b826d3f08020))
+
 ## [2.11.19](https://github.com/sous-chefs/openssh/compare/v2.11.18...v2.11.19) (2025-10-16)
 
 
