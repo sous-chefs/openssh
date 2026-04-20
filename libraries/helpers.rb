@@ -1,85 +1,216 @@
-#
-# Cookbook:: openssh
-# library:: helpers
-#
-# Copyright:: 2016-2019, Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-# Attributes are commented out using the default config file values.
-# Uncomment the ones you need, or set attributes in a role.
-#
+# frozen_string_literal: true
 
 module Openssh
   module Helpers
-    def openssh_server_options
-      options = node['openssh']['server'].sort.reject { |key, _value| key == 'port' || key == 'match' || key == 'subsystem' }
-      unless node['openssh']['server']['port'].nil?
-        port = node['openssh']['server'].select { |key| key == 'port' }.to_a
-        options.unshift(*port)
-      end
-      options
-    end
-
-    # are we on a platform that has the sshd-keygen command. It's a redhat-ism so it's a limited number
-    def keygen_platform?
-      return true if platform?('amazon', 'fedora')
-      return true if rhel_7_plus?
-      opensuse_15_plus?
-    end
-
-    # are any of the host keys defined in the attribute missing from the filesystem
-    def sshd_host_keys_missing?
-      !node['openssh']['server']['host_key'].all? { |f| ::File.exist?(f) }
-    end
-
-    def openssh_service_name
-      if platform_family?('rhel', 'fedora', 'suse', 'freebsd', 'gentoo', 'arch', 'mac_os_x', 'amazon', 'aix', 'windows')
-        'sshd'
-      else
-        'ssh'
-      end
-    end
-
-    def base_ssh_config_dir
-      platform_family?('windows') ? 'C:\\ProgramData\\ssh' : '/etc/ssh'
-    end
-
-    def base_ssh_bin_dir
-      platform_family?('windows') ? 'C:\\Program Files\\OpenSSH' : '/usr/sbin/'
+    def default_ssh_config_dir
+      '/etc/ssh'
     end
 
     def join_path(*path)
       Chef::Util::PathHelper.cleanpath(::File.join(path))
     end
 
+    def default_client_package_names
+      platform_family?('rhel', 'fedora', 'amazon') ? %w(openssh-clients) : %w(openssh-client)
+    end
+
+    def default_server_package_names
+      %w(openssh-server)
+    end
+
+    def default_client_global_options
+      { 'use_roaming' => 'no' }
+    end
+
+    def default_client_host_options
+      { '*' => {} }
+    end
+
+    def default_server_options
+      options = {
+        'challenge_response_authentication' => 'no',
+        'host_key' => supported_ssh_host_keys,
+        'trusted_user_c_a_keys' => join_path(default_ssh_config_dir, 'ca_keys'),
+        'revoked_keys' => join_path(default_ssh_config_dir, 'revoked_keys'),
+      }
+
+      options['password_authentication'] = 'no' if platform?('amazon')
+      options['use_p_a_m'] = 'yes'
+      options
+    end
+
+    def default_server_subsystems
+      return 'sftp /usr/libexec/openssh/sftp-server' if platform_family?('rhel', 'amazon', 'fedora')
+      return 'sftp /usr/lib/openssh/sftp-server' if platform_family?('debian')
+
+      'sftp /usr/lib/openssh/sftp-server'
+    end
+
+    def default_server_mode
+      platform_family?('rhel', 'fedora', 'amazon') ? '0600' : '0644'
+    end
+
+    def default_service_name
+      platform_family?('debian') ? 'ssh' : 'sshd'
+    end
+
+    def default_runtime_directory
+      return '/run/sshd' if platform_family?('debian')
+
+      nil
+    end
+
+    def default_sshd_binary
+      '/usr/sbin/sshd'
+    end
+
     def supported_ssh_host_keys
-      keys = [join_path(base_ssh_config_dir, 'ssh_host_rsa_key'), join_path(base_ssh_config_dir, 'ssh_host_ecdsa_key')]
-      keys << join_path(base_ssh_config_dir, 'ssh_host_dsa_key') if platform_family?('smartos', 'suse', 'windows')
-      keys << join_path(base_ssh_config_dir, 'ssh_host_ed25519_key') if rhel_7_plus? || platform?('amazon', 'fedora') || platform_family?('debian', 'windows') || opensuse_15_plus?
+      keys = [
+        join_path(default_ssh_config_dir, 'ssh_host_rsa_key'),
+        join_path(default_ssh_config_dir, 'ssh_host_ecdsa_key'),
+      ]
+
+      keys << join_path(default_ssh_config_dir, 'ssh_host_ed25519_key')
       keys
     end
 
-    def rhel_7_plus?
-      platform_family?('rhel') && node['platform_version'].to_i >= 7
+    def host_keys_missing?(paths)
+      Array(paths).any? { |path| !::File.exist?(path) }
     end
 
-    def opensuse_15_plus?
-      platform_family?('suse') && node['platform_version'].to_i >= 15 && node['platform_version'].to_i < 42
+    def build_server_options(base_options:, port:, ca_keys_path:, revoked_keys_path:, listen_interfaces:)
+      options = stringify_keys(base_options)
+      options['port'] = port if port
+      options['trusted_user_c_a_keys'] = ca_keys_path
+      options['revoked_keys'] = revoked_keys_path
+
+      listen_addresses = resolve_listen_addresses(listen_interfaces)
+      options['listen_address'] = listen_addresses unless listen_addresses.empty?
+
+      order_server_options(options)
+    end
+
+    def resolve_listen_addresses(listen_interfaces)
+      stringify_keys(listen_interfaces).each_with_object([]) do |(interface_name, family), addresses|
+        interface_data = node.dig('network', 'interfaces', interface_name, 'addresses')
+        next unless interface_data
+
+        match = interface_data.find { |_address, data| data['family'] == family }
+        addresses << match.first if match
+      end
+    end
+
+    def render_client_config(global_options, host_options)
+      lines = [
+        '# This file was generated by Chef',
+        '# Do NOT modify this file by hand!',
+        nil,
+      ]
+
+      stringify_keys(global_options).sort.each do |key, value|
+        append_directive(lines, key, value)
+      end
+
+      stringify_keys(host_options).sort.each do |host_pattern, options|
+        lines << "Host #{host_pattern}"
+        stringify_keys(options).sort.each do |key, value|
+          append_directive(lines, key, value, indent: 2)
+        end
+      end
+
+      lines.compact.join("\n") << "\n"
+    end
+
+    def render_server_config(options, subsystems, match_blocks)
+      lines = [
+        '# This file was generated by Chef',
+        '# Do NOT modify this file by hand!',
+        nil,
+      ]
+
+      options.each do |key, value|
+        append_directive(lines, key, value)
+      end
+
+      append_subsystems(lines, subsystems)
+      append_match_blocks(lines, match_blocks)
+
+      lines.compact.join("\n") << "\n"
+    end
+
+    def render_key_file(keys, header)
+      lines = [
+        '# This file was generated by Chef',
+        '# Do NOT modify this file by hand!',
+        nil,
+        "# #{header}",
+      ]
+
+      Array(keys).each do |key|
+        lines << key
+      end
+
+      lines.join("\n") << "\n"
+    end
+
+    def stringify_keys(value)
+      case value
+      when Hash
+        value.each_with_object({}) do |(key, item), memo|
+          memo[key.to_s] = stringify_keys(item)
+        end
+      when Array
+        value.map { |item| stringify_keys(item) }
+      else
+        value
+      end
+    end
+
+    def order_server_options(options)
+      ordered = []
+      port_value = options.delete('port')
+      ordered << ['port', port_value] if port_value
+      ordered.concat(options.sort_by(&:first))
+      ordered.to_h
+    end
+
+    def append_subsystems(lines, subsystems)
+      case subsystems
+      when Hash
+        stringify_keys(subsystems).sort.each do |name, command|
+          lines << "Subsystem #{name} #{command}"
+        end
+      when Array
+        subsystems.each do |subsystem|
+          lines << "Subsystem #{subsystem}"
+        end
+      when String
+        lines << "Subsystem #{subsystems}"
+      end
+    end
+
+    def append_match_blocks(lines, match_blocks)
+      blocks = stringify_keys(match_blocks)
+      return if blocks.empty?
+
+      blocks.sort.each do |match_key, directives|
+        lines << "Match #{match_key.sub(/^[0-9]+/, '').strip}"
+        stringify_keys(directives).sort.each do |key, value|
+          append_directive(lines, key, value, indent: 2)
+        end
+      end
+
+      lines << 'Match all'
+    end
+
+    def append_directive(lines, key, value, indent: 0)
+      Array(value).each do |item|
+        lines << "#{' ' * indent}#{directive_name(key)} #{item}"
+      end
+    end
+
+    def directive_name(key)
+      key.split('_').map(&:capitalize).join
     end
   end
 end
-
-Chef::Resource.include ::Openssh::Helpers
-Chef::DSL::Recipe.include ::Openssh::Helpers
-Chef::Node.include ::Openssh::Helpers

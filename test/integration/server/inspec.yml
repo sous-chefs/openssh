@@ -1,0 +1,7 @@
+---
+name: server
+title: Server Suite
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies the OpenSSH server and firewall custom resources
+version: 1.0.0

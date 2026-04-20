@@ -1,8 +1,0 @@
-# SSH
-<% if @port.kind_of? Array -%>
-<%   @port.each do |item| -%>
--A FWR -p tcp -m tcp --dport <%= item %> -j ACCEPT
-<%   end -%>
-<% else -%>
--A FWR -p tcp -m tcp --dport <%= @port %> -j ACCEPT
-<% end -%>
