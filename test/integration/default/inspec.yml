@@ -1,0 +1,7 @@
+---
+name: default
+title: Default Suite
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies the default OpenSSH local workflow
+version: 1.0.0

@@ -1,0 +1,7 @@
+---
+name: client
+title: Client Suite
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies the OpenSSH client custom resource
+version: 1.0.0

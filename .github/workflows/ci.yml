@@ -23,125 +23,28 @@ jobs:
     strategy:
       matrix:
         os:
-          - "almalinux-8"
-          - "amazonlinux-2"
-          - "centos-7"
-          - "centos-stream-8"
-          - "debian-10"
-          - "debian-11"
-          - "fedora-latest"
-          - "opensuse-leap-15"
-          - "ubuntu-1804"
-          - "ubuntu-2004"
-          - "rockylinux-8"
+          - "amazonlinux-2023"
+          - "debian-12"
+          - "debian-13"
+          - "rockylinux-9"
+          - "ubuntu-2204"
+          - "ubuntu-2404"
         suite:
           - "default"
-          - "iptables"
-        exclude:
-          - os: "almalinux-8"
-            suite: "iptables"
-          - os: "centos-7"
-            suite: "iptables"
-          - os: "centos-stream-8"
-            suite: "iptables"
-          - os: "opensuse-leap-15"
-            suite: "iptables"
-          - os: "rockylinux-8"
-            suite: "iptables"
+          - "client"
+          - "server"
       fail-fast: false
 
     steps:
       - name: Check out code
         uses: actions/checkout@v6
-      - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@main
       - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
+        uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
-
-  integration-windows:
-    needs: lint-unit
-    runs-on: windows-latest
-    timeout-minutes: 20
-    strategy:
-      matrix:
-        os:
-          - "windows-latest"
-        suite:
-          - "windows-default"
-      fail-fast: false
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v6
-      - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
-      - name: Download Openssh Installer
-        uses: suisei-cn/actions-download-file@v1.6.1
-        with:
-          url: https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.2.2.0p1-Beta/OpenSSH-Win64-v9.2.2.0.msi
-          target: installer/
-      - name: Install Openssh
-        run: |
-          echo %cd%
-          dir installer
-          $file = "installer\\OpenSSH-Win64-v9.2.2.0.msi"
-          $log = "installer\\install.log"
-          $procMain = Start-Process "msiexec" "/i `"$file`" /qn /l*! `"$log`"" -NoNewWindow -PassThru
-          $procLog = Start-Process "powershell" "Get-Content -Path `"$log`" -Wait" -NoNewWindow -PassThru
-          $procMain.WaitForExit()
-          $procLog.Kill()
-
-      - name: Kitchen Converge
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.exec.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
-          action: converge
-      - name: Kitchen Verify
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.exec.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
-          action: verify
-
-  # unable to get SSH service to start
-  #  integration-macos:
-  #    needs: [mdl, yamllint, delivery]
-  #    runs-on: macos-latest
-  #    strategy:
-  #      matrix:
-  #        os:
-  #          - 'macos-latest'
-  #        suite:
-  #          - 'default'
-  #      fail-fast: false
-  #
-  #    steps:
-  #      - name: Check out code
-  #        uses: actions/checkout@v2
-  #      - name: Install Chef
-  #        uses: actionshub/chef-install@2.0.4
-  #      - name: test-kitchen
-  #        uses: actionshub/test-kitchen@2.1.0
-  #        env:
-  #          CHEF_LICENSE: accept-no-persist
-  #          KITCHEN_LOCAL_YAML: kitchen.exec.yml
-  #        with:
-  #          suite: ${{ matrix.suite }}
-  #          os: ${{ matrix.os }}
-  #      - name: Print debug output on failure
-  #        if: failure()
-  #        run: |
-  #            sudo syslog

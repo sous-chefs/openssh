@@ -1,7 +1,10 @@
 ---
-driver: { name: exec }
-transport: { name: exec }
+driver:
+  name: exec
+  chef_omnibus_install: false
 
-platforms:
-  - name: macos-latest
-  - name: windows-latest
+transport:
+  name: exec
+
+verifier:
+  sudo: true

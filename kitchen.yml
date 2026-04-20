@@ -1,62 +1,72 @@
 ---
 driver:
-  name: vagrant
+  name: dokken
+  privileged: true
+  chef_image: chef/chef
+  chef_version: current
 
 provisioner:
-  name: chef_zero
-  product_name: chef
-  deprecations_as_errors: true
-  chef_license: accept-no-persist
+  name: dokken
 
 verifier:
   name: inspec
+  sudo: true
+
+transport:
+  name: dokken
 
 platforms:
-  - name: amazonlinux-2
-  - name: centos-7
-  - name: centos-stream-8
-  - name: debian-10
-  - name: debian-10
-  - name: freebsd-12
-  - name: fedora-latest
-  - name: opensuse-leap-15
-  - name: ubuntu-18.04
-  - name: ubuntu-20.04
-  - name: macosx-10.15
-    driver_config:
-      box: tas50/macos_10.15
-      provider: vmware_desktop
-  - name: windows-2016
-    driver_config:
-      box: tas50/windows_2016
-  - name: windows-2019
-    driver_config:
-      box: tas50/windows_2019
+  - name: amazonlinux-2023
+    driver:
+      image: dokken/amazonlinux-2023
+      pid_one_command: /usr/lib/systemd/systemd
+  - name: debian-12
+    driver:
+      image: dokken/debian-12
+      pid_one_command: /bin/systemd
+  - name: debian-13
+    driver:
+      image: dokken/debian-13
+      pid_one_command: /usr/lib/systemd/systemd
+  - name: rockylinux-9
+    driver:
+      image: dokken/rockylinux-9
+      pid_one_command: /usr/lib/systemd/systemd
+  - name: ubuntu-22.04
+    driver:
+      image: dokken/ubuntu-22.04
+      pid_one_command: /bin/systemd
+  - name: ubuntu-24.04
+    driver:
+      image: dokken/ubuntu-24.04
+      pid_one_command: /bin/systemd
+
+x-run_lists:
+  default: &default_run_list
+    - recipe[test::default]
+  client: &client_run_list
+    - recipe[test::client]
+  server: &server_run_list
+    - recipe[test::server]
+
+x-verifiers:
+  default: &default_verifier
+    inspec_tests:
+      - path: test/integration/default
+  client: &client_verifier
+    inspec_tests:
+      - path: test/integration/client
+  server: &server_verifier
+    inspec_tests:
+      - path: test/integration/server
 
 suites:
   - name: default
-    run_list: openssh::default
-    excludes:
-      - windows-2016
-      - windows-2019
-      - windows-latest
-  - name: iptables
-    run_list:
-      - openssh::default
-      - openssh::iptables
-    excludes:
-      - almalinux-8
-      - centos-7
-      - centos-stream-8
-      - macosx-10.15
-      - opensuse-leap-15
-      - rockylinux-8
-      - windows-2016
-      - windows-2019
-      - windows-latest
-  - name: windows-default
-    run_list: openssh::default
-    includes:
-      - windows-2016
-      - windows-2019
-      - windows-latest
+    run_list: *default_run_list
+    verifier: *default_verifier
+  - name: client
+    run_list: *client_run_list
+    verifier: *client_verifier
+  - name: server
+    run_list: *server_run_list
+    verifier: *server_verifier
