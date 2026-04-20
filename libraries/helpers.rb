@@ -11,11 +11,11 @@ module Openssh
     end
 
     def default_client_package_names
-      platform_family?('rhel', 'fedora', 'amazon') ? %w(openssh-clients) : %w(openssh-client)
+      platform_family?('rhel', 'fedora', 'amazon') ? 'openssh-clients' : 'openssh-client'
     end
 
     def default_server_package_names
-      %w(openssh-server)
+      'openssh-server'
     end
 
     def default_client_global_options

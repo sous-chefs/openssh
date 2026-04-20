@@ -18,7 +18,8 @@ property :ca_keys, Array, default: []
 property :ca_keys_path, String, default: lazy { join_path(config_dir, 'ca_keys') }
 property :revoked_keys, Array, default: []
 property :revoked_keys_path, String, default: lazy { join_path(config_dir, 'revoked_keys') }
-property :package_names, [String, Array], default: lazy { default_server_package_names }, coerce: proc { |value| Array(value) }
+property :package_names, [String, Array], default: lazy { default_server_package_names }
+property :sshd_binary, String, default: lazy { default_sshd_binary }
 property :service_name, String, default: lazy { default_service_name }
 property :manage_service, [true, false], default: true
 property :generate_host_keys, [true, false], default: true
@@ -43,9 +44,10 @@ action_class do
 end
 
 action :create do
-  package new_resource.package_names do
-    action :install
-    only_if { new_resource.manage_package }
+  if new_resource.manage_package
+    package new_resource.package_names do
+      action :install
+    end
   end
 
   if runtime_directory
@@ -79,7 +81,7 @@ action :create do
       owner new_resource.owner
       group new_resource.group
       mode new_resource.mode
-      verify "#{default_sshd_binary} -t -f %{path}"
+      verify "#{new_resource.sshd_binary} -t -f %{path}"
       notifies :restart, "service[#{new_resource.service_name}]", :delayed if new_resource.manage_service
     end
   else
@@ -131,8 +133,9 @@ action :delete do
     end
   end
 
-  package new_resource.package_names do
-    action :remove
-    only_if { new_resource.manage_package }
+  if new_resource.manage_package
+    package new_resource.package_names do
+      action :remove
+    end
   end
 end
