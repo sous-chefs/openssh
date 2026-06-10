@@ -24,4 +24,14 @@ describe 'openssh_client' do
     it { is_expected.to render_file('/etc/ssh/ssh_config').with_content(/^UseRoaming no$/) }
     it { is_expected.to render_file('/etc/ssh/ssh_config').with_content(/^Host \*$/) }
   end
+
+  context 'with custom package_names' do
+    recipe do
+      openssh_client 'default' do
+        package_names %w(openssh-client ssh-askpass)
+      end
+    end
+
+    it { is_expected.to install_package(%w(openssh-client ssh-askpass)) }
+  end
 end

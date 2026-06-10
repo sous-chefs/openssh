@@ -36,6 +36,30 @@ describe 'openssh_server' do
     it { is_expected.to render_file('/etc/ssh/sshd_config').with_content(/^UsePAM yes$/) }
   end
 
+  context 'with custom sshd_binary' do
+    recipe do
+      openssh_server 'default' do
+        sshd_binary '/usr/lib/ssh/sshd'
+      end
+    end
+
+    it 'uses the custom binary for config verification' do
+      file = chef_run.file('/etc/ssh/sshd_config')
+      commands = file.verify.map { |v| v.instance_variable_get(:@command) }
+      expect(commands).to include('/usr/lib/ssh/sshd -t -f %{path}')
+    end
+  end
+
+  context 'with custom package_names' do
+    recipe do
+      openssh_server 'default' do
+        package_names %w(openssh-server openssh-sftp-server)
+      end
+    end
+
+    it { is_expected.to install_package(%w(openssh-server openssh-sftp-server)) }
+  end
+
   context 'with custom ports and trust data' do
     recipe do
       openssh_server 'default' do

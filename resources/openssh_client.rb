@@ -11,16 +11,17 @@ property :config_path, String, default: lazy { join_path(config_dir, 'ssh_config
 property :mode, String, default: '0644'
 property :global_options, Hash, default: lazy { default_client_global_options }
 property :host_options, Hash, default: lazy { default_client_host_options }
-property :package_names, [String, Array], default: lazy { default_client_package_names }, coerce: proc { |value| Array(value) }
+property :package_names, [String, Array], default: lazy { default_client_package_names }
 
 action_class do
   include Openssh::Helpers
 end
 
 action :create do
-  package new_resource.package_names do
-    action :install
-    only_if { new_resource.manage_package }
+  if new_resource.manage_package
+    package new_resource.package_names do
+      action :install
+    end
   end
 
   file new_resource.config_path do
@@ -36,8 +37,9 @@ action :delete do
     action :delete
   end
 
-  package new_resource.package_names do
-    action :remove
-    only_if { new_resource.manage_package }
+  if new_resource.manage_package
+    package new_resource.package_names do
+      action :remove
+    end
   end
 end
