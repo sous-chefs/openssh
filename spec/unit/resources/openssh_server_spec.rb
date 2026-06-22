@@ -36,6 +36,54 @@ describe 'openssh_server' do
     it { is_expected.to render_file('/etc/ssh/sshd_config').with_content(/^UsePAM yes$/) }
   end
 
+  context 'with package management disabled and array package_names' do
+    recipe do
+      openssh_server 'default' do
+        manage_package false
+        package_names %w(openssh-server openssh-sftp-server)
+      end
+    end
+
+    it { is_expected.not_to install_package(%w(openssh-server openssh-sftp-server)) }
+    it { is_expected.to create_file('/etc/ssh/sshd_config') }
+  end
+
+  context 'with custom sshd_binary' do
+    recipe do
+      openssh_server 'default' do
+        sshd_binary '/usr/lib/ssh/sshd'
+      end
+    end
+
+    it 'uses the custom binary for config verification' do
+      file = chef_run.file('/etc/ssh/sshd_config')
+      commands = file.verify.map { |verifier| verifier.instance_variable_get(:@command) }
+
+      expect(commands).to include('/usr/lib/ssh/sshd -t -f %{path}')
+    end
+  end
+
+  context 'with custom package_names' do
+    recipe do
+      openssh_server 'default' do
+        package_names %w(openssh-server openssh-sftp-server)
+      end
+    end
+
+    it { is_expected.to install_package(%w(openssh-server openssh-sftp-server)) }
+  end
+
+  context 'delete action with custom package_names' do
+    recipe do
+      openssh_server 'default' do
+        package_names %w(openssh-server openssh-sftp-server)
+        action :delete
+      end
+    end
+
+    it { is_expected.to remove_package(%w(openssh-server openssh-sftp-server)) }
+  end
+
   context 'with custom ports and trust data' do
     recipe do
       openssh_server 'default' do
@@ -55,5 +103,26 @@ describe 'openssh_server' do
     it { is_expected.to create_file('/etc/ssh/revoked_keys') }
     it { is_expected.to render_file('/etc/ssh/ca_keys').with_content(/#{Regexp.escape(ca_key)}/) }
     it { is_expected.to render_file('/etc/ssh/revoked_keys').with_content(/#{Regexp.escape(revoked_key)}/) }
+  end
+end
+
+describe 'openssh_server on Windows' do
+  step_into :openssh_server
+  platform 'windows', '2022'
+
+  context 'with package management disabled and array package_names' do
+    recipe do
+      openssh_server 'default' do
+        manage_package false
+        manage_service false
+        generate_host_keys false
+        verify_config false
+        package_names %w(OpenSSH.Server ssh-askpass)
+      end
+    end
+
+    it 'does not declare a package resource' do
+      expect(chef_run.resource_collection.any? { |resource| resource.resource_name == :package }).to be false
+    end
   end
 end
