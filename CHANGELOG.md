@@ -5,6 +5,13 @@ This file is used to list changes made in each version of the openssh cookbook.
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [3.0.1](https://github.com/sous-chefs/openssh/compare/v3.0.0...v3.0.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* avoid package validation when package management is disabled ([#220](https://github.com/sous-chefs/openssh/issues/220)) ([bf96641](https://github.com/sous-chefs/openssh/commit/bf96641840b14654fe096f96763bc8dc04a8528f))
+
 ## [3.0.0](https://github.com/sous-chefs/openssh/compare/v2.11.19...v3.0.0) (2026-04-20)
 
 
