@@ -5,6 +5,16 @@ name: release
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: >
+          Existing release tag to publish to Supermarket, e.g. v3.0.1.
+          Leave empty for the normal release-please path. Set this when
+          recovering a release that was created but failed to publish.
+        required: false
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -17,6 +27,8 @@ permissions:
 jobs:
   release:
     uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@9.0.1
+    with:
+      release_tag: ${{ inputs.release_tag }}
     secrets:
       token: ${{ secrets.PORTER_GITHUB_TOKEN }}
       supermarket_user: ${{ secrets.CHEF_SUPERMARKET_USER }}
