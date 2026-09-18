@@ -104,6 +104,91 @@ describe 'openssh_server' do
     it { is_expected.to render_file('/etc/ssh/ca_keys').with_content(/#{Regexp.escape(ca_key)}/) }
     it { is_expected.to render_file('/etc/ssh/revoked_keys').with_content(/#{Regexp.escape(revoked_key)}/) }
   end
+
+  context 'start action' do
+    recipe do
+      openssh_server 'default' do
+        action :start
+      end
+    end
+
+    it { is_expected.to start_service('ssh') }
+  end
+
+  context 'stop action' do
+    recipe do
+      openssh_server 'default' do
+        action :stop
+      end
+    end
+
+    it { is_expected.to stop_service('ssh') }
+  end
+
+  context 'restart action' do
+    recipe do
+      openssh_server 'default' do
+        action :restart
+      end
+    end
+
+    it { is_expected.to restart_service('ssh') }
+  end
+
+  context 'reload action' do
+    recipe do
+      openssh_server 'default' do
+        action :reload
+      end
+    end
+
+    it { is_expected.to reload_service('ssh') }
+  end
+end
+
+describe 'openssh_server on RHEL' do
+  step_into :openssh_server
+  platform 'almalinux', '10'
+
+  context 'start action' do
+    recipe do
+      openssh_server 'default' do
+        action :start
+      end
+    end
+
+    it { is_expected.to start_service('sshd') }
+  end
+
+  context 'stop action' do
+    recipe do
+      openssh_server 'default' do
+        action :stop
+      end
+    end
+
+    it { is_expected.to stop_service('sshd') }
+  end
+
+  context 'restart action' do
+    recipe do
+      openssh_server 'default' do
+        action :restart
+      end
+    end
+
+    it { is_expected.to restart_service('sshd') }
+  end
+
+  context 'reload action' do
+    recipe do
+      openssh_server 'default' do
+        action :reload
+      end
+    end
+
+    it { is_expected.to reload_service('sshd') }
+  end
 end
 
 describe 'openssh_server on Windows' do
