@@ -148,7 +148,7 @@ end
 
 describe 'openssh_server on RHEL' do
   step_into :openssh_server
-  platform 'almalinux', '10'
+  platform 'rocky', '9'
 
   context 'start action' do
     recipe do
