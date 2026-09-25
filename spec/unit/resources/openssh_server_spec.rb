@@ -104,6 +104,7 @@ describe 'openssh_server' do
     it { is_expected.to render_file('/etc/ssh/ca_keys').with_content(/#{Regexp.escape(ca_key)}/) }
     it { is_expected.to render_file('/etc/ssh/revoked_keys').with_content(/#{Regexp.escape(revoked_key)}/) }
   end
+end
 
 { %w(ubuntu 24.04) => 'ssh', %w(rocky 9) => 'sshd' }.each do |(os, version), service_name|
   describe "openssh_server service actions on #{os} #{version}" do
