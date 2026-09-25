@@ -21,4 +21,4 @@ jobs:
       - name: Install Cinc Workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
       - name: Install cookbooks
-        run: berks install
+        run: cinc install Policyfile.rb

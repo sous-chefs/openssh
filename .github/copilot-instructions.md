@@ -18,20 +18,20 @@
 - `libraries/` - Library helpers to assist with the cookbook. May contain multiple files depending on complexity of the cookbook.
 - `templates/` - ERB templates that may be used in the cookbook
 - `files/` - files that may be used in the cookbook
-- `metadata.rb`, `Berksfile` - Cookbook metadata and dependencies
+- `metadata.rb`, `Policyfile.rb` - Cookbook metadata and dependencies
 
 ## Build and Test System
 
 ### Environment Setup
-**MANDATORY:** Install Chef Workstation first - provides chef, berks, cookstyle, kitchen tools.
+**MANDATORY:** Install Cinc Workstation first - provides cinc, cookstyle, kitchen tools.
 
 ### Essential Commands (strict order)
 ```bash
-berks install                   # Install dependencies (always first)
-cookstyle                       # Ruby/Chef linting
+cinc install Policyfile.rb      # Install dependencies (always first)
+cinc exec cookstyle             # Ruby/Chef linting
 yamllint .                      # YAML linting
 markdownlint-cli2 '**/*.md'     # Markdown linting
-chef exec rspec                 # Unit tests (ChefSpec)
+cinc exec rspec                 # Unit tests (ChefSpec)
 # Integration tests will be done via the ci.yml action. Do not run these. Only check the action logs for issues after CI is done running.
 ```
 
@@ -42,9 +42,9 @@ chef exec rspec                 # Unit tests (ChefSpec)
 - **Full CI Runtime:** 30+ minutes for complete matrix
 
 ### Common Issues and Solutions
-- **Always run `berks install` first** - most failures are dependency-related
+- **Always run `cinc install Policyfile.rb` first** - most failures are dependency-related
 - **Docker must be running** for kitchen tests
-- **Chef Workstation required** - no workarounds, no alternatives
+- **Cinc Workstation required** - no workarounds, no alternatives
 - **Test data bags needed** (optional for some cookbooks) in `test/integration/data_bags/` for convergence
 
 ## Development Workflow
@@ -87,8 +87,8 @@ chef exec rspec                 # Unit tests (ChefSpec)
 These instructions are validated for Sous Chefs cookbooks. **Do not search for build instructions** unless information here fails.
 
 **Error Resolution Checklist:**
-1. Verify Chef Workstation installation
-2. Confirm `berks install` completed successfully
+1. Verify Cinc Workstation installation
+2. Confirm `cinc install Policyfile.rb` completed successfully
 3. Ensure Docker is running for integration tests
 4. Check for missing test data dependencies
 
