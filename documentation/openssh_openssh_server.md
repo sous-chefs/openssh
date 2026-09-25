@@ -10,7 +10,7 @@ Manages the OpenSSH server package, key material files, `/etc/ssh/sshd_config`, 
 | `:delete` | Stops the service and removes the managed config, key files, host keys, and server package         |
 | `:start`  | Starts the ssh server service                                                                      |
 | `:stop`   | Stops the ssh server service                                                                       |
-| `:restart`| Restarts the ssh server service                                                                    |
+| `:restart` | Restarts the ssh server service                                                                   |
 | `:reload` | Reloads the ssh server service                                                                     |
 
 ## Properties
