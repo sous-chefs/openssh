@@ -67,3 +67,14 @@ openssh_server 'default' do
   )
 end
 ```
+
+### Reload sshd when another resource changes
+
+```ruby
+openssh_server 'default'
+
+file '/etc/ssh/banner' do
+  content "Authorized use only\n"
+  notifies :reload, 'openssh_server[default]', :delayed
+end
+```
