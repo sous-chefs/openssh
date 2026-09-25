@@ -2,11 +2,11 @@
 driver:
   name: dokken
   privileged: true
-  chef_image: chef/chef
-  chef_version: current
+  chef_version: latest
 
 provisioner:
   name: dokken
+  product_name: cinc
 
 verifier:
   name: inspec
@@ -41,14 +41,6 @@ platforms:
       image: dokken/ubuntu-24.04
       pid_one_command: /bin/systemd
 
-x-run_lists:
-  default: &default_run_list
-    - recipe[test::default]
-  client: &client_run_list
-    - recipe[test::client]
-  server: &server_run_list
-    - recipe[test::server]
-
 x-verifiers:
   default: &default_verifier
     inspec_tests:
@@ -62,11 +54,14 @@ x-verifiers:
 
 suites:
   - name: default
-    run_list: *default_run_list
+    provisioner:
+      named_run_list: default
     verifier: *default_verifier
   - name: client
-    run_list: *client_run_list
+    provisioner:
+      named_run_list: client
     verifier: *client_verifier
   - name: server
-    run_list: *server_run_list
+    provisioner:
+      named_run_list: server
     verifier: *server_verifier
