@@ -139,3 +139,35 @@ action :delete do
     end
   end
 end
+
+action :start do
+  service new_resource.service_name do
+    supports restart: true, reload: true, status: true
+    action :start
+    only_if { new_resource.manage_service }
+  end
+end
+
+action :stop do
+  service new_resource.service_name do
+    supports restart: true, reload: true, status: true
+    action :stop
+    only_if { new_resource.manage_service }
+  end
+end
+
+action :restart do
+  service new_resource.service_name do
+    supports restart: true, reload: true, status: true
+    action :restart
+    only_if { new_resource.manage_service }
+  end
+end
+
+action :reload do
+  service new_resource.service_name do
+    supports restart: true, reload: true, status: true
+    action :reload
+    only_if { new_resource.manage_service }
+  end
+end

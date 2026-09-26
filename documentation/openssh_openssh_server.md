@@ -4,10 +4,14 @@ Manages the OpenSSH server package, key material files, `/etc/ssh/sshd_config`, 
 
 ## Actions
 
-| Action    | Description                                                                                        |
-| --------- | -------------------------------------------------------------------------------------------------- |
-| `:create` | Installs the server package, writes config and key files, and enables/starts the service (default) |
-| `:delete` | Stops the service and removes the managed config, key files, host keys, and server package         |
+| Action     | Description                                                                                        |
+| ---------- | -------------------------------------------------------------------------------------------------- |
+| `:create`  | Installs the server package, writes config and key files, and enables/starts the service (default) |
+| `:delete`  | Stops the service and removes the managed config, key files, host keys, and server package         |
+| `:start`   | Starts the ssh server service                                                                      |
+| `:stop`    | Stops the ssh server service                                                                       |
+| `:restart` | Restarts the ssh server service                                                                    |
+| `:reload`  | Reloads the ssh server service                                                                     |
 
 ## Properties
 
@@ -61,5 +65,16 @@ openssh_server 'default' do
     'eth0' => 'inet',
     'eth1' => 'inet6'
   )
+end
+```
+
+### Reload sshd when another resource changes
+
+```ruby
+openssh_server 'default'
+
+file '/etc/ssh/banner' do
+  content "Authorized use only\n"
+  notifies :reload, 'openssh_server[default]', :delayed
 end
 ```

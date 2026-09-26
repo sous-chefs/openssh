@@ -106,6 +106,38 @@ describe 'openssh_server' do
   end
 end
 
+{ %w(ubuntu 24.04) => 'ssh', %w(rocky 9) => 'sshd' }.each do |(os, version), service_name|
+  describe "openssh_server service actions on #{os} #{version}" do
+    step_into :openssh_server
+    platform os, version
+
+    %i(start stop restart reload).each do |svc_action|
+      context "#{svc_action} action" do
+        recipe do
+          openssh_server 'default' do
+            action svc_action
+          end
+        end
+
+        it { is_expected.to send("#{svc_action}_service", service_name) }
+        it { is_expected.to_not install_package('openssh-server') }
+        it { is_expected.to_not create_file('/etc/ssh/sshd_config') }
+      end
+
+      context "#{svc_action} action with manage_service false" do
+        recipe do
+          openssh_server 'default' do
+            manage_service false
+            action svc_action
+          end
+        end
+
+        it { is_expected.to_not send("#{svc_action}_service", service_name) }
+      end
+    end
+  end
+end
+
 describe 'openssh_server on Windows' do
   step_into :openssh_server
   platform 'windows', '2022'
