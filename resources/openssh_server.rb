@@ -23,6 +23,7 @@ property :sshd_binary, String, default: lazy { default_sshd_binary }
 property :service_name, String, default: lazy { default_service_name }
 property :manage_service, [true, false], default: true
 property :generate_host_keys, [true, false], default: true
+property :include_configs, Array, default: []
 property :verify_config, [true, false], default: true
 
 action_class do
@@ -77,7 +78,7 @@ action :create do
 
   if new_resource.verify_config
     file new_resource.config_path do
-      content lazy { render_server_config(resolved_options, new_resource.subsystems, new_resource.match_blocks) }
+      content lazy { render_server_config(resolved_options, new_resource.subsystems, new_resource.match_blocks, new_resource.include_configs) }
       owner new_resource.owner
       group new_resource.group
       mode new_resource.mode
@@ -86,7 +87,7 @@ action :create do
     end
   else
     file new_resource.config_path do
-      content lazy { render_server_config(resolved_options, new_resource.subsystems, new_resource.match_blocks) }
+      content lazy { render_server_config(resolved_options, new_resource.subsystems, new_resource.match_blocks, new_resource.include_configs) }
       owner new_resource.owner
       group new_resource.group
       mode new_resource.mode

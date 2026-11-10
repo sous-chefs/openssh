@@ -15,29 +15,30 @@ Manages the OpenSSH server package, key material files, `/etc/ssh/sshd_config`, 
 
 ## Properties
 
-| Property             | Type                         | Default                   | Description                                                    |
-| -------------------- | ---------------------------- | ------------------------- | -------------------------------------------------------------- |
-| `config_dir`         | `String`                     | `'/etc/ssh'`              | Base SSH configuration directory                               |
-| `owner`              | `String`                     | `'root'`                  | Owner for managed files                                        |
-| `group`              | `String`                     | `'root'`                  | Group for managed files                                        |
-| `manage_package`     | `true`, `false`              | `true`                    | Install or remove the server package                           |
-| `config_path`        | `String`                     | `'/etc/ssh/sshd_config'`  | Full path to the server config                                 |
-| `mode`               | `String`                     | platform default          | Mode for server config and key-list files                      |
-| `options`            | `Hash`                       | platform defaults         | SSH server directives excluding subsystem and match blocks     |
-| `port`               | `String`, `Integer`, `Array` | `nil`                     | Convenience property for one or more `Port` directives         |
-| `subsystems`         | `String`, `Array`, `Hash`    | platform default          | `Subsystem` directives                                         |
-| `match_blocks`       | `Hash`                       | `{}`                      | `Match` blocks keyed by match expression                       |
-| `listen_interfaces`  | `Hash`                       | `{}`                      | Interface-to-address-family map used to derive `ListenAddress` |
-| `ca_keys`            | `Array`                      | `[]`                      | Trusted CA keys written to `ca_keys_path`                      |
-| `ca_keys_path`       | `String`                     | `'/etc/ssh/ca_keys'`      | Path for trusted CA keys                                       |
-| `revoked_keys`       | `Array`                      | `[]`                      | Revoked keys written to `revoked_keys_path`                    |
-| `revoked_keys_path`  | `String`                     | `'/etc/ssh/revoked_keys'` | Path for revoked keys                                          |
-| `package_names`      | `String`, `Array`            | `'openssh-server'`        | Package name or names to manage                                |
-| `sshd_binary`        | `String`                     | `'/usr/sbin/sshd'`        | Binary used to verify `sshd_config`                            |
-| `service_name`       | `String`                     | platform default          | SSH service name                                               |
-| `manage_service`     | `true`, `false`              | `true`                    | Enable and start the service                                   |
-| `generate_host_keys` | `true`, `false`              | `true`                    | Run `ssh-keygen -A` when configured host keys are missing      |
-| `verify_config`      | `true`, `false`              | `true`                    | Verify `sshd_config` with `sshd -t` before replacing it        |
+| Property             | Type                         | Default                   | Description                                                        |
+| -------------------- | ---------------------------- | ------------------------- | ------------------------------------------------------------------ |
+| `config_dir`         | `String`                     | `'/etc/ssh'`              | Base SSH configuration directory                                   |
+| `owner`              | `String`                     | `'root'`                  | Owner for managed files                                            |
+| `group`              | `String`                     | `'root'`                  | Group for managed files                                            |
+| `manage_package`     | `true`, `false`              | `true`                    | Install or remove the server package                               |
+| `config_path`        | `String`                     | `'/etc/ssh/sshd_config'`  | Full path to the server config                                     |
+| `mode`               | `String`                     | platform default          | Mode for server config and key-list files                          |
+| `options`            | `Hash`                       | platform defaults         | SSH server directives excluding subsystem and match blocks         |
+| `port`               | `String`, `Integer`, `Array` | `nil`                     | Convenience property for one or more `Port` directives             |
+| `subsystems`         | `String`, `Array`, `Hash`    | platform default          | `Subsystem` directives                                             |
+| `match_blocks`       | `Hash`                       | `{}`                      | `Match` blocks keyed by match expression                           |
+| `listen_interfaces`  | `Hash`                       | `{}`                      | Interface-to-address-family map used to derive `ListenAddress`     |
+| `ca_keys`            | `Array`                      | `[]`                      | Trusted CA keys written to `ca_keys_path`                          |
+| `ca_keys_path`       | `String`                     | `'/etc/ssh/ca_keys'`      | Path for trusted CA keys                                           |
+| `revoked_keys`       | `Array`                      | `[]`                      | Revoked keys written to `revoked_keys_path`                        |
+| `revoked_keys_path`  | `String`                     | `'/etc/ssh/revoked_keys'` | Path for revoked keys                                              |
+| `package_names`      | `String`, `Array`            | `'openssh-server'`        | Package name or names to manage                                    |
+| `sshd_binary`        | `String`                     | `'/usr/sbin/sshd'`        | Binary used to verify `sshd_config`                                |
+| `service_name`       | `String`                     | platform default          | SSH service name                                                   |
+| `manage_service`     | `true`, `false`              | `true`                    | Enable and start the service                                       |
+| `generate_host_keys` | `true`, `false`              | `true`                    | Run `ssh-keygen -A` when configured host keys are missing          |
+| `include_configs`    | `Array`                      | `[]`                      | Paths or expressions to be included by `Include` directives        |
+| `verify_config`      | `true`, `false`              | `true`                    | Verify server config with `sshd -t` before replacing `sshd_config` |
 
 ## Examples
 

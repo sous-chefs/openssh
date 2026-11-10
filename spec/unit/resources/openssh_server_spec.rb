@@ -104,6 +104,20 @@ describe 'openssh_server' do
     it { is_expected.to render_file('/etc/ssh/ca_keys').with_content(/#{Regexp.escape(ca_key)}/) }
     it { is_expected.to render_file('/etc/ssh/revoked_keys').with_content(/#{Regexp.escape(revoked_key)}/) }
   end
+
+  context 'with included config files' do
+    recipe do
+      openssh_server 'default' do
+        include_configs ['/etc/ssh/sshd_config.d/file1.conf', '/etc/ssh/sshd_config.d/file2.conf']
+      end
+    end
+
+    it do
+      is_expected.to render_file('/etc/ssh/sshd_config')
+        .with_content(%r{^Include /etc/ssh/sshd_config\.d/file1\.conf$})
+        .with_content(%r{^Include /etc/ssh/sshd_config\.d/file2\.conf$})
+    end
+  end
 end
 
 { %w(ubuntu 24.04) => 'ssh', %w(rocky 9) => 'sshd' }.each do |(os, version), service_name|

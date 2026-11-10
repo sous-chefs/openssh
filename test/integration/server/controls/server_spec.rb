@@ -22,6 +22,7 @@ control 'openssh-server-config-01' do
     its('content') { should match(/^ChallengeResponseAuthentication no$/) }
     its('content') { should match(/^UsePAM yes$/) }
     its('content') { should match(/^Subsystem sftp #{Regexp.escape(openssh_sftp_subsystem)}$/) }
+    its('content') { should_not match(/^Include /) }
   end
 end
 
